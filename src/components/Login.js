@@ -70,7 +70,7 @@ const Login = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
             // Redirect to the external homepage after successful login
-            window.location.href = 'http://localhost:3131'; // Replace with your homepage URL
+            window.location.href = 'https://homefront12.netlify.app'; // Replace with your homepage URL
         } catch (error) {
             console.error('Login error:', error);
             // Handle login error (e.g., display error message)
