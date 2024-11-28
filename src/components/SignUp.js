@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookLogin from 'react-facebook-login-lite';
 import './SignUpForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+// eslint-disable-next-line no-unused-vars
+import {  faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const GOOGLE_CLIENT_ID = "470502848789-170sfgi6ep7qp18u49ohmot14nr6ifbu.apps.googleusercontent.com";
 const FACEBOOK_APP_ID = "1861800831008526";
