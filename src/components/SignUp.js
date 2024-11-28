@@ -7,9 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // eslint-disable-next-line no-unused-vars
 import {  faFacebook } from '@fortawesome/free-brands-svg-icons';
 
-const GOOGLE_CLIENT_ID = "470502848789-170sfgi6ep7qp18u49ohmot14nr6ifbu.apps.googleusercontent.com";
-const FACEBOOK_APP_ID = "1861800831008526";
+// Environment variables
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID ;
+const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 
+// Use API_BASE_URL dynamically
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+console.log(GOOGLE_CLIENT_ID,FACEBOOK_APP_ID,'here here');
 const SignUp = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -29,7 +33,7 @@ const SignUp = () => {
     useEffect(() => {
         const getCsrfToken = async () => {
             try {
-                const response = await fetch('/api/csrf-token');
+                const response = await fetch(`${API_BASE_URL}/api/csrf-token`);
                 const data = await response.json();
                 setCsrfToken(data.csrfToken);
             } catch (error) {
@@ -48,7 +52,7 @@ const SignUp = () => {
         setLoading(true);
         setOtpError('');
         try {
-            const res = await fetch('http://localhost:8080/api/user/verify-otp', {
+            const res = await fetch(`${API_BASE_URL}/api/user/verify-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +82,7 @@ const SignUp = () => {
         setErrorMessage('');
         try {
             // Request OTP via backend API
-            const res = await fetch('http://localhost:8080/api/user/register', {
+            const res = await fetch(`${API_BASE_URL}/api/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +121,7 @@ const SignUp = () => {
         setErrorMessage('');
 
         try {
-            const res = await fetch('http://localhost:8080/api/auth/google', {
+            const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

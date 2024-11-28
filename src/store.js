@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk'; // Named import
 import { composeWithDevTools } from '@redux-devtools/extension'; // Correct import
 
-import rootReducer from './reducers'; // Ensure you have your root reducer
+import rootReducer from './reducers';
 
 const store = configureStore({
   reducer: rootReducer,
