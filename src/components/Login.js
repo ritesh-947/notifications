@@ -12,7 +12,7 @@ const Login = () => {
 
     // Configure axios instance
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:8080/api',
+        baseURL: 'https://login-backend-1-sb6i.onrender.com/api',
         withCredentials: true, // To include cookies for refresh token
     });
 
