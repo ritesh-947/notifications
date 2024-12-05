@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FaPaperPlane } from 'react-icons/fa';
 
 // Initialize the socket connection
-const socket = io('http://localhost:3051', {
+const socket = io('https://msg-room.onrender.com', {
   withCredentials: false, // Disable credentials for simplicity
 });
 
