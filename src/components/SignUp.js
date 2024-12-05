@@ -1,31 +1,29 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import FacebookLogin from 'react-facebook-login-lite';
 import './SignUpForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// eslint-disable-next-line no-unused-vars
-import {  faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 
-// Environment variables
-const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID ;
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = 'https://login-backend-1-sb6i.onrender.com';
 
-// Use API_BASE_URL dynamically
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-console.log(GOOGLE_CLIENT_ID,FACEBOOK_APP_ID,'here here');
 const SignUp = () => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
     });
-    const [otp, setOtp] = useState(''); // For OTP input
+    const [otp, setOtp] = useState('');
     const [csrfToken, setCsrfToken] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [otpError, setOtpError] = useState('');
-    const [otpSent, setOtpSent] = useState(false); // To track if OTP has been sent
+    const [otpSent, setOtpSent] = useState(false);
 
     const { username, email, password } = formData;
     const navigate = useNavigate();
@@ -44,9 +42,8 @@ const SignUp = () => {
     }, []);
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-    const onOtpChange = (e) => setOtp(e.target.value); // Handle OTP input
+    const onOtpChange = (e) => setOtp(e.target.value);
 
-    // Function to handle OTP submission and verification
     const onVerifyOtp = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -58,15 +55,13 @@ const SignUp = () => {
                     'Content-Type': 'application/json',
                     'X-CSRF-Token': csrfToken,
                 },
-                body: JSON.stringify({email, username, password, otp }),
+                body: JSON.stringify({ email, username, password, otp }),
             });
 
-          
             if (!res.ok) {
                 throw new Error('Invalid or expired OTP');
             }
 
-            // Redirect to login or dashboard after successful OTP verification
             navigate('/login');
         } catch (error) {
             setOtpError('Invalid or expired OTP. Please try again.');
@@ -81,7 +76,6 @@ const SignUp = () => {
         setLoading(true);
         setErrorMessage('');
         try {
-            // Request OTP via backend API
             const res = await fetch(`${API_BASE_URL}/api/user/register`, {
                 method: 'POST',
                 headers: {
@@ -90,7 +84,8 @@ const SignUp = () => {
                 },
                 body: JSON.stringify({ username, email, password }),
             });
-            const responseText = await res.text(); // Get response text
+
+            const responseText = await res.text();
 
             if (!res.ok) {
                 if (responseText === 'Email already exists') {
@@ -102,11 +97,8 @@ const SignUp = () => {
                 }
                 return;
             }
-            if (!res.ok) {
-                throw new Error('Error sending OTP');
-            }
 
-            setOtpSent(true); // Track that OTP has been sent
+            setOtpSent(true);
         } catch (error) {
             console.error('Signup failed:', error);
             setErrorMessage('Error during signup. Please try again.');
@@ -119,7 +111,6 @@ const SignUp = () => {
         const googleToken = response.credential;
         setLoading(true);
         setErrorMessage('');
-
         try {
             const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
                 method: 'POST',
@@ -134,8 +125,6 @@ const SignUp = () => {
                 throw new Error('Google sign-up failed');
             }
 
-            const data = await res.json();
-            console.log('data',data);
             window.location.href = 'http://localhost:3131';
         } catch (error) {
             console.error('Google sign-up failed:', error);
@@ -187,10 +176,14 @@ const SignUp = () => {
                             {loading ? 'Sending OTP...' : 'Sign Up'}
                         </button>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        <p className="already-member">
+                            Already have an account?{' '}
+                            <a href="/login" style={{ color: 'blue' }}>
+                                Login
+                            </a>
+                        </p>
                     </form>
                 )}
-
-                {/* OTP Input field visible only after OTP has been sent */}
                 {otpSent && (
                     <form onSubmit={onVerifyOtp}>
                         <input
@@ -209,26 +202,7 @@ const SignUp = () => {
                     </form>
                 )}
 
-                <div className="or-divider">
-                    <span>OR</span>
-                </div>
-                <div className="social-buttons">
-                    <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={handleGoogleFailure}
-                        className="google-button"  // Apply the custom class
-                        text="signin_with"
-                    />
-                    <FacebookLogin
-                        appId={FACEBOOK_APP_ID}
-                        callback={handleGoogleSuccess}
-                        render={renderProps => (
-                            <button onClick={renderProps.onClick} className="facebook-button">
-                                <FontAwesomeIcon icon={faFacebook} className="icon" /> Continue with Facebook
-                            </button>
-                        )}
-                    />
-                </div>
+               
             </div>
         </GoogleOAuthProvider>
     );

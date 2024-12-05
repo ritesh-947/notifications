@@ -1,18 +1,18 @@
 /* Container Styles */
 .signup-form-container {
   max-width: 400px;
-  margin: 40px auto;
-  padding: 2rem;
-  background-color: #f9f9f9;
+  margin: 0 auto;
+  padding: 0.5rem 2rem;
+  /* background-color: #f9f9f9; */
   border-radius: 13px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
+  /* border: 1px solid #e0e0e0; */
   text-align: center;
 }
 
 /* Headings */
 h2 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 26px;
   font-weight: bold;
   font-family: "Poppins", sans-serif;
@@ -26,7 +26,7 @@ input {
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #fff;
+
   font-size: 16px;
   box-sizing: border-box;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) inset;

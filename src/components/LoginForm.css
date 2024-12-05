@@ -1,9 +1,10 @@
 /* src/components/LoginForm.css */
 .login-form-container {
-    width: 100%;
+    width: 90%;
     max-width: 400px;
+
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
     text-align: center;
     background-color: #ffffff;
     border-radius: 8px;
@@ -12,7 +13,7 @@
   }
   
   h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     font-size: 24px;
     color: #333;
   }
@@ -23,8 +24,8 @@
   
   .email-input {
     width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
+    padding: 0.5rem;
+
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset;
@@ -50,16 +51,9 @@
     margin-bottom: 1rem;
   }
   
-  .or-divider {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
+
   
-  .or-divider span {
-    flex: 1;
-    border-bottom: 1px solid #ccc;
-  }
+
   
   .or-divider span::before {
     content: 'OR';

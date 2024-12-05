@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './LoginForm.css';
@@ -10,11 +11,17 @@ const Login = () => {
 
     const { email, password } = formData;
 
-    // Configure axios instance
-    const axiosInstance = axios.create({
-        baseURL: 'https://login-backend-1-sb6i.onrender.com/api',
-        withCredentials: true, // To include cookies for refresh token
-    });
+    // // Configure axios instance
+    // const axiosInstance = axios.create({
+    //     baseURL: 'https://login-backend-1-sb6i.onrender.com/api',
+    //     withCredentials: true, // To include cookies for refresh token
+    // });
+
+     // Configure axios instance
+     const axiosInstance = axios.create({
+         baseURL: 'https://login-backend-1-sb6i.onrender.com/api',
+         withCredentials: true, // To include cookies for refresh token
+    });     
 
     // Add axios interceptor for token refresh logic
     useEffect(() => {
@@ -70,7 +77,7 @@ const Login = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
             // Redirect to the external homepage after successful login
-            window.location.href = 'https://homefront12.netlify.app'; // Replace with your homepage URL
+            window.location.href = 'http://localhost:3002/homepage'; // Replace with your homepage URL
         } catch (error) {
             console.error('Login error:', error);
             // Handle login error (e.g., display error message)
@@ -105,13 +112,13 @@ const Login = () => {
                 <a href="/resetpassword" style={{ color: 'blue' }}>Forget Password?</a>
             </p>
             <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-            <div className="or-divider">
+            {/* <div className="or-divider">
                 <span>OR</span>
-            </div>
-            <div className="social-buttons">
+            </div> */}
+            {/* <div className="social-buttons">
                 <button className="google-button">Continue with Google</button>
                 <button className="facebook-button">Continue with Facebook</button>
-            </div>
+            </div> */}
         </div>
     );
 };
