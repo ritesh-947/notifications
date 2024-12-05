@@ -16,7 +16,7 @@ const HomePage = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('http://localhost:3053/api/sessions');
+      const response = await axios.get('https://session-bring.onrender.com/api/sessions');
       const sessions = response.data.sessions;
 
       // Convert video URLs to embed format
