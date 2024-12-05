@@ -51,7 +51,7 @@ const SimpleForm = () => {
 
     if (validateForm()) {
       try {
-        const response = await fetch('http://localhost:3052/api/session-pro', {
+        const response = await fetch('https://session-pro.onrender.com/api/session-pro', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
