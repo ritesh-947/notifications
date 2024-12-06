@@ -8,6 +8,10 @@ import HomePage from './components/homepage/HomePage';
 import Chat from './components/Message/Chat'
 import SimpleForm from './components/upload/SimpleForm'
 import Header from './components/Header';
+import PostQuestion from './components/public/PostQuestion';
+import Questions from './components/public/Questions';
+
+
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 const handleSearch = (query) => {
@@ -24,7 +28,8 @@ const handleSearch = (query) => {
           <Route path="/upload" element={<SimpleForm />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/chat/:room_id" element={<Chat />} />
-            
+          <Route path="/post-question" element={<PostQuestion />} />
+          <Route path="/questions" element={<Questions />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
