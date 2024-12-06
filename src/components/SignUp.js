@@ -9,8 +9,10 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
+
 // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
-const API_BASE_URL = 'https://login-backend-1-sb6i.onrender.com';
+// const API_BASE_URL = 'https://login-backend-1-sb6i.onrender.com';
+const API_BASE_URL = 'https://localhost:8080';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -202,7 +204,26 @@ const SignUp = () => {
                     </form>
                 )}
 
-               
+                <div className="or-divider">
+                    <span>OR</span>
+                </div>
+                <div className="social-buttons">
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleFailure}
+                        className="google-button"
+                        text="signin_with"
+                    />
+                    <FacebookLogin
+                        appId={FACEBOOK_APP_ID}
+                        callback={handleGoogleSuccess}
+                        render={(renderProps) => (
+                            <button onClick={renderProps.onClick} className="facebook-button">
+                                <FontAwesomeIcon icon={faFacebook} className="icon" /> Continue with Facebook
+                            </button>
+                        )}
+                    />
+                </div>
             </div>
         </GoogleOAuthProvider>
     );
