@@ -24,7 +24,8 @@ const HomePage = ({ searchQuery }) => {
     try {
       const sessionId = localStorage.getItem('sessionId');
 
-      const response = await axios.get('http://localhost:6001/api/sessions', {
+      const response = await axios.get('https://home-server-x9xg.onrender.com', {
+      // const response = await axios.get('http://localhost:6001/api/sessions', {
         headers: {
           Authorization: sessionId ? `Session ${sessionId}` : '',
         },
