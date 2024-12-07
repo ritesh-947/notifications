@@ -54,7 +54,7 @@ const Login = () => {
             const { sessionId } = response.data;
     
             localStorage.setItem('sessionId', sessionId);
-            window.location.href = '/identifier'; // Redirect on success
+            window.location.href = '/homepage'; // Redirect on success
         } catch (error) {
             console.error('Login error:', error.response?.data?.message || error.message);
             alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));

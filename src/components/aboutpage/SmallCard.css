@@ -1,0 +1,108 @@
+
+
+/* Ensure SmallCard takes 100% width on mobile devices */
+.small-card {
+  width: 100%;
+  padding: 12px; /* Increase padding for touch-friendly areas */
+  box-sizing: border-box;
+  display: block;
+
+
+
+
+
+}
+
+
+
+/* Card Content Padding */
+.small-card .MuiCardContent-root {
+  padding: 14px;
+}
+
+/* Avatar customization */
+.small-card .MuiAvatar-root {
+  width: 48px;
+  height: 48px;
+  background-color: #6200ea; /* Purple background */
+  color: #fff; /* White text */
+  font-size: 1.25rem;
+}
+
+/* Embedded video iframe for mobile */
+.small-card iframe {
+  width: 100%; /* Full width video */
+  height: 180px; /* Compact height */
+  border: none; /* No border */
+}
+
+/* Button styles */
+.small-card .MuiButton-containedSecondary {
+  background-color: #6200ea; /* Purple background */
+  color: #fff;
+  padding: 10px 16px; /* Increase touch area for mobile usability */
+  font-size: 1rem; /* Increase button text size for better readability */
+}
+
+.small-card .MuiButton-containedSecondary:hover {
+  background-color: #3700b3; /* Darker purple on hover */
+}
+
+.small-card .MuiButton-outlined {
+  border-color: #6200ea;
+  color: #6200ea;
+  padding: 8px 16px;
+}
+
+.small-card .MuiButton-outlined:hover {
+  border-color: #3700b3;
+  color: #3700b3;
+}
+
+/* Send button style */
+.small-card #send {
+  background-color: #6200ea;
+  color: #fff;
+}
+
+.small-card #send:hover {
+  background-color: #3700b3; /* Darker purple on hover */
+}
+
+/* Typography adjustments for mobile */
+.small-card h5, .small-card h6 {
+  margin-bottom: 10px;
+  color: #333; /* Dark text for readability */
+  font-size: 1.2rem; /* Adjust text size for mobile */
+}
+
+.small-card .MuiTypography-body2 {
+  color: #666; /* Lighter text for secondary information */
+  font-size: 0.95rem;
+}
+
+/* Flexbox for content alignment */
+.small-card .MuiBox-root {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Icon styling */
+.small-card .MuiSvgIcon-root {
+  margin-right: 8px;
+  color: #1976d2;
+}
+
+/* Box for content sections */
+.small-card .content-section {
+  margin-bottom: 16px; /* Increase spacing between sections */
+}
+/* Hide the SmallCard by default for larger screens */
+@media (min-width: 750px) {
+  .small-card {
+    display: none; /* Hide SmallCard on larger screens */
+  }
+}
+
+

@@ -11,6 +11,9 @@ import Header from './components/Header';
 import PostQuestion from './components/public/PostQuestion';
 import Questions from './components/public/Questions';
 import Identifier from './components/Identifier';
+import PromoCard from './components/aboutpage/PromoCard';
+import CourseCard from './components/aboutpage/CourseCard';
+import SmallCard from './components/aboutpage/SmallCard';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,6 +25,7 @@ const handleSearch = (query) => {
   return (
     <Router>
       <div className="App">
+      <Header onSearch={handleSearch} />
         <Alert />
         <Routes>
           <Route path="/" element={<Header />} />
@@ -29,6 +33,24 @@ const handleSearch = (query) => {
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/chat/:room_id" element={<Chat />} />
+
+          <Route 
+            path="/session/:session_id" 
+            element={
+              <>
+               <SmallCard /> 
+                <PromoCard />
+                <CourseCard />
+                {/* <Reviews /> */}
+             
+                {/* <InstructorCard />   */}
+                {/* <ViewSimilar /> */}
+               
+              </>
+            } 
+          />      
+
+         
           <Route path="/post-question" element={<PostQuestion />} />
           
           <Route path="/questions" element={<Questions />}/>
