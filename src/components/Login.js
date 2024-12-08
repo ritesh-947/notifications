@@ -14,8 +14,8 @@ const Login = () => {
 
     // Axios instance configuration
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:8080/api', // Update with your API URL
-        baseURL: 'https://login-backend-server-vto2.onrender.com/api', // Update with your API URL
+        baseURL: 'http://localhost:8080/api', // Update with your API URL
+        // baseURL: 'https://login-backend-server-vto2.onrender.com/api', // Update with your API URL
         withCredentials: false, // No cookies used
     });
 
@@ -101,11 +101,11 @@ const Login = () => {
                 <a href="/resetpassword" style={{ color: 'blue' }}>Forget Password?</a>
             </p>
             <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-            <div className="or-divider">
+            {/* <div className="or-divider">
                 <span>OR</span>
-            </div>
+            </div> */}
 
-            <button onClick={logoutUser} className="logout-button">Logout</button>
+            {/* <button onClick={logoutUser} className="logout-button">Logout</button> */}
         </div>
     );
 };

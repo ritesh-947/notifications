@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -14,26 +14,50 @@ import Identifier from './components/Identifier';
 import PromoCard from './components/aboutpage/PromoCard';
 import CourseCard from './components/aboutpage/CourseCard';
 import SmallCard from './components/aboutpage/SmallCard';
+import Header2 from './components/Header2';
+import UploadSession from './components/firstpage/UploadSession';
+import BecomeCreatorPage from './components/firstpage/BecomeCreatorPage';
+
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
-const handleSearch = (query) => {
-  setSearchQuery(query);
-};
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 800); // Screen width detection
+
+
+  // Detect screen resize and update the state
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 800);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
 
 
   return (
     <Router>
       <div className="App">
-      <Header onSearch={handleSearch} />
+      {isSmallScreen ? (
+          <Header2 onSearch={handleSearch} />
+        ) : (
+          <Header onSearch={handleSearch} />
+        )}
         <Alert />
         <Routes>
-          <Route path="/" element={<Header />} />
-          <Route path="/upload" element={<SimpleForm />} />
+      
+
+          <Route path="/" element={<Login />} />
+          <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/chat/:room_id" element={<Chat />} />
-
+          <Route path="/upload" element={<UploadSession />} />
           <Route 
             path="/session/:session_id" 
             element={

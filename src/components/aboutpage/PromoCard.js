@@ -118,7 +118,8 @@ const PromoCard = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5011/api/session_queries', {
+    //   const response = await axios.post('http://localhost:5011/api/session_queries', {
+      const response = await axios.post('https://promo-server-5iob.onrender.com/api/session_queries', {
         session_id,
         message,
         anonymous,

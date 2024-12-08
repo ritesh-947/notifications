@@ -1,9 +1,9 @@
 /* src/components/LoginForm.css */
 .login-form-container {
-    width: 90%;
+    width: 85%;
     max-width: 400px;
 
-    margin: 0 auto;
+    margin: 5rem auto;
     padding: 1rem;
     text-align: center;
     background-color: #ffffff;

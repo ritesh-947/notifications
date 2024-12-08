@@ -1,13 +1,16 @@
 /* Container Styles */
 .signup-form-container {
   max-width: 400px;
-  margin: 0 auto;
+  max-width: 85%;
+  margin: 5rem auto; /* Add top margin */
+
   padding: 0.5rem 2rem;
   /* background-color: #f9f9f9; */
   border-radius: 13px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   /* border: 1px solid #e0e0e0; */
   text-align: center;
+
 }
 
 /* Headings */
@@ -17,6 +20,7 @@ h2 {
   font-weight: bold;
   font-family: "Poppins", sans-serif;
   color: #333;
+  
 }
 
 /* Input Fields */
@@ -31,6 +35,7 @@ input {
   box-sizing: border-box;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) inset;
   transition: border 0.3s ease;
+  
 }
 
 input:focus {

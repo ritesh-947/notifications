@@ -24,7 +24,8 @@ const CourseCard = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5009/api/session/${session_id}`, {
+      const response = await axios.get(`https://c-card-server.onrender.com/api/session/${session_id}`, {
+    //const response = await axios.get(`http://localhost:5009/api/session/${session_id}`, {
         headers: {
           Authorization: `Session ${localSessionId}`, // Pass session_id as Authorization header
           'Content-Type': 'application/json',

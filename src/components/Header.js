@@ -58,8 +58,8 @@ const Header = ({ onSearch }) => {
   
   const handleVideoUploadClick = () => {
     const redirectUrl = user?.role === 'creator'
-      ? 'http://localhost:3111/upload-session'
-      : 'http://localhost:3123/become-creator';
+      ? 'upload'
+      : '/become-creator';
     window.location.href = redirectUrl;
   };
 
@@ -71,7 +71,7 @@ const Header = ({ onSearch }) => {
     <header className="o1-header">
       <div className="o1-header-left">
         <div className="o1-logo">
-          <img src="/img-placeholder.png" alt="Logo" className="o1-logo-image" />
+          <img src="../../public/IMG_1152.jpg" alt="Logo" className="o1-logo-image" />
         </div>
         <a href="#" className="o1-categories">Categories</a>
       </div>
