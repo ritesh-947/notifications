@@ -146,7 +146,7 @@ const HomePage = ({ searchQuery }) => {
                 <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days}
               </p>
               <p>
-                <FontAwesomeIcon icon={faClock} /> Duration: {video.duration} Minutes
+                <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
               </p>
               <p>
                 <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}

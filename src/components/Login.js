@@ -14,7 +14,8 @@ const Login = () => {
 
     // Axios instance configuration
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:8080/api', // Update with your API URL
+        // baseURL: 'http://localhost:8080/api', // Update with your API URL
+        baseURL: 'https://login-backend-server-vto2.onrender.com/api', // Update with your API URL
         withCredentials: false, // No cookies used
     });
 
