@@ -34,7 +34,8 @@ const ResetPasswordOTP = () => {
     setError('');
     setSuccessMessage('');
     try {
-      await axios.post('http://localhost:8080/api/user/request-reset-otp', { email }, {
+      await axios.post('https://login-backend-server-vto2.onrender.com/api/user/request-reset-otp', { email }, {
+      // await axios.post('http://localhost:8080/api/user/request-reset-otp', { email }, {
         headers: { 'CSRF-Token': csrfToken },
       });
       setIsOtpSent(true);
@@ -55,8 +56,9 @@ const ResetPasswordOTP = () => {
     setError('');
     setSuccessMessage('');
     try {
-      const res = await axios.post('http://localhost:8080/api/user/verify-reset-otp', { email, otp }, {
-        headers: { 'CSRF-Token': csrfToken },
+      const res = await axios.post('https://login-backend-server-vto2.onrender.com/api/user/verify-reset-otp', { email, otp }, {
+      // const res = await axios.post('http://localhost:8080/api/user/verify-reset-otp', { email, otp }, {
+      headers: { 'CSRF-Token': csrfToken },
       });
       if (res.status === 200) {
         setIsOtpVerified(true);
@@ -80,7 +82,8 @@ const ResetPasswordOTP = () => {
     setError('');
     setSuccessMessage('');
     try {
-      await axios.post('http://localhost:8080/api/user/reset-password', { email, otp, newPassword }, {
+      await axios.post('https://login-backend-server-vto2.onrender.com/api/user/reset-password', { email, otp, newPassword }, {
+      // await axios.post('http://localhost:8080/api/user/reset-password', { email, otp, newPassword }, {
         headers: { 'CSRF-Token': csrfToken },
       });
       setSuccessMessage('Password reset successfully!');
