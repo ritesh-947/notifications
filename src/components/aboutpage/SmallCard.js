@@ -41,6 +41,7 @@ const SmallCard = () => {
         const response = await axios.get(`https://promo-server-5iob.onrender.com/api/session/${session_id}`, {
           headers: {
             Authorization: `Session ${sessionId}`, // Pass session_id in the Authorization header
+            'Content-Type': 'application/json',
           },
         });
 
@@ -108,6 +109,7 @@ const SmallCard = () => {
       }, {
         headers: {
           Authorization: `Session ${sessionId}`, // Pass session_id in the Authorization header
+          'Content-Type': 'application/json',
         },
       });
 

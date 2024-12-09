@@ -58,6 +58,7 @@ const PromoCard = () => {
     //   const response = await axios.get(`http://localhost:5011/api/session/${session_id}`, {
         headers: {
           Authorization: `Session ${sessionId}`,
+           'Content-Type': 'application/json',
         },
       });
 
@@ -128,6 +129,7 @@ const PromoCard = () => {
       }, {
         headers: {
           Authorization: `Session ${sessionId}`,
+          'Content-Type': 'application/json',
         },
       });
 
