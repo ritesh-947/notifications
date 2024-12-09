@@ -11,6 +11,7 @@
   background-color: rgba(33, 150, 243, 0.1); 
   border: 1px solid rgba(33, 150, 243, 0.2);
   padding: 0px;
+
   border-radius: 8px;
   transition: box-shadow 0.3s ease; 
 }
@@ -39,6 +40,7 @@
   color: #333; /* Dark text color for readability */
   font-size: 1rem;
   line-height: 1.6;
+  margin-right: 10rem;
 }
 /* Styling for the creator info card */
 .creator-info-card {

@@ -24,7 +24,7 @@ const CourseCard = () => {
         return;
       }
 
-    //   const response = await axios.get(`https://c-card-server.onrender.com/api/session/${session_id}`, {
+    //   const response = await axios.get(`http://localhost:5009/api/session/${session_id}`, {
     const response = await axios.get(`https://c-card-server.onrender.com/api/session/${session_id}`, {
         headers: {
           Authorization: `Session ${localSessionId}`, // Pass session_id as Authorization header
@@ -81,9 +81,14 @@ const CourseCard = () => {
         sx={{
           textAlign: 'left',
           paddingLeft: '2rem',
-          paddingRight: '1.5rem', // Expand to the right by increasing padding
+          paddingRight: '16rem', // Expand to the right by increasing padding
           flexGrow: 1, // Allow the text to take as much space as possible
+            overflow: 'hidden', // Prevent text overflow
+            textOverflow: 'ellipsis', // Show ellipsis for overflowed text
+            whiteSpace: 'normal', // Allow text to wrap within the containe
+            wordWrap: 'break-word', // Break long words
         }}
+
       >
         {sessionData.description}
       </Typography>

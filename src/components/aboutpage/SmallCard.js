@@ -14,6 +14,8 @@ import { useParams } from 'react-router-dom';
 import './SmallCard.css';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
+
+
 const SmallCard = () => {
   const { session_id } = useParams(); // Get session_id from the URL parameters
   const [sessionData, setSessionData] = useState(null); // Store session data
@@ -22,6 +24,8 @@ const SmallCard = () => {
   const [message, setMessage] = useState(''); // Store message input
   const [anonymous, setAnonymous] = useState(false); // Track anonymous state for message
   const [successMessage, setSuccessMessage] = useState(false); // Track success state for snackbar
+
+  console.log('Frontend session_id from useParams:', session_id);
 
   // Fetch session data
   useEffect(() => {
@@ -33,11 +37,14 @@ const SmallCard = () => {
           return;
         }
 
+        // const response = await axios.get(`http://localhost:5011/api/session/${session_id}`, {
         const response = await axios.get(`https://promo-server-5iob.onrender.com/api/session/${session_id}`, {
           headers: {
             Authorization: `Session ${sessionId}`, // Pass session_id in the Authorization header
           },
         });
+
+        console.log('Backend response:', response.data);
 
         const session = response.data;
 
@@ -78,6 +85,7 @@ const SmallCard = () => {
     return `https://www.youtube.com/embed/${videoId}`;
   };
 
+  
   // Handle message submission
   const handleSendMessage = async () => {
     if (!message.trim()) {
@@ -92,6 +100,7 @@ const SmallCard = () => {
         return;
       }
 
+      // const response = await axios.post('http://localhost:5011/api/session_queries', {
       const response = await axios.post('https://promo-server-5iob.onrender.com/api/session_queries', {
         session_id,
         message,
