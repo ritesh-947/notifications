@@ -33,7 +33,7 @@ const SmallCard = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:5011/api/session/${session_id}`, {
+        const response = await axios.get(`https://promo-server-5iob.onrender.com/api/session/${session_id}`, {
           headers: {
             Authorization: `Session ${sessionId}`, // Pass session_id in the Authorization header
           },
@@ -92,7 +92,7 @@ const SmallCard = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5011/api/session_queries', {
+      const response = await axios.post('https://promo-server-5iob.onrender.com/api/session_queries', {
         session_id,
         message,
         anonymous,
