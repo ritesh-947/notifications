@@ -1,7 +1,7 @@
 /* Container Styles */
 .signup-form-container {
   max-width: 400px;
-  max-width: 85%;
+  /* max-width: 85%; */
   margin: 5rem auto; /* Add top margin */
 
   padding: 0.5rem 2rem;
