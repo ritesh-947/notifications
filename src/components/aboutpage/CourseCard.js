@@ -24,8 +24,8 @@ const CourseCard = () => {
         return;
       }
 
-      const response = await axios.get(`https://c-card-server.onrender.com/api/session/${session_id}`, {
-    //const response = await axios.get(`http://localhost:5009/api/session/${session_id}`, {
+    //   const response = await axios.get(`https://c-card-server.onrender.com/api/session/${session_id}`, {
+    const response = await axios.get(`http://localhost:5009/api/session/${session_id}`, {
         headers: {
           Authorization: `Session ${localSessionId}`, // Pass session_id as Authorization header
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const CourseCard = () => {
   return (
     <Box className="course-card-container">
       {/* Card for session description */}
-      <Card className="course-description-card" style={{ marginLeft: '20px', marginRight: '20px', marginTop: '-30px', }}>
+      <Card className="course-description-card" style={{ marginLeft: '20px', marginRight: '20px', marginTop: '0rem', }}>
   <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch',width: 'calc(100% + 200px)' }}>
     <Box display="flex" alignItems="center" className="header-with-icon">
       <DescriptionIcon className="description-icon" />
@@ -80,7 +80,7 @@ const CourseCard = () => {
         className="description-text"
         sx={{
           textAlign: 'left',
-          paddingLeft: '1.5rem',
+          paddingLeft: '2rem',
           paddingRight: '1.5rem', // Expand to the right by increasing padding
           flexGrow: 1, // Allow the text to take as much space as possible
         }}

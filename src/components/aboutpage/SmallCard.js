@@ -131,6 +131,7 @@ const SmallCard = () => {
         backgroundColor: 'white',
         borderRadius: '8px',
         marginBottom: '20px',
+        marginTop:'3rem',
         overflow: 'hidden',
       }}
     >
@@ -139,11 +140,17 @@ const SmallCard = () => {
         autoHideDuration={4000}
         onClose={() => setSuccessMessage(false)} // Close after 4 seconds
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Change to top position
+        
       >
         <Alert
           onClose={() => setSuccessMessage(false)}
           severity="success"
           icon={<CheckCircleIcon fontSize="inherit" />}
+          sx={{
+            position: 'relative', // Position adjustment
+            top: '-1.2rem', // Move it slightly upward
+          }}
+         
         >
           Message sent successfully!
         </Alert>
@@ -177,16 +184,21 @@ Book Session
 
         </Box>
         <CardContent>
-          <Typography variant="h6" sx={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '8px', textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '8px', textAlign: 'center' 
+            ,top: '-0.5rem', 
+            position:'relative',
+            textAlign: 'left',
+            // marginLeft: '0',
+          }}>
             {sessionData.title || 'No Title Available'}
           </Typography>
           <Box display="flex" alignItems="center" sx={{ mb: -3 }}>
             <CurrencyRupeeIcon fontSize="small" sx={{ mr: 1, color: '#1976d2', mb: 0 }} />
-            <Typography variant="h4" sx={{ lineHeight: -1, fontSize: '1rem' }}>{sessionData.price || 'N/A'}</Typography>
+            <Typography variant="h4" sx={{ lineHeight: -1, fontSize: '1.2rem',color: '#444444' }}>{sessionData.price || 'N/A'}</Typography>
           </Box>
           <Box display="flex" alignItems="center" mb={1}>
             <StarIcon fontSize="small" sx={{ mr: 1, color: '#FFD700' }} />
-            <Typography variant="body1" sx={{ mr: 1 }}>
+            <Typography variant="body1" sx={{ mr: 1 ,color: '#666677'}}>
               {Number(sessionData.average_rating).toFixed(1) || '0.0'}
             </Typography>
             <Typography variant="body2" color="textSecondary">

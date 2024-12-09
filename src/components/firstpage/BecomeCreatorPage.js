@@ -9,7 +9,8 @@ const checkUserRole = async () => {
     if (!token) return null; // Return null if no session ID found
 
     try {
-        const response = await axios.get('http://localhost:3122/api/user-role', {
+        const response = await axios.get('https://creator-server.onrender.com/api/user-role', {
+        // const response = await axios.get('http://localhost:3122/api/user-role', {
             headers: { Authorization: `Bearer ${token}` }, // Pass token in Authorization header
             withCredentials: true, // Ensure cookies are sent
         });

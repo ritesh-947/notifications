@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faGlobe, faClock, faCalendar, faDollarSign, faUsers } from '@fortawesome/free-solid-svg-icons'; // Import additional icons
 import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
+import ThreeDotMenu from './ThreeDotMenu'; // Import the ThreeDotMenu component
 
 const HomePage = ({ searchQuery }) => {
   const [videos, setVideos] = useState([]);
@@ -62,6 +63,8 @@ const HomePage = ({ searchQuery }) => {
     fetchVideos();
   }, []);
 
+  
+
   useEffect(() => {
     // Apply search filter and limit results to 12
     const filtered = videos.filter((video) =>
@@ -98,6 +101,10 @@ const HomePage = ({ searchQuery }) => {
       alert('Booking functionality coming soon!');
     }
   };
+  const handleCreatorClick = (creatorId) => {
+    // window.location.href = `http://localhost:3232/user/${creatorId}`;
+  };
+
 
   if (loading) {
     return <div>Loading sessions...</div>;
@@ -120,11 +127,34 @@ const HomePage = ({ searchQuery }) => {
       )}
       <div className="video-grid">
         {filteredVideos.map((video, index) => (
+          
           <div
             key={video.session_id}
             className="video-card"
             ref={(el) => (videoRefs.current[index] = el)}
           >
+             <div className="creator-info" onClick={() => handleCreatorClick(video.creator_id)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', marginRight: '-10px' }}>
+             <div
+  className={`star-icon ${video.role === 'creator' ? 'creator' : 'user'}`}
+  style={{
+    width: '20px',
+    height: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: video.role === 'creator' ? 'green' : 'green',
+    border: `1px solid ${video.role === 'creator' ? 'green' : 'green'}`, // Add border
+    borderRadius: '50%', // Make the border circular
+    marginLeft: '8px', // Add left margin
+  }}
+>
+  <FontAwesomeIcon icon={faStar} />
+</div>
+              <p style={{ marginLeft: '5px' }}>{video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}</p>
+              <ThreeDotMenu sessionId={video.session_id} onShare={() => console.log('Share clicked')} />
+            </div>
+          
+  
             {video.video_url ? (
               <iframe
                 width="320"
@@ -139,25 +169,27 @@ const HomePage = ({ searchQuery }) => {
             )}
             <div className="video-content">
               <h3>{video.session_title || 'Untitled Session'}</h3>
-              <p>
-                <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days}
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faStar} /> Rating: {video.avg_rating.toFixed(2)}{' '}
-                <FontAwesomeIcon icon={faUsers} /> ({video.ratings_count} ratings)
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count}
-              </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
+</p>
+<p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days}
+</p>
+<p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
+</p>
+<p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}
+</p>
+<p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faStar} /> Rating: {video.avg_rating.toFixed(2)}{' '}
+  <FontAwesomeIcon icon={faUsers} /> ({video.ratings_count} ratings)
+</p>
+<p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+  <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count}
+</p>
+
+
               <div className="button-container">
                 <button
                   className="view-more-button"

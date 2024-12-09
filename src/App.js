@@ -6,7 +6,7 @@ import Alert from './components/Alert'; //
 import ResetPasswordForm from './components/ResetPasswordForm';
 import HomePage from './components/homepage/HomePage';
 import Chat from './components/Message/Chat'
-import SimpleForm from './components/upload/SimpleForm'
+
 import Header from './components/Header';
 import PostQuestion from './components/public/PostQuestion';
 import Questions from './components/public/Questions';

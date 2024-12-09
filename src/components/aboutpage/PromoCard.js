@@ -105,34 +105,33 @@ const PromoCard = () => {
   // };
 
   // Handle message submission
-  const handleSendMessage = async () => {
+   // Handle message submission
+   const handleSendMessage = async () => {
     if (!message.trim()) {
       console.error('Message is empty');
       return;
     }
 
     try {
-      const sessionId = localStorage.getItem('sessionId'); // Retrieve session_id from localStorage
+      const sessionId = localStorage.getItem('sessionId');
       if (!sessionId) {
         console.error('No session_id found in localStorage');
         return;
       }
 
-    //   const response = await axios.post('http://localhost:5011/api/session_queries', {
-      const response = await axios.post('https://promo-server-5iob.onrender.com/api/session_queries', {
+      const response = await axios.post('http://localhost:5011/api/session_queries', {
         session_id,
         message,
         anonymous,
       }, {
         headers: {
-          Authorization: `Session ${sessionId}`, // Pass session_id in the Authorization header
+          Authorization: `Session ${sessionId}`,
         },
       });
 
       if (response.status === 200) {
-        console.log('Message sent successfully');
-        setMessage(''); // Clear the input field after sending
-        setAnonymous(false); // Reset anonymous state
+        setMessage(''); // Clear input
+        setAnonymous(false); // Reset anonymous
         setSuccessMessage(true); // Show success snackbar
       }
     } catch (error) {
@@ -183,7 +182,7 @@ const PromoCard = () => {
       className="promo-card"
       sx={{
         position: 'absolute',
-        top: '0.9rem',
+        top: '5rem',
         right: '1%',
         width: '35%',
         zIndex: 1000,
@@ -263,7 +262,10 @@ const PromoCard = () => {
           <Typography
             variant="h4"
             noWrap={!showFullTitle}
-            sx={{ cursor: 'pointer', fontSize: '1rem', color: '#333', fontWeight: '700' }}
+            sx={{ cursor: 'pointer', fontSize: '1rem', color: '#333', fontWeight: '700' 
+                , position: 'relative', // Enables positioning adjustments
+              
+            }}
             onClick={() => setShowFullTitle(!showFullTitle)}
           >
             {sessionData.title || 'No Title Available'}
@@ -322,6 +324,12 @@ const PromoCard = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               sx={{ mr: 1 }}
+              InputProps={{
+                sx: {
+                  padding: '-2rem 1rem', // Adjust padding for smaller height
+                  fontSize: '0.875rem', // Optional: smaller font size
+                },
+            }}
             />
 
             <Button
