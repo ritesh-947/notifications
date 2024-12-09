@@ -19,7 +19,7 @@ const Identifier = () => {
         }
 
         // Fetch user data from the backend
-        const response = await axios.get('http://localhost:8080/api/user/me', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/user/me`, {
           headers: {
             Authorization: `Session ${sessionId}`, // Attach session ID as header
           },
@@ -29,7 +29,11 @@ const Identifier = () => {
         setLoading(false); // Stop loading spinner
       } catch (err) {
         console.error('Error fetching user data:', err);
-        setError('Failed to fetch user data.');
+        if (err.response && err.response.status === 401) {
+          setError('Session expired. Please log in again.');
+        } else {
+          setError('Failed to fetch user data. Please try again later.');
+        }
         setLoading(false); // Stop loading spinner
       }
     };
