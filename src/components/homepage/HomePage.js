@@ -15,6 +15,9 @@ const HomePage = ({ searchQuery }) => {
   const videoRefs = useRef([]);
   const navigate = useNavigate();
 
+
+  console.log('resources pulled successfully');
+
   // Check if the user is authenticated
   const isAuthenticated = () => {
     return !!localStorage.getItem('sessionId');
