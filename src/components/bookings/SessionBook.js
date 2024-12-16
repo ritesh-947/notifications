@@ -173,9 +173,9 @@ const SessionBook = () => {
 
     return (
         <Container maxWidth="md">
-          <Card sx={{ padding: 1, marginTop: 7, borderRadius: 2, boxShadow: 1 }}>
+          <Card sx={{ padding: 1, marginTop: 6, borderRadius: 2, boxShadow: 1 }}>
                 <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ color: 'green', marginTop:"-2rem" }} >
+                <Typography variant="h6"  gutterBottom sx={{ color: 'green', marginTop:"-1rem", fontSize:"1.1rem" }} >
     Book Session: {sessionData.session_title}
     <Tooltip title="Booking Time must be at least 2 hours after the current time.">
         <IconButton>
