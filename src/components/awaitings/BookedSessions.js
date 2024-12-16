@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Grid, Typography, Card, CardContent, Box } from '@mui/material';
-import { AccessTime, Person, HourglassEmpty } from '@mui/icons-material'; // Added HourglassEmpty icon for Time Left
-import './BookedSessions.css'; // Custom CSS
+import { AccessTime, Person, HourglassEmpty } from '@mui/icons-material';
+import moment from 'moment-timezone'; // Import moment-timezone
+import './BookedSessions.css';
 
 const BookedSessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -21,36 +22,33 @@ const BookedSessions = () => {
     return config;
   });
 
+  // Calculate time left
   const calculateTimeLeft = (date, startTime) => {
-    console.log('[DEBUG] calculateTimeLeft called with:', { date, startTime });
-
-    const sessionDateTime = new Date(date);
-    const now = new Date();
-
-    if (isNaN(sessionDateTime)) {
-      console.error('[ERROR] Invalid sessionDateTime:', sessionDateTime);
-      return 'Invalid date or time';
-    }
-
-    console.log('[DEBUG] Parsed sessionDateTime:', sessionDateTime);
-    console.log('[DEBUG] Current time (now):', now);
-
-    const difference = sessionDateTime - now;
-    console.log('[DEBUG] Time difference in ms:', difference);
+    const sessionDateTime = moment.tz(`${date} ${startTime}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
+    const now = moment.tz('Asia/Kolkata');
+    const difference = sessionDateTime.diff(now);
 
     if (difference <= 0) {
-      console.warn('[WARN] Session already started or invalid time difference:', difference);
       return 'Session started!';
     }
 
     const hours = Math.floor(difference / (1000 * 60 * 60));
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
-    console.log('[DEBUG] Calculated hours:', hours, 'Calculated minutes:', minutes);
-
     return `${hours} Hr ${minutes} Min`;
   };
 
+  // Determine if the session is joinable
+  const isJoinable = (date, startTime, endTime) => {
+    const sessionStart = moment.tz(`${date} ${startTime}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
+    const sessionEnd = moment.tz(`${date} ${endTime}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
+    const now = moment.tz('Asia/Kolkata');
+    const joinableStart = sessionStart.clone().subtract(5, 'minutes');
+
+    return now.isBetween(joinableStart, sessionEnd);
+  };
+
+  // Fetch booked sessions
   useEffect(() => {
     const fetchBookedSessions = async () => {
       setLoading(true);
@@ -60,6 +58,7 @@ const BookedSessions = () => {
         const formattedSessions = response.data.map((session) => ({
           ...session,
           time_left: calculateTimeLeft(session.date, session.start_time),
+          is_joinable: isJoinable(session.date, session.start_time, session.end_time),
         }));
         setSessions(formattedSessions);
       } catch (error) {
@@ -74,8 +73,8 @@ const BookedSessions = () => {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop:3 }}>
-      <Typography variant="h5" component="h2" gutterBottom>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop: 3 }}>
+      <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'blue' }}>
         Booked Sessions
       </Typography>
 
@@ -85,61 +84,65 @@ const BookedSessions = () => {
 
       <Grid container spacing={3} justifyContent="center">
         {sessions.map((session, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
+          <Grid item xs={12} sm={6} md={5} key={index}>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: '10px',
+                overflow: 'hidden',
+                backgroundColor: '#f9f9f9',
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'relative',
+                  paddingBottom: '56.25%', // Maintain 16:9 aspect ratio
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                }}
+              >
+                <iframe
+                  src={session.video_url}
+                  title={session.session_title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              </Box>
+
               <CardContent>
-                {/* Session Title */}
                 <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                   {session.session_title}
                 </Typography>
 
-                {/* Video Preview */}
-                {session.video_url && (
-                  <Box sx={{ position: 'relative', paddingBottom: '56.25%', mb: 2 }}>
-                    <iframe
-                      src={session.video_url}
-                      title={session.session_title}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                  </Box>
-                )}
-
-                {/* Creator Username */}
-                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <Person sx={{ mr: 1, color: 'grey.600' }} />
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <Person sx={{ mr: 1 }} />
                   Creator: {session.creator_username || 'Unknown'}
                 </Typography>
 
-                {/* Date */}
-                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <AccessTime sx={{ mr: 1, color: 'grey.600' }} />
-                  Date: {new Date(session.date).toLocaleDateString('en-US')}
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <AccessTime sx={{ mr: 1 }} />
+                  Date: {moment(session.date).format('DD/MM/YYYY')}
                 </Typography>
 
-                {/* Start Time */}
-                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <AccessTime sx={{ mr: 1, color: 'grey.600' }} />
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <AccessTime sx={{ mr: 1 }} />
                   Start Time: {session.start_time}
                 </Typography>
 
-                {/* Time Left */}
-                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <HourglassEmpty sx={{ mr: 1, color: 'grey.600' }} />
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <HourglassEmpty sx={{ mr: 1 }} />
                   Time Left: {session.time_left}
                 </Typography>
 
-                {/* Action Buttons */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
-                  {/* About Session Button */}
                   <Button
                     variant="outlined"
                     color="primary"
@@ -148,24 +151,21 @@ const BookedSessions = () => {
                     About Session
                   </Button>
 
-                  {/* Join Session Button */}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => window.location.href = `http://localhost:5555/room/${session.booking_id}`}
-                    disabled={session.time_left === 'Session started!'}
-                  >
-                    Join Session
-                  </Button>
-
-                  {/* Rate Session Button */}
-                  {session.time_left === 'Session started!' && (
+                  {session.is_joinable ? (
                     <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => console.log('Rate session clicked', session.booking_id)}
+                      variant="contained"
+                      sx={{ backgroundColor: 'green', color: 'white', '&:hover': { backgroundColor: '#005500' } }}
+                      onClick={() => window.location.href = `http://localhost:5555/room/${session.booking_id}`}
                     >
-                      Rate Session
+                      Join Session
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      disabled
+                      sx={{ backgroundColor: 'gray', color: 'white' }}
+                    >
+                      Not Joinable
                     </Button>
                   )}
                 </Box>

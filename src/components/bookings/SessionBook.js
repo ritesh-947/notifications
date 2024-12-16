@@ -195,7 +195,7 @@ const SessionBook = () => {
                         />
                     </FormControl>
 
-                    <FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' } , marginTop: '-1rem' }}>
+                    <FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' } , marginTop: '1rem' }}>
     <InputLabel id="duration-label" sx={{ fontSize: '0.9rem' }}>Select Duration</InputLabel>
     <Select
         labelId="duration-label"
@@ -224,7 +224,7 @@ const SessionBook = () => {
     </Select>
 </FormControl>
 
-<FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' }, marginTop: '-0rem' }}>
+<FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' }, marginTop: '1rem' }}>
     <InputLabel id="start-time-label" sx={{ fontSize: '0.9rem' }}>Select Start Time</InputLabel>
     <Select
         labelId="start-time-label"
