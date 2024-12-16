@@ -17,12 +17,16 @@ import SmallCard from './components/aboutpage/SmallCard';
 import Header2 from './components/Header2';
 import UploadSession from './components/firstpage/UploadSession';
 import BecomeCreatorPage from './components/firstpage/BecomeCreatorPage';
+import Payment from './components/payment/Payment';
+import SessionSetup from './components/bookings/SessionSetup';
+import SessionBook from './components/bookings/SessionBook';
+import BookedSessions from './components/awaitings/BookedSessions';
 
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 800); // Screen width detection
-
+  const [setupData, setSetupData] = useState(null); // State to hold the session setup data
 
   // Detect screen resize and update the state
   useEffect(() => {
@@ -40,6 +44,7 @@ const App = () => {
 
 
 
+
   return (
     <Router>
       <div className="App">
@@ -51,7 +56,7 @@ const App = () => {
         <Alert />
         <Routes>
       
-
+        <Route path="/payment" element={<Payment />} />
           <Route path="/" element={<Login />} />
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
@@ -81,6 +86,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
+          <Route path="/session/:session_id/book" element={<SessionBook />} />
+          <Route path="/booked-sessions" element={<BookedSessions />} />
+            
+         
         </Routes>
       </div>
     </Router>

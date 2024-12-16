@@ -1,0 +1,27 @@
+TimezoneDisplay.css
+.form-group {
+    margin-bottom: 0px;
+    padding: 10px;   /* Add some padding */
+    /* position: relative; */
+    /* z-index: 1000;     */
+}
+
+.current-time {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.select-container {
+    /* z-index: 1; */
+    margin-bottom: 15px;
+}
+
+
+.dropdown-select {
+    position: relative;
+    z-index: 1008; /* Ensure it is higher than other elements */
+}
+
+.dropdown-select .css-26l3qy-menu {
+    z-index: 1010; /* Dropdown menu */
+}

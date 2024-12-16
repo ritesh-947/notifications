@@ -1,0 +1,141 @@
+/* Scheduler.css */
+
+/* General styling for the container */
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* Card styling */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Header title */
+h1, h2 {
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Subtitle styling */
+h2 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* DatePicker input styling */
+.date-picker {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.date-picker:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 4px rgba(25, 118, 210, 0.5);
+}
+
+/* Timezone section */
+.timezone-section {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+}
+
+/* Available timeslots grid */
+.timeslots-section {
+    margin-top: 30px;
+}
+
+.timeslots-section h6 {
+    font-weight: bold;
+    color: #333;
+}
+
+.timeslots-section .timeslot-btn {
+    margin: 8px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.timeslots-section .timeslot-btn.available {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+}
+
+.timeslots-section .timeslot-btn.available:hover {
+    background-color: #1976d2;
+    color: #fff;
+}
+
+.timeslots-section .timeslot-btn.booked {
+    background-color: #ffcccb;
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+    cursor: not-allowed;
+}
+
+/* Add this to your Scheduler.css */
+
+/* Add this style for booked session in green */
+.timeslot-btn.selected {
+    background-color: #4caf50;
+    color: #fff;
+    border: 1px solid #4caf50;
+}
+
+/* Ensure hover effect doesn't change green booked slots */
+.timeslot-btn.selected:hover {
+    background-color: #43a047;
+}
+
+.timeslots-section .timeslot-btn.booked:hover {
+    background-color: #ffcccb;
+    color: #d32f2f;
+}
+
+/* Submit button */
+.submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #1976d2;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #1565c0;
+}
+
+/* Success message */
+.success-message {
+    color: #388e3c;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Error message */
+.error-message {
+    color: #d32f2f;
+    font-weight: bold;
+    margin-top: 20px;
+}

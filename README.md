@@ -2,15 +2,15 @@
 
 ## Overview
 
-This document provides instructions on setting up a Node.js backend and a React frontend for handling JWT tokens. The JWT token is sent as an HTTP-only cookie after user authentication and can be accessed across different ports.
+This document provides instructions on setting up a Node.js backend and a React frontend for handling session_id and storing them in localstorage for different port usage.
 
 ## Backend (Server Setup)
 
-1. **Setup `cookie-parser` and CORS:**
+1. **Setup CORS:**
 
-   The `login`In your `server.js`, ensure you’ve already set up `cookie-parser` and configured CORS to allow credentials from specific origins. This configuration allows cookies to be sent with requests to and from your server.
+   The `login`In your `server.js`, ensure you’ve configured CORS to allow credentials from specific origins. This configuration allows cookies to be sent with requests to and from your server.
 
-2. **Login Route:**
+<!-- 2. **Login Route:**
 
    route in your `user.js` file generates a JWT token and sets it as an HTTP-only cookie. Here’s the relevant code snippet:
 
@@ -23,11 +23,11 @@ This document provides instructions on setting up a Node.js backend and a React 
      secure: false, // Set to true if using HTTPS
      maxAge: 3600000, // 1 hour
    });
-   ```
+   ``` -->
 
 ---
 
-Your login.js file is well-structured, handling user registration, login, and authentication using JWTs stored in cookies. Below is an overview of your setup, followed by a few suggestions to improve security and handling.
+<!-- Your login.js file is well-structured, handling user registration, login, and authentication using JWTs stored in cookies. Below is an overview of your setup, followed by a few suggestions to improve security and handling. -->
 
 Overview:
 
@@ -38,10 +38,10 @@ Overview:
     •	The user’s profile is initialized with a default template in the user_profile table.
     2.	User Login:
     •	Users can log in with their email and password.
-    •	If the credentials are valid, a JWT is generated and stored in an HTTP-only cookie.
+    <!-- •	If the credentials are valid, a JWT is generated and stored in an HTTP-only cookie. -->
     •	The user’s profile information (username and full name) is retrieved and sent back in the response.
-    3.	Authentication Middleware:
-    •	The auth middleware verifies the presence and validity of the JWT stored in the cookie before allowing access to protected routes.
+    <!-- 3.	Authentication Middleware:
+    •	The auth middleware verifies the presence and validity of the JWT stored in the cookie before allowing access to protected routes. -->
 
 Suggestions for Improvement:
 
@@ -68,18 +68,18 @@ To receive and send cookies between your client (frontend) and server (backend),
 
 ### 1. Setting the Cookie in the Server Response
 
-You've already configured your backend to set the cookie using `res.cookie`. Make sure that when you set the cookie, it is properly configured for cross-origin requests if your frontend and backend are on different origins.
+<!-- You've already configured your backend to set the cookie using `res.cookie`. Make sure that when you set the cookie, it is properly configured for cross-origin requests if your frontend and backend are on different origins. -->
 
 Example:
 
-```javascript
+<!-- ```javascript
 res.cookie("token", token, {
   httpOnly: true, // Prevent access from JavaScript
   secure: false, // Set to true if you're using HTTPS
   sameSite: "Lax", // Controls cookie sending in cross-origin requests
   maxAge: 3600000, // 1 hour
 });
-```
+``` -->
 
 ### 2. Configure the Frontend to Include Cookies in Requests
 
@@ -130,7 +130,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 ```
 
-### 4. Accessing the Cookie in Subsequent Requests
+<!-- ### 4. Accessing the Cookie in Subsequent Requests
 
 Once the cookie is set, it will be included in subsequent requests to your backend. On the server side, you can access the cookie using `req.cookies` (provided by the `cookie-parser` middleware):
 
@@ -147,7 +147,7 @@ try {
 } catch (err) {
   res.status(400).json({ error: "Invalid token" });
 }
-```
+``` -->
 
 ### 5. Testing
 
@@ -177,3 +177,21 @@ If you prefer, you can download the HTML code provided by FreePrivacyPolicy and 
     •	Go back to the App Settings in the Facebook Developer Console, and replace the Privacy Policy URL with the URL of your newly created page.
     7.	Save Changes:
     •	Don’t forget to save the changes after updating the URL.
+
+--- 11/12/24 ---
+Deployment Notes 1. Environment Variables:
+Ensure CASHFREE_APP_ID and CASHFREE_SECRET_KEY are securely stored in your backend environment variables. 2. HTTPS Requirement:
+Payments require your site to run on HTTPS for secure transactions.
+
+--schedule--
+
+example availibilty timeperiod :
+{
+"start": "09:00 AM",
+"end": "06:00 PM"
+}
+create a react component that takes input sessions start time in according to availability timeperiod here: 9:00 AM, 10:00 AM, 11:00 AM,...18:00 PM
+
+also duration input, if 15minutes at sessions table then take only 15 to choose, if 30 then 30, if duration is both then show both 15&30 minutes to choose,
+booked status default is false, if booked then true,
+also take date as input ,thoughts as input also,I will say more but for now do this from scartch
