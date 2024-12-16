@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import './SessionBook.css';
 
 import {
     Button,
@@ -173,18 +173,19 @@ const SessionBook = () => {
 
     return (
         <Container maxWidth="md">
-            <Card>
+          <Card sx={{ padding: 1, marginTop: 7, borderRadius: 2, boxShadow: 1 }}>
                 <CardContent>
-                    <Typography variant="h4" gutterBottom>
-                        Book Session: {sessionData.session_title}<Tooltip title="Booking Time must be at least 2 hours after the current time.">
-                            <IconButton>
-                                <InfoIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </Typography>
+                <Typography variant="h6" gutterBottom sx={{ color: 'green', marginTop:"-2rem" }} >
+    Book Session: {sessionData.session_title}
+    <Tooltip title="Booking Time must be at least 2 hours after the current time.">
+        <IconButton>
+            <InfoIcon />
+        </IconButton>
+    </Tooltip>
+</Typography>
 
-                    <FormControl fullWidth margin="normal">
-                        <Typography variant="h6">Select Date</Typography>
+<FormControl fullWidth margin="normal" sx={{ zIndex: 2 }}>
+                        <Typography variant="">Select Date</Typography>
                         <DatePicker
                             selected={date}
                             onChange={(date) => setDate(date)}
@@ -194,48 +195,71 @@ const SessionBook = () => {
                         />
                     </FormControl>
 
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel id="duration-label">Select Duration</InputLabel>
-                        
-                        <Select
-                            labelId="duration-label"
-                            value={selectedDuration}
-                            onChange={(e) => setSelectedDuration(e.target.value)}
-                        >
-                            {durationOptions.map((opt) => (
-                                <MenuItem key={opt} value={opt}>
-                                    {opt} minutes
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        
-                    </FormControl>
+                    <FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' } , marginTop: '-1rem' }}>
+    <InputLabel id="duration-label" sx={{ fontSize: '0.9rem' }}>Select Duration</InputLabel>
+    <Select
+        labelId="duration-label"
+        value={selectedDuration}
+        onChange={(e) => setSelectedDuration(e.target.value)}
+        sx={{
+            height: '2.5rem', // Adjust height of the select input
+            fontSize: '0.9rem', // Adjust font size inside the select input
+           
+            
+        }}
+    >
+        {durationOptions.map((opt) => (
+            <MenuItem 
+                key={opt} 
+                value={opt} 
+                sx={{
+                    fontSize: '0.9rem', // Adjust font size of menu items
+                    lineHeight: '1.2', // Adjust line height for a compact look
+                    paddingY: '4px', // Reduce vertical padding
+                }}
+            >
+                {opt} minutes
+            </MenuItem>
+        ))}
+    </Select>
+</FormControl>
 
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel id="start-time-label">Select Start Time</InputLabel>
-                        <Select
-                            labelId="start-time-label"
-                            value={startTime}
-                            onChange={(e) => setStartTime(e.target.value)}
-                        >
-                            {filterAvailableTimes().map((time) => (
-                                <MenuItem key={time} value={time}>
-                                    {time}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    
+<FormControl fullWidth margin="normal" sx={{ '& .MuiInputBase-root': { height: '2.5rem' }, marginTop: '-0rem' }}>
+    <InputLabel id="start-time-label" sx={{ fontSize: '0.9rem' }}>Select Start Time</InputLabel>
+    <Select
+        labelId="start-time-label"
+        value={startTime}
+        onChange={(e) => setStartTime(e.target.value)}
+        sx={{
+            height: '2.5rem', // Adjust height of the select input
+            fontSize: '0.9rem', // Adjust font size inside the select input
+        }}
+    >
+        {filterAvailableTimes().map((time) => (
+            <MenuItem 
+                key={time} 
+                value={time} 
+                sx={{
+                    fontSize: '0.9rem', // Adjust font size of menu items
+                    lineHeight: '1.2', // Adjust line height for a compact look
+                    paddingY: '4px', // Reduce vertical padding
+                }}
+            >
+                {time}
+            </MenuItem>
+        ))}
+    </Select>
+</FormControl>
 
                     <TextField
-                        label="Your Thoughts (Optional)"
+                        label="Your Thoughts (Recommended)"
                         multiline
-                        rows={4}
+                        rows={1}
                         fullWidth
                         margin="normal"
                         value={thoughts}
                         onChange={(e) => setThoughts(e.target.value)}
-                        placeholder="Add any additional notes for the session"
+                        placeholder="Describe your issue or topic here, you wanna discuss.."
                     />
 
                     <Button
