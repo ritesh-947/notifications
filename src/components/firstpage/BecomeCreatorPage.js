@@ -28,6 +28,7 @@ const becomeCreator = async () => {
     console.log('Session ID:', token);
 
     return axios.post('http://localhost:3122/api/become-creator', {}, {
+    // return axios.post('https://creator-server.onrender.com/api/become-creator', {}, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true, // Ensure cookies are sent
     });
