@@ -19,11 +19,17 @@ const WebRTCVideoCall = ({ roomId }) => {
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [isRemoteDescriptionSet, setIsRemoteDescriptionSet] = useState(false);
-  
+
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
   const peerConnectionRef = useRef(null);
-  const socket = useRef(io('http://localhost:3014', { transports: ['websocket'] }));
+const serverURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://videocall-server-wk4x.onrender.com' // Production server
+    : 'http://localhost:3014'; // Development server
+
+const socket = useRef(io(serverURL, { transports: ['websocket'] }));
+
 
   // Initialize WebRTC connection
   useEffect(() => {
