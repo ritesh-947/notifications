@@ -6,6 +6,7 @@ import TimezoneDisplay from './TimezoneDisplay';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import InfoIcon from '@mui/icons-material/Info';
+import { Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import LockIcon from '@mui/icons-material/Lock';
 import {
@@ -127,7 +128,7 @@ const UploadSession = () => {
   
     if (!creator_id) {
       console.warn('No creator ID found. Redirecting to become-creator page...');
-      window.location.href = '/become-creator';
+      // window.location.href = '/become-creator';
     } else {
       setCreatorId(creator_id);
     }
@@ -488,16 +489,25 @@ const UploadSession = () => {
 
 
   return (
-    <form onSubmit={handleSubmit} className="session-form">
+    
+<form onSubmit={handleSubmit} className="session-form" style={{ marginTop: '4rem' }}>
       {error && (
+        
   <div
     className="error-message"
     dangerouslySetInnerHTML={{ __html: error }}
   />
 )}
 
-      <span className="step-indicator">Step {step} of 3</span>
 
+      <span className="step-indicator" >Step {step} of 3</span>
+
+      <Typography 
+variant="body1" 
+sx={{ color: 'blue', fontStyle: 'italic', textAlign: 'center', mt: 2,  marginTop: '-1rem' }}
+>
+You can upload a maximum of 4 sessions.
+</Typography>
       {step === 1 && (
         <>
           <div className="form-group">
@@ -511,6 +521,7 @@ const UploadSession = () => {
               maxLength="100"
               required
             />
+          
           </div>
 
           <div className="form-group">
@@ -569,6 +580,8 @@ const UploadSession = () => {
           </div>
           </>
       )}
+
+
 
       {step === 2 && (
         <>
@@ -742,6 +755,7 @@ const UploadSession = () => {
           <button type="submit" className="submit-button" disabled={sessionCount >= maxSessionLimit}>Submit</button>
         )}
       </div>
+      
     </form>
   );
 };

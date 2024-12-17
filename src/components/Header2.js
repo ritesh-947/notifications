@@ -32,7 +32,7 @@ const Header2 = ({ onSearch }) => {
   const handleVideoUploadClick = () => {
     const redirectUrl = user?.role === 'creator'
       ? 'upload'
-      : '/become-creator';
+      : '/upload';
     window.location.href = redirectUrl;
   };
 
