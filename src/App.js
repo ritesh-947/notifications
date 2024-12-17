@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes,useParams } from 'react-router-dom';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Alert from './components/Alert'; //
 import ResetPasswordForm from './components/ResetPasswordForm';
 import HomePage from './components/homepage/HomePage';
-import Chat from './components/Message/Chat'
 
 import Header from './components/Header';
 import PostQuestion from './components/public/PostQuestion';
@@ -21,6 +20,9 @@ import Payment from './components/payment/Payment';
 import SessionSetup from './components/bookings/SessionSetup';
 import SessionBook from './components/bookings/SessionBook';
 import BookedSessions from './components/awaitings/BookedSessions';
+
+import WebRTCVideoCall from './components/call/WebRTCVideoCall';
+import Chat from './components/call/Chat';
 
 
 const App = () => {
@@ -42,6 +44,11 @@ const App = () => {
     setSearchQuery(query);
   };
 
+  const RoomPage = () => {
+    const { roomId } = useParams(); // Extract 'roomId' from the URL
+    console.log('Room ID from URL:', roomId); // Debugging log
+    return <WebRTCVideoCall roomId={roomId} />;
+  };
 
 
 
@@ -88,7 +95,8 @@ const App = () => {
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
           <Route path="/session/:session_id/book" element={<SessionBook />} />
           <Route path="/booked-sessions" element={<BookedSessions />} />
-            
+          
+          <Route path="/room/:roomId" element={<RoomPage />} />
          
         </Routes>
       </div>
