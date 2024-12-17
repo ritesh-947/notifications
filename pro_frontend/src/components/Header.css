@@ -1,0 +1,101 @@
+/* Header.css */
+.o1-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  margin-top: -1.5rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.o1-header-left,
+.o1-header-center,
+.o1-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.o1-logo-image {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.o1-categories {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.o1-categories:hover {
+  text-decoration: underline;
+}
+
+.o1-search-input {
+  padding: 10px;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px 0 0 20px;
+  width: 300px;
+  font-size: 1rem;
+}
+
+.o1-search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.o1-search-button {
+  padding: 10px 15px;
+  margin-left: -1px; /* To remove gap between input and button */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.o1-search-button:hover {
+  background-color: #0056b3;
+}
+
+.o1-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.o1-icon:hover {
+  transform: scale(1.2);
+}
+
+.o1-icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.o1-login-button{
+  margin-left: 3rem;
+}
+
+.o1-back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.o1-back-button:hover {
+  color: #007bff;
+}

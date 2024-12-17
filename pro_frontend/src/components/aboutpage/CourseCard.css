@@ -1,0 +1,71 @@
+.course-card-container {
+  width: 60%;
+  margin: 45px auto; /* Center the container vertically and horizontally */
+  margin-right: auto;
+  word-wrap: break-word;
+  margin-left: 0%;
+  transition: all 0.3s ease; /* Smooth transition for responsive changes */
+}
+
+.course-description-card {
+  background-color: rgba(33, 150, 243, 0.1); 
+  border: 1px solid rgba(33, 150, 243, 0.2);
+  padding: 0px;
+
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease; 
+}
+
+.course-description-card:hover {
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.2); /* Hover effect for more depth */
+}
+
+
+.header-with-icon {
+  display: flex;
+  align-items: center;
+  
+}
+
+
+
+.course-header {
+  font-size: 1.8rem;
+  color: #1e88e5; /* Darker blue for the header */
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.description-text {
+  color: #333; /* Dark text color for readability */
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-right: 10rem;
+}
+/* Styling for the creator info card */
+.creator-info-card {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.2); 
+
+  border-radius: 8px;
+
+  transition: box-shadow 0.3s ease; 
+}
+
+.creator-info-card:hover {
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.2); /* Hover effect for more depth */
+}
+
+
+
+@media (min-width: 750px) {
+  .course-card-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 750px) {
+  .course-card-container {
+    width: 100%;
+  }
+}

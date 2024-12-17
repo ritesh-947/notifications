@@ -1,0 +1,152 @@
+/* Custom Share Modal */
+.custom-dialog {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    border-radius: 12px;  /* Softer corners */
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);  /* Subtle shadow */
+    overflow: hidden;
+    padding-bottom: 16px;  /* Added padding at the bottom */
+}
+
+.custom-dialog-title {
+    background-color: #005bb5;  /* Darker blue */
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-dialog-title .share-title {
+    font-weight: 600;  /* Bolder title */
+    font-size: 20px;  /* Larger font */
+}
+
+.custom-dialog-content {
+    padding: 24px;  /* Increased padding for more space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.share-description {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.social-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;  /* Adjusted for more consistent spacing */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.social-buttons-container button {
+    width: 48%;  /* Two buttons per row */
+    min-width: 120px;  /* Ensure the button has a minimum width */
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;  /* Softer corners for buttons */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;  /* Faster and smoother hover animation */
+}
+
+.social-buttons-container button:hover {
+    transform: translateY(-1px);  /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Less intense shadow on hover */
+}
+
+/* Ensure correct button colors */
+.whatsapp-btn {
+    background-color: #25D366 !important;
+    color: white !important;
+}
+
+.facebook-btn {
+    background-color: #4267B2 !important;
+    color: white !important;
+}
+
+.linkedin-btn {
+    background-color: #0077B5 !important;
+    color: white !important;
+}
+
+.twitter-btn {
+    background-color: #1DA1F2 !important;
+    color: white !important;
+}
+
+.instagram-btn {
+    background-color: #E1306C !important;
+    color: white !important;
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.share-link-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.share-link-input:focus {
+    border-color: #005bb5;  /* Blue border on focus */
+    outline: none;
+}
+
+.copy-btn {
+    background-color: #005bb5;
+    color: white;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;  /* Bolder text */
+    padding: 10px 0;
+    border-radius: 8px;  /* Softer corners */
+    transition: background-color 0.2s;
+}
+
+.copy-btn:hover {
+    background-color: #004494;  /* Darker blue on hover */
+}
+
+@media (max-width: 1080px) {
+    .custom-dialog {
+        width: 100%;
+        max-width: none;
+    }
+
+    .social-buttons-container button {
+        width: 100%;  /* Buttons stack vertically on smaller screens */
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .share-link-input {
+        font-size: 13px;  /* Adjust font size for smaller screens */
+    }
+
+    .copy-btn {
+        font-size: 13px;  /* Adjust button font size for smaller screens */
+    }
+}

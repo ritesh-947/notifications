@@ -1,0 +1,173 @@
+/* General styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin-top: 2rem;
+  color: #333;
+}
+
+.home-page {
+  padding: 20px;
+}
+
+.user-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user-info h2 {
+  font-size: 24px;
+  color: #4caf50;
+  margin: 0;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.video-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 180px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555;
+
+}
+
+.video-card iframe {
+  width: 100%;
+  height: 180px;
+
+}
+
+.video-content {
+  padding: 15px;
+}
+
+/* Ensure title does not overflow */
+.video-content h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #333;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  overflow: hidden; 
+   max-width: 100%; 
+   display: block;
+}
+
+/* Ensure languages do not overflow */
+.video-content p.languages {
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  max-width: 100%; /* Restrict to container width */
+  display: block;
+}
+
+.video-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.video-content div {
+  margin: 10px 0;
+}
+
+.video-content div svg {
+  margin-right: 5px;
+  color: #007bff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.view-more-button,
+.book-session-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-more-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.view-more-button:hover {
+  background-color: #0056b3;
+}
+
+.book-session-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.book-session-button:hover {
+  background-color: #1e7e34;
+}
+
+@media screen and (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .video-card iframe {
+    height: 160px;
+  }
+
+  .video-content h3 {
+    font-size: 16px;
+  }
+
+  .video-content p {
+    font-size: 13px;
+  }
+
+  .view-more-button,
+  .book-session-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+.auth-message {
+  background-color: #e1ddff;
+  color: rgb(0, 3, 170);
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
