@@ -5,6 +5,8 @@ import SignUp from './components/SignUp';
 import Alert from './components/Alert'; //
 import ResetPasswordForm from './components/ResetPasswordForm';
 import HomePage from './components/homepage/HomePage';
+import Sidebar from './components/Sidebar';
+
 
 import Header from './components/Header';
 import PostQuestion from './components/public/PostQuestion';
@@ -44,11 +46,25 @@ const App = () => {
     setSearchQuery(query);
   };
 
-  const RoomPage = () => {
-    const { roomId } = useParams(); // Extract 'roomId' from the URL
-    console.log('Room ID from URL:', roomId); // Debugging log
-    return <WebRTCVideoCall roomId={roomId} />;
-  };
+ // Combined RoomPage for Video Call and Chat
+const RoomPage = () => {
+  const { roomId } = useParams(); // Extract room ID from the URL
+
+  return (
+    <div className="app-container">
+      {/* WebRTC Video Call Component */}
+      <div className="video-call-section">
+        <WebRTCVideoCall roomId={roomId} />
+      </div>
+
+      {/* Chat Component */}
+      <div className="chat-section">
+        <Chat />
+      </div>
+    </div>
+  );
+};
+
 
 
 
@@ -60,6 +76,7 @@ const App = () => {
         ) : (
           <Header onSearch={handleSearch} />
         )}
+          <Sidebar />
         <Alert />
         <Routes>
       
@@ -95,8 +112,11 @@ const App = () => {
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
           <Route path="/session/:session_id/book" element={<SessionBook />} />
           <Route path="/booked-sessions" element={<BookedSessions />} />
+
           
+
           <Route path="/room/:roomId" element={<RoomPage />} />
+   
          
         </Routes>
       </div>

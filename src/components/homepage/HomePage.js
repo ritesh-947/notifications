@@ -76,11 +76,7 @@ const HomePage = ({ searchQuery }) => {
     setFilteredVideos(filtered.slice(0, 12)); // Limit to 12 results
   }, [searchQuery, videos]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('sessionId'); // Clear session ID
-    setAuthMessage('Need to Login to Book Sessions...'); // Show auth message on logout
-    setUser(null);
-  };
+ 
 
   const convertToEmbedURL = (url) => {
     let videoId = '';
@@ -125,7 +121,7 @@ const HomePage = ({ searchQuery }) => {
       {user && (
         <div className="user-info">
           <h2>Welcome, {user.username}!</h2>
-          <button onClick={handleLogout}>Logout</button>
+
         </div>
       )}
       <div className="video-grid">

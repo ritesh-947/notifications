@@ -39,8 +39,8 @@ const SessionBook = () => {
 
     // Axios instance with session ID attached
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:5003', // Update this to your backend API base URL
-        baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
+        baseURL: 'http://localhost:5003', // Update this to your backend API base URL
+        // baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
     });
 
     // Attach `sessionId` from localStorage
@@ -57,8 +57,10 @@ const SessionBook = () => {
         const fetchSessionData = async () => {
             try {
                 const response = await axiosInstance.get(`/session/${session_id}`);
+                console.log('[DEBUG] Fetched session data:', response.data); // Log data
                 const session = response.data;
                 setSessionData(session);
+                console.log('[DEBUG] Fetched session data:', session); // Debug log
 
                 // Generate start times based on availability period
                 const times = [];
@@ -155,6 +157,22 @@ const SessionBook = () => {
         }
     };
 
+   // Disable unavailable dates in the DatePicker
+   const isDateAvailable = (date) => {
+    if (!sessionData || !sessionData.availability_days) {
+        console.log('[DEBUG] No session data or availability_days found.');
+        return false; // Disable all dates
+    }
+
+    const availableDays = sessionData.availability_days.map((day) => day.toLowerCase());
+    const selectedDay = moment(date).format('dddd').toLowerCase();
+
+    console.log('[DEBUG] Checking date:', moment(date).format('YYYY-MM-DD'), 'Selected day:', selectedDay);
+    console.log('[DEBUG] Available days:', availableDays);
+
+    return availableDays.includes('all day') || availableDays.includes(selectedDay);
+};
+
     if (loading) {
         return (
             <Container>
@@ -193,6 +211,7 @@ const SessionBook = () => {
                             dateFormat="yyyy-MM-dd"
                             placeholderText="Select a date"
                             minDate={new Date()} // Disallow past dates
+                            filterDate={isDateAvailable} 
                         />
                     </FormControl>
 

@@ -9,10 +9,11 @@ body {
 
 .home-page {
   padding: 20px;
+  margin-top: 2rem;
 }
 
 .user-info {
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   text-align: center;
 }
 

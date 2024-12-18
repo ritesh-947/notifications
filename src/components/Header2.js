@@ -42,6 +42,7 @@ const Header2 = ({ onSearch }) => {
       <div className="header-left">
       <img src="/IMG_1152.png" alt="Logo" className="header-logo" />
       </div>
+      
 
       {/* Center: Search */}
       <div className={`header-center ${isSearchActive ? 'active' : ''}`}>

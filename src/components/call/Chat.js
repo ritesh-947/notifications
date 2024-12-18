@@ -3,10 +3,10 @@ import io from 'socket.io-client';
 import './Chat.css';
 import { useParams } from 'react-router-dom';
 import Picker from '@emoji-mart/react';
-import { FaPaperPlane } from 'react-icons/fa';
+import { FaPaperPlane, FaComments, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 
-const socket = io('http://localhost:3051', { withCredentials: false }); // No credentials required
+const socket = io('http://localhost:3051', { withCredentials: false }); // Socket.io connection
 
 const Chat = () => {
   const { room_id } = useParams(); // Extract room ID from the URL
@@ -16,6 +16,7 @@ const Chat = () => {
   const [typing, setTyping] = useState(false);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState({ id: null, username: 'Anonymous' });
+  const [isChatOpen, setIsChatOpen] = useState(false); // Chat window state
   const messageEndRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const Chat = () => {
     fetchUserInfo();
 
     if (room_id) {
-      socket.emit('joinRoom', room_id);
+      socket.emit('joinRoom', { roomId: room_id, sessionId });
       console.log(`Joined room: ${room_id}`);
     }
 
@@ -64,28 +65,27 @@ const Chat = () => {
   }, [room_id]);
 
   const sendMessage = () => {
-    const sessionId = localStorage.getItem('session_id'); // Retrieve session_id from localStorage
+    const sessionId = localStorage.getItem('session_id');
     if (!sessionId) {
       console.error('Session ID missing in local storage');
       return;
     }
-  
+
     if (messageInput.trim() && roomId) {
       const message = {
         text: messageInput,
-        id: Math.random().toString(36).substring(7), // Unique message ID
-        timestamp: Date.now(),
-        roomId: roomId, // Room ID from params
-        sessionId: sessionId, // Session ID for user validation
+        roomId: roomId,
+        sessionId: sessionId,
       };
-  
-      console.log('Sending message:', message); // Log message payload
+
+      console.log('Sending message:', message);
       socket.emit('sendMessage', message);
-      setMessageInput(''); // Clear the input field
+      setMessageInput('');
     } else {
       console.error('Message text, roomId, or sessionId is missing');
     }
   };
+
   const scrollToBottom = () => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -95,41 +95,60 @@ const Chat = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="messages">
-        {messages.map((message) => (
-          <div key={message.id} className="message">
-            <div className="message-text">
-              <strong>{message.sender}:</strong> <p>{message.text}</p>
-              <div className="sent-time">
-                {new Date(message.timestamp).toLocaleTimeString()}
-              </div>
-            </div>
-          </div>
-        ))}
-        <div ref={messageEndRef} />
-      </div>
-
-      {typing && <div className="typing-indicator">User is typing...</div>}
-
-      <div className="input-container">
-        <input
-          type="text"
-          value={messageInput}
-          onChange={(e) => setMessageInput(e.target.value)}
-          onInput={() => socket.emit('typing')}
-          placeholder="Type a message..."
-        />
-        <span className="emoji-icon" onClick={() => setEmojiPickerVisible((prev) => !prev)}>
-          😊
-        </span>
-        {emojiPickerVisible && (
-          <Picker onEmojiSelect={handleEmojiSelect} set="apple" showPreview={false} />
-        )}
-        <button onClick={sendMessage} className="send-icon">
-          <FaPaperPlane />
+    <div className="chat-wrapper">
+      {/* Chat Button */}
+      {!isChatOpen && (
+        <button className="chat-toggle-button" onClick={() => setIsChatOpen(true)}>
+          <FaComments size={24} />
         </button>
-      </div>
+      )}
+
+      {/* Chat Window */}
+      {isChatOpen && (
+        <div className="chat-container">
+          <div className="chat-header">
+            <span>Chat Room: {roomId}</span>
+            <button className="chat-close-button" onClick={() => setIsChatOpen(false)}>
+              <FaTimes />
+            </button>
+          </div>
+
+          <div className="messages">
+            {messages.map((message, index) => (
+              <div key={index} className="message">
+                <div className="message-text">
+                  <strong>{message.username || 'User'}:</strong> {message.text}
+                  <div className="sent-time">
+                    {new Date(message.timestamp).toLocaleTimeString()}
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div ref={messageEndRef} />
+          </div>
+
+          {typing && <div className="typing-indicator">User is typing...</div>}
+
+          <div className="input-container">
+            <input
+              type="text"
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              onInput={() => socket.emit('typing')}
+              placeholder="Type a message..."
+            />
+            <span className="emoji-icon" onClick={() => setEmojiPickerVisible((prev) => !prev)}>
+              😊
+            </span>
+            {emojiPickerVisible && (
+              <Picker onEmojiSelect={handleEmojiSelect} set="apple" showPreview={false} />
+            )}
+            <button onClick={sendMessage} className="send-icon">
+              <FaPaperPlane />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
