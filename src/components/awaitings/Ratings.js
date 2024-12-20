@@ -17,7 +17,8 @@ const Ratings = () => {
 
   // Axios instance with sessionId attached
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost:6003', // Backend API base URL
+    // baseURL: 'http://localhost:6003', // Backend API base URL
+    baseURL: 'https://ratings-server.onrender.com', // Backend API base URL
   });
 
   // Attach `sessionId` from localStorage
