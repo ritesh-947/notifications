@@ -28,7 +28,8 @@ const BookedSessions = () => {
 
   // Axios instance
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5567', // Backend API base URL
+    // baseURL: 'http://localhost:5567', // Backend API base URL
+    baseURL: 'https://awaiting-server.onrender.com', // Backend API base URL
   });
 
   // Dialog open/close handlers
