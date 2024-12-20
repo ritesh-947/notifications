@@ -22,9 +22,11 @@ import Payment from './components/payment/Payment';
 import SessionSetup from './components/bookings/SessionSetup';
 import SessionBook from './components/bookings/SessionBook';
 import BookedSessions from './components/awaitings/BookedSessions';
+import Ratings from './components/awaitings/Ratings';
 
 import WebRTCVideoCall from './components/call/WebRTCVideoCall';
 import Chat from './components/call/Chat';
+import CreatorBookedSessions from './components/awaitings/CreatorBookedSessions';
 
 
 const App = () => {
@@ -112,11 +114,12 @@ const RoomPage = () => {
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
           <Route path="/session/:session_id/book" element={<SessionBook />} />
           <Route path="/booked-sessions" element={<BookedSessions />} />
-
+          <Route path="/creator-sessions" element={<CreatorBookedSessions />} />
+          <Route path="/session/:session_id/rate" element={<Ratings />} />
           
 
           <Route path="/room/:roomId" element={<RoomPage />} />
-   
+          
          
         </Routes>
       </div>

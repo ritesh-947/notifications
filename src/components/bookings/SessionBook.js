@@ -22,8 +22,11 @@ import InfoIcon from '@mui/icons-material/Info'; // Tooltip icon
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+
 
 const SessionBook = () => {
+    
     const { session_id } = useParams();
     const [sessionData, setSessionData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -36,11 +39,12 @@ const SessionBook = () => {
     const [thoughts, setThoughts] = useState('');
     const [availableStartTimes, setAvailableStartTimes] = useState([]);
     const [bookedSlots, setBookedSlots] = useState([]);
+    const navigate = useNavigate();
 
     // Axios instance with session ID attached
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:5003', // Update this to your backend API base URL
-        baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
+        baseURL: 'http://localhost:5003', // Update this to your backend API base URL
+        // baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
     });
 
     // Attach `sessionId` from localStorage
@@ -151,6 +155,7 @@ const SessionBook = () => {
 
             const response = await axiosInstance.post('/sessions/book', payload);
             alert(`Session booked successfully! Room ID: ${response.data.booking.room_id}`);
+            navigate('/homepage'); // Redirect to /homepage after successful booking
         } catch (err) {
             console.error('[ERROR] Booking failed:', err.response?.data || err.message);
             alert('Failed to book the session. Please try again.');

@@ -54,6 +54,8 @@ const PromoCard = () => {
         return;
       }
 
+      
+
       const response = await axios.get(`https://promo-server-5iob.onrender.com/api/session/${session_id}`, {
     //   const response = await axios.get(`http://localhost:5011/api/session/${session_id}`, {
         headers: {
