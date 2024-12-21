@@ -58,7 +58,8 @@ const EditProfile = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:8084/userprofile', {
+                const response = await axios.get('https://edit-prof-js.onrender.com/userprofile', {
+                // const response = await axios.get('http://localhost:8084/userprofile', {
                     headers: {
                         Authorization: `Session ${sessionId}`, // Pass sessionId in the Authorization header
                     },
@@ -147,7 +148,8 @@ const EditProfile = () => {
         }
 
         try {
-            await axios.post('http://localhost:8084/updateprofile', profileData, {
+            await axios.post('https://edit-prof-js.onrender.com/updateprofile', profileData, {
+            // await axios.post('http://localhost:8084/updateprofile', profileData, {
                 headers: {
                     Authorization: `Session ${sessionId}`,
                     'Content-Type': 'application/json',

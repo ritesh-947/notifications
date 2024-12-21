@@ -30,7 +30,8 @@ const MySessions = () => {
 
     const fetchSessions = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/api/mysessions', {
+        const response = await axios.get('https://profile-server-gpoy.onrender.com/api/mysessions', {
+        // const response = await axios.get('http://localhost:8081/api/mysessions', {
           headers: {
             Authorization: `Session ${sessionId}`, // Use sessionId in the header
           },
@@ -73,7 +74,8 @@ const MySessions = () => {
   const saveEdit = async (id) => {
     try {
       await axios.put(
-        `http://localhost:8081/api/mysessions/${id}`,
+        `https://profile-server-gpoy.onrender.com/api/mysessions/${id}`,
+        // `http://localhost:8081/api/mysessions/${id}`,
         {
           title: editTitle,
           description: editDescription,
@@ -101,7 +103,8 @@ const MySessions = () => {
 
   const deleteSession = async (id) => {
     try {
-      await axios.delete(`http://localhost:8081/api/mysessions/${id}`, {
+      await axios.delete(`https://profile-server-gpoy.onrender.com/api/mysessions/${id}`, {
+      // await axios.delete(`http://localhost:8081/api/mysessions/${id}`, {
         headers: {
           Authorization: `Session ${sessionId}`, // Use sessionId in the header
         },
