@@ -28,7 +28,8 @@ const CreatorBookedSessions = () => {
   const navigate = useNavigate(); // Initialize navigate for React Router
 
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5567', // Backend API base URL
+    // baseURL: 'http://localhost:5567', // Backend API base URL
+    baseURL: 'https://awaiting-server.onrender.com', // Backend API base URL
   });
 
   const handleOpenThoughts = (thoughts) => {
