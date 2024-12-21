@@ -27,7 +27,10 @@ import Ratings from './components/awaitings/Ratings';
 import WebRTCVideoCall from './components/call/WebRTCVideoCall';
 import Chat from './components/call/Chat';
 import CreatorBookedSessions from './components/awaitings/CreatorBookedSessions';
-
+import MyProfile from './components/profiles/MyProfile';
+import EditProfile from './components/profiles/EditProfile';
+import ProfileDescription from './components/profiles/ProfileDescription';
+import SessionSelector from './components/profiles/SessionSelector';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -116,7 +119,14 @@ const RoomPage = () => {
           <Route path="/booked-sessions" element={<BookedSessions />} />
           <Route path="/creator-sessions" element={<CreatorBookedSessions />} />
           <Route path="/session/:session_id/rate" element={<Ratings />} />
-          
+          <Route path="/my-profile" element={
+  <>
+    <MyProfile />
+    <ProfileDescription />
+    <SessionSelector />
+  </>
+} />
+          <Route path="/edit-profile" element={<EditProfile />} />
 
           <Route path="/room/:roomId" element={<RoomPage />} />
           

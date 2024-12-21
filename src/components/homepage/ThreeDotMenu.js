@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, MenuItem, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import {
+  Menu,
+  MenuItem,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -7,100 +20,111 @@ import ShareIcon from '@mui/icons-material/Share';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReportIcon from '@mui/icons-material/Report';
 import axios from 'axios';
+import ShareModal from './ShareModal'; // Import the ShareModal component
 import './ThreeDotMenu.css';
 
-const ThreeDotMenu = ({ sessionId, onShare }) => {
+const ThreeDotMenu = ({ sessionId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isNotInterested, setIsNotInterested] = useState(false);
-  const [reportReason, setReportReason] = useState('');
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [reportReason, setReportReason] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Helper to get sessionId from localStorage
-  const getSessionId = () => localStorage.getItem('sessionId');
+  const sessionIdFromStorage = localStorage.getItem('sessionId');
 
-  // Fetch wishlist status
-  const checkWishlistStatus = async () => {
-    try {
-      const sessionId = getSessionId();
-      const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
-        params: { sessionId },
-        headers: { Authorization: `Session ${sessionId}` },
-      });
-      setIsInWishlist(response.data.isInWishlist);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error checking wishlist status:', error);
-      setLoading(false);
-    }
-  };
-
-  // Fetch "not interested" status
-  const checkNotInterestedStatus = async () => {
-    try {
-      const sessionId = getSessionId();
-      const response = await axios.get(`http://localhost:6004/api/not-interested/check`, {
-        params: { sessionId },
-        headers: { Authorization: `Session ${sessionId}` },
-      });
-      setIsNotInterested(response.data.isNotInterested);
-    } catch (error) {
-      console.error('Error checking "not interested" status:', error);
-    }
-  };
-
+  // Check wishlist status on load
   useEffect(() => {
-    if (sessionId) {
-      checkWishlistStatus();
-      checkNotInterestedStatus();
-    }
-  }, [sessionId]);
+    if (!sessionId) return;
+
+    const checkWishlistStatus = async () => {
+      console.log(`Checking wishlist status for sessionId: ${sessionId}`);
+      try {
+        const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
+          params: { sessionId },
+          headers: { Authorization: `Session ${sessionIdFromStorage}` },
+        });
+        console.log('Wishlist status:', response.data);
+        setIsInWishlist(response.data.isInWishlist);
+      } catch (error) {
+        console.error('Error checking wishlist status:', error.message);
+      }
+    };
+
+    checkWishlistStatus();
+  }, [sessionId, sessionIdFromStorage]);
 
   const handleAddOrRemoveFromWishlist = async () => {
-    const endpoint = isInWishlist ? 'remove' : 'add';
+    console.log(`Attempting to ${isInWishlist ? 'remove' : 'add'} sessionId ${sessionId} from/to wishlist`);
+    setLoading(true);
     try {
-      const sessionId = getSessionId();
-      await axios.post(`http://localhost:6004/api/wishlist/${endpoint}`, { sessionId }, {
-        headers: { Authorization: `Session ${sessionId}` },
-      });
-      setIsInWishlist(!isInWishlist);
+      const endpoint = isInWishlist ? 'remove' : 'add';
+      const response = await axios.post(
+        `http://localhost:6004/api/wishlist/${endpoint}`,
+        { sessionId },
+        {
+          headers: { Authorization: `Session ${sessionIdFromStorage}` },
+        }
+      );
+      console.log(`Wishlist update successful:`, response.data);
+      setIsInWishlist(!isInWishlist); // Toggle wishlist state
     } catch (error) {
-      console.error(`Error ${isInWishlist ? 'removing from' : 'adding to'} wishlist:`, error);
+      console.error(`Error ${isInWishlist ? 'removing from' : 'adding to'} wishlist:`, error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDontRecommend = async () => {
-    try {
-      const sessionId = getSessionId();
-      await axios.post(`http://localhost:6004/api/not-interested/add`, { sessionId }, {
-        headers: { Authorization: `Session ${sessionId}` },
-      });
-      setIsNotInterested(true);
-    } catch (error) {
-      console.error('Error marking session as not interested:', error);
-    }
+  const handleMenuOpen = (event) => {
+    console.log('Opening menu for sessionId:', sessionId);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    console.log('Closing menu');
+    setAnchorEl(null);
+  };
+
+  const handleReportDialogOpen = () => {
+    console.log('Opening report dialog for sessionId:', sessionId);
+    setReportDialogOpen(true);
+    handleMenuClose();
+  };
+
+  const handleReportDialogClose = () => {
+    console.log('Closing report dialog');
+    setReportDialogOpen(false);
   };
 
   const handleReportSubmit = async () => {
+    console.log(`Submitting report for sessionId: ${sessionId} with reason: ${reportReason}`);
     try {
-      const sessionId = getSessionId();
-      await axios.post(`http://localhost:6004/api/report`, { sessionId, reportReason }, {
-        headers: { Authorization: `Session ${sessionId}` },
-      });
+      const response = await axios.post(
+        `http://localhost:6004/api/report`,
+        { sessionId, reportReason },
+        {
+          headers: { Authorization: `Session ${sessionIdFromStorage}` },
+        }
+      );
+      console.log('Report submitted successfully:', response.data);
       setReportDialogOpen(false);
+      setReportReason(''); // Reset the report reason
     } catch (error) {
-      console.error('Error reporting session:', error);
+      console.error('Error submitting report:', error.message);
     }
   };
 
-  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
-  const handleMenuClose = () => setAnchorEl(null);
-  const handleReportDialogOpen = () => {
+  const handleShareClick = () => {
+    console.log('Opening ShareModal for sessionId:', sessionId);
+    setIsShareModalOpen(true);
     handleMenuClose();
-    setReportDialogOpen(true);
   };
-  const handleReportDialogClose = () => setReportDialogOpen(false);
+
+  const handleShareModalClose = () => {
+    console.log('Closing ShareModal');
+    setIsShareModalOpen(false);
+  };
 
   return (
     <div>
@@ -109,12 +133,29 @@ const ThreeDotMenu = ({ sessionId, onShare }) => {
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleAddOrRemoveFromWishlist} disabled={loading}>
-          {loading ? 'Loading...' : isInWishlist ? <><FavoriteIcon /> Remove from Wishlist</> : <><FavoriteBorderIcon /> Add to Wishlist</>}
+          {loading ? (
+            'Loading...'
+          ) : isInWishlist ? (
+            <>
+              <FavoriteIcon /> Remove from Wishlist
+            </>
+          ) : (
+            <>
+              <FavoriteBorderIcon /> Add to Wishlist
+            </>
+          )}
         </MenuItem>
-        <MenuItem onClick={handleDontRecommend} disabled={isNotInterested}>
-          {isNotInterested ? <><ThumbDownIcon /> Marked as Not Interested</> : <><ThumbDownIcon /> Don't Recommend</>}
+        <MenuItem
+          disabled={isNotInterested}
+          onClick={() => {
+            console.log(`Marking sessionId ${sessionId} as not interested`);
+            setIsNotInterested(true);
+          }}
+        >
+          <ThumbDownIcon />
+          {isNotInterested ? 'Marked as Not Interested' : "Don't Recommend"}
         </MenuItem>
-        <MenuItem onClick={() => { console.log('Share clicked'); onShare(); }}>
+        <MenuItem onClick={handleShareClick}>
           <ShareIcon /> Share
         </MenuItem>
         <MenuItem onClick={handleReportDialogOpen}>
@@ -122,6 +163,10 @@ const ThreeDotMenu = ({ sessionId, onShare }) => {
         </MenuItem>
       </Menu>
 
+      {/* Share Modal */}
+      <ShareModal open={isShareModalOpen} handleClose={handleShareModalClose} sessionId={sessionId} />
+
+      {/* Report Dialog */}
       <Dialog open={reportDialogOpen} onClose={handleReportDialogClose}>
         <DialogTitle>Report Session</DialogTitle>
         <DialogContent>
@@ -135,8 +180,12 @@ const ThreeDotMenu = ({ sessionId, onShare }) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleReportDialogClose} color="primary">Cancel</Button>
-          <Button onClick={handleReportSubmit} color="primary" disabled={!reportReason}>Submit</Button>
+          <Button onClick={handleReportDialogClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleReportSubmit} color="primary" disabled={!reportReason}>
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

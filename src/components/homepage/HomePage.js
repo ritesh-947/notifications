@@ -28,8 +28,8 @@ const HomePage = ({ searchQuery }) => {
     try {
       const sessionId = localStorage.getItem('sessionId');
 
-      const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
-      // const response = await axios.get('http://localhost:6001/api/sessions', {
+      // const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
+      const response = await axios.get('http://localhost:6001/api/sessions', {
         headers: {
           Authorization: sessionId ? `Session ${sessionId}` : '',
         },
@@ -45,27 +45,44 @@ const HomePage = ({ searchQuery }) => {
 
       setVideos(formattedVideos);
 
+
+     
+
       if (user) {
         setUser(user);
         setAuthMessage(''); // Clear any auth message if logged in
       }
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching videos:', error.message);
+     // Increment impressions for visible sessions
+     const sessionIds = formattedVideos.map((video) => video.session_id);
+     await incrementImpressions(sessionIds);
 
-      // Check if unauthorized and display auth message
-      if (error.response?.status === 401) {
-        setAuthMessage('Need to Login to Book Sessions...');
-      }
+     setLoading(false);
+   } catch (error) {
+     console.error('Error fetching videos:', error.message);
 
-      setLoading(false);
-    }
-  };
+     if (error.response?.status === 401) {
+       setAuthMessage('Need to Login to Book Sessions...');
+     }
 
-  useEffect(() => {
-    fetchVideos();
-  }, []);
+     setLoading(false);
+   }
+ };
 
+ 
+ const incrementImpressions = async (sessionIds) => {
+  try {
+    // await axios.post('http://localhost:6001/api/sessions/increment-impressions', {
+    await axios.post('https://home-server-x9xg.onrender.com/api/increment-impressions', {
+      sessionIds,
+    });
+  } catch (error) {
+    console.error('Error incrementing impressions:', error.response?.data || error.message);
+  }
+};
+
+useEffect(() => {
+  fetchVideos();
+}, []);
   
 
   useEffect(() => {
@@ -172,7 +189,8 @@ const HomePage = ({ searchQuery }) => {
   <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
 </p>
 <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-  <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days}
+  <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '8px' }} />
+  Available: {video.availability_days.map((day) => day.slice(0, 3)).join(', ')}
 </p>
 <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
   <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
@@ -181,8 +199,18 @@ const HomePage = ({ searchQuery }) => {
   <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}
 </p>
 <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-  <FontAwesomeIcon icon={faStar} /> Rating: {video.avg_rating.toFixed(2)}{' '}
-  <FontAwesomeIcon icon={faUsers} /> ({video.ratings_count} ratings)
+  <FontAwesomeIcon 
+    icon={faStar} 
+    style={{ 
+      color: video.avg_rating > 3.7 ? '#FFD700' : 'gray', // Golden color if rating > 3.7, gray otherwise
+
+
+
+      padding: '2px' // Space between border and icon
+    }} 
+  /> 
+  Rating: {video.avg_rating.toFixed(2)}{' '}
+ ({video.ratings_count} ratings)
 </p>
 <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
   <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count}

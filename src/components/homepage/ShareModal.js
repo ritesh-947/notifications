@@ -1,16 +1,24 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, IconButton, Button, Box, Typography } from '@mui/material';
-import { WhatsApp, Facebook, LinkedIn, Twitter, Instagram } from '@mui/icons-material';  // Added Instagram
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Button,
+  Box,
+  Typography,
+} from '@mui/material';
+import { WhatsApp, Facebook, LinkedIn, Twitter } from '@mui/icons-material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink, faXmark } from '@fortawesome/free-solid-svg-icons';
-import './ShareModal.css'; // Custom CSS for ShareModal
+import { faLink, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './ShareModal.css'; // Add your custom styles if needed
 
 const ShareModal = ({ open, handleClose, sessionId }) => {
-  const shareUrl = `http://localhost:3345/session/${sessionId}`;
+  const shareUrl = `https://wanloft.com/session/${sessionId}`; // Replace with your session URL
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
-    alert("Link copied to clipboard");
+    alert('Link copied to clipboard!');
   };
 
   return (
@@ -27,86 +35,87 @@ const ShareModal = ({ open, handleClose, sessionId }) => {
           borderRadius: '12px',
         },
       }}
-      className="custom-dialog"
     >
-      <DialogTitle className="custom-dialog-title">
-        <Typography variant="h5" className="share-title">
+      <DialogTitle>
+        <Typography variant="h6" style={{ fontWeight: 'bold', textAlign: 'center' }}>
           Share This Session
         </Typography>
         <IconButton
           aria-label="close"
           onClick={handleClose}
-          sx={{ position: 'absolute', right: 8, top: 8 }}
+          style={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <FontAwesomeIcon icon={faXmark} />
+          <FontAwesomeIcon icon={faTimes} />
         </IconButton>
       </DialogTitle>
-      <DialogContent className="custom-dialog-content">
-        <Typography variant="subtitle1" className="share-description">
-          Check Out This Session At WebChat. Click The Link Below To Find More About The Session.
+
+      <DialogContent style={{ textAlign: 'center' }}>
+        <Typography variant="subtitle1" style={{ marginBottom: '20px' }}>
+          Share this session with your friends or colleagues.
         </Typography>
 
-        <Box className="social-buttons-container">
+        <Box display="flex" justifyContent="center" flexWrap="wrap" gap="15px" marginBottom="20px">
           <Button
             variant="contained"
-            className="whatsapp-btn"
-            href={`https://api.whatsapp.com/send?text=${shareUrl}`}
-            target="_blank"
+            color="success"
             startIcon={<WhatsApp />}
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
           >
             WhatsApp
           </Button>
 
           <Button
             variant="contained"
-            className="facebook-btn"
-            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
-            target="_blank"
+            color="primary"
             startIcon={<Facebook />}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
           >
             Facebook
           </Button>
 
           <Button
             variant="contained"
-            className="linkedin-btn"
-            href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`}
-            target="_blank"
+            color="secondary"
             startIcon={<LinkedIn />}
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
           >
             LinkedIn
           </Button>
 
           <Button
             variant="contained"
-            className="twitter-btn"
-            href={`https://twitter.com/intent/tweet?url=${shareUrl}`}
-            target="_blank"
+            color="info"
             startIcon={<Twitter />}
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`}
+            target="_blank"
           >
             Twitter
           </Button>
-
-          <Button
-            variant="contained"
-            className="instagram-btn"
-            href={`https://www.instagram.com/?url=${shareUrl}`}
-            target="_blank"
-            startIcon={<Instagram />}
-          >
-            Instagram
-          </Button>
         </Box>
 
-        <Box className="link-container">
+        <Box display="flex" justifyContent="center" alignItems="center" gap="10px">
           <input
             type="text"
             value={shareUrl}
             readOnly
-            className="share-link-input"
+            style={{
+              width: '80%',
+              padding: '8px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+              fontSize: '14px',
+            }}
           />
-          <Button onClick={copyToClipboard} variant="contained" className="copy-btn">
-            <FontAwesomeIcon icon={faLink} /> Copy Link
+          <Button
+            variant="contained"
+            color="default"
+            onClick={copyToClipboard}
+            startIcon={<FontAwesomeIcon icon={faLink} />}
+          >
+            Copy Link
           </Button>
         </Box>
       </DialogContent>

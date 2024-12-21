@@ -15,6 +15,8 @@ import {
 import { AccessTime, Person, HourglassEmpty, Timer } from '@mui/icons-material';
 import moment from 'moment-timezone';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './CreatorBookedSessions.css';
+
 
 const CreatorBookedSessions = () => {
   const [sessions, setSessions] = useState([]);
