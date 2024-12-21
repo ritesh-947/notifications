@@ -59,7 +59,12 @@ const CreatorBookedSessions = () => {
       const past = [];
 
       response.data.forEach((session) => {
+        const sessionStart = moment.tz(`${session.date} ${session.start_time}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
         const sessionEnd = moment.tz(`${session.date} ${session.end_time}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
+        
+        const joinableStart = sessionStart.clone().subtract(50, 'minutes'); // Adjusted to 50 hours
+        // const joinableStart = sessionStart.clone().subtract(50, 'hours'); // Adjusted to 50 hours
+        session.joinable = now.isBetween(joinableStart, sessionEnd);
 
         if (sessionEnd.isBefore(now)) {
           if (sessionEnd.isAfter(oneWeekAgo)) {

@@ -43,8 +43,8 @@ const SessionBook = () => {
 
     // Axios instance with session ID attached
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:5003', // Update this to your backend API base URL
-        baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
+        baseURL: 'http://localhost:5003', // Update this to your backend API base URL
+        // baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
     });
 
     // Attach `sessionId` from localStorage
@@ -162,21 +162,23 @@ const SessionBook = () => {
         }
     };
 
-   // Disable unavailable dates in the DatePicker
-   const isDateAvailable = (date) => {
-    if (!sessionData || !sessionData.availability_days) {
-        console.log('[DEBUG] No session data or availability_days found.');
-        return false; // Disable all dates
-    }
-
-    const availableDays = sessionData.availability_days.map((day) => day.toLowerCase());
-    const selectedDay = moment(date).format('dddd').toLowerCase();
-
-    console.log('[DEBUG] Checking date:', moment(date).format('YYYY-MM-DD'), 'Selected day:', selectedDay);
-    console.log('[DEBUG] Available days:', availableDays);
-
-    return availableDays.includes('all day') || availableDays.includes(selectedDay);
-};
+    const isDateAvailable = (date) => {
+        // Ensure sessionData and availability_days exist
+        if (!sessionData || !Array.isArray(sessionData.availability_days)) {
+            console.log('[DEBUG] No session data or availability_days found.');
+            return false; // Disable all dates
+        }
+    
+        // Convert availability_days to lowercase
+        const availableDays = sessionData.availability_days.map((day) => day.toLowerCase());
+        const selectedDay = moment(date).format('dddd').toLowerCase();
+    
+        console.log('[DEBUG] Checking date:', moment(date).format('YYYY-MM-DD'), 'Selected day:', selectedDay);
+        console.log('[DEBUG] Available days:', availableDays);
+    
+        // Check if the selected day is in availableDays
+        return availableDays.includes(selectedDay);
+    };
 
     if (loading) {
         return (
