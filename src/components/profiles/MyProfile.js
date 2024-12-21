@@ -25,7 +25,8 @@ const MyProfile = () => {
         }
 
         try {
-            const response = await axios.get('http://localhost:8082/myprofile', {
+            const response = await axios.get('https://profile-server-2eky.onrender.com/myprofile', {
+            // const response = await axios.get('http://localhost:8082/myprofile', {
                 headers: {
                     Authorization: `Session ${sessionId}`, // Pass sessionId in Authorization header
                 },
