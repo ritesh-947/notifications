@@ -25,8 +25,8 @@ const MyProfile = () => {
         }
 
         try {
-            const response = await axios.get('https://profile-server-2eky.onrender.com/myprofile', {
-            // const response = await axios.get('http://localhost:8082/myprofile', {
+            // const response = await axios.get('https://profile-server-2eky.onrender.com/myprofile', {
+            const response = await axios.get('http://localhost:8082/myprofile', {
                 headers: {
                     Authorization: `Session ${sessionId}`, // Pass sessionId in Authorization header
                 },
@@ -48,6 +48,30 @@ const MyProfile = () => {
         }
     };
 
+      // Function to handle the "Become Creator" button click
+      const handleBecomeCreatorClick = async () => {
+        try {
+            console.log('[INFO] Attempting to become creator');
+            const response = await axios.post(
+                // 'http://localhost:8082/become-creator',
+                'https://profile-server-2eky.onrender.com/become-creator',
+                {},
+                {
+                    headers: {
+                        Authorization: `Session ${sessionId}`,
+                    },
+                }
+            );
+            console.log('[INFO] Role updated to creator:', response.data);
+            // Update the profileData to reflect the new role
+            setProfileData((prev) => ({ ...prev, role: 'creator' }));
+        } catch (error) {
+            console.error('[ERROR] Failed to update role to creator:', error.response || error.message);
+            alert('Failed to update role. Please try again later.');
+        }
+    };
+
+
     // Fetch profile data on component mount
     useEffect(() => {
         fetchProfileData();
@@ -57,6 +81,8 @@ const MyProfile = () => {
     const handleEditClick = () => {
         navigate('/edit-profile');
     };
+
+    
 
     if (loading) {
         return <h2>Loading...</h2>;
@@ -118,6 +144,17 @@ const MyProfile = () => {
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
+
+                                {!isCreator && (
+                                        <Button
+                                            variant="contained"
+                                            color="success"
+                                            onClick={handleBecomeCreatorClick}
+                                        >
+                                            Become Creator
+                                        </Button>
+                                    )}
+
                                     <Button
                                         variant="contained"
                                         startIcon={window.innerWidth < 750 ? null : <EditIcon />}
