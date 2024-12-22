@@ -34,7 +34,8 @@ const MyQueries = () => {
     // Fetch queries
     const fetchVisitorQueries = async () => {
       try {
-        const response = await axios.get('http://localhost:5011/api/visitor/queries', {
+        const response = await axios.get('https://promo-server-5iob.onrender.com/api/visitor/queries', {
+        // const response = await axios.get('http://localhost:5011/api/visitor/queries', {
           headers: {
             Authorization: `Session ${sessionId}`,
           },
@@ -55,7 +56,8 @@ const MyQueries = () => {
     // Fetch replies
     const fetchReplies = async () => {
       try {
-        const response = await axios.get('http://localhost:5011/api/creator/replies', {
+        const response = await axios.get('https://promo-server-5iob.onrender.com/api/creator/replies', {
+        // const response = await axios.get('http://localhost:5011/api/creator/replies', {
           headers: {
             Authorization: `Session ${sessionId}`,
           },
@@ -153,7 +155,8 @@ const MyQueries = () => {
   
     try {
       const response = await axios.post(
-        'http://localhost:5011/api/visitor/report-reply',
+        'https://promo-server-5iob.onrender.com/api/visitor/report-reply',
+        // 'http://localhost:5011/api/visitor/report-reply',
         {
           query_id: currentQueryId,
           reply_reported: true,
@@ -192,7 +195,8 @@ const handleDeleteQuery = async (queryId) => {
   if (!confirmDelete) return;
 
   try {
-    const response = await axios.delete(`http://localhost:5011/api/visitor/delete-query/${queryId}`, {
+    const response = await axios.delete(`https://promo-server-5iob.onrender.com/api/visitor/delete-query/${queryId}`, {
+    // const response = await axios.delete(`http://localhost:5011/api/visitor/delete-query/${queryId}`, {
       headers: {
         Authorization: `Session ${sessionId}`,
       },
@@ -237,7 +241,8 @@ useEffect(() => {
       for (let query of queries) {
         if (query.reply) {
           const response = await axios.get(
-            `http://localhost:5011/api/visitor/favorite-reply-status/${query.query_id}`,
+            `https://promo-server-5iob.onrender.com/api/visitor/favorite-reply-status/${query.query_id}`,
+            // `http://localhost:5011/api/visitor/favorite-reply-status/${query.query_id}`,
             {
               headers: {
                 Authorization: `Session ${sessionId}`, // Use sessionId in Authorization header
@@ -280,7 +285,8 @@ useEffect(() => {
   
       try {
         const response = await axios.post(
-          'http://localhost:5011/api/visitor/favorite-reply',
+          'https://promo-server-5iob.onrender.com/api/visitor/favorite-reply',
+          // 'http://localhost:5011/api/visitor/favorite-reply',
           {
             query_id: queryId,
             is_liked: isLiked,
