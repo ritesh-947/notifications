@@ -156,6 +156,7 @@ useEffect(() => {
     width: '20px',
     height: '20px',
     display: 'flex',
+    marginBottom:'-5px',
     justifyContent: 'center',
     alignItems: 'center',
     color: video.role === 'creator' ? 'green' : 'green',
@@ -166,7 +167,7 @@ useEffect(() => {
 >
   <FontAwesomeIcon icon={faStar} />
 </div>
-              <p style={{ marginLeft: '5px' }}>{video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}</p>
+              <p style={{ marginLeft: '5px', marginBottom: '10px'  }}>{video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}</p>
               <ThreeDotMenu sessionId={video.session_id} onShare={() => console.log('Share clicked')} />
             </div>
           

@@ -50,11 +50,31 @@
 /* Responsive padding for larger screens */
 @media (min-width: 600px) {
     .c1-video-container {
-        padding: 2rem;
-        flex-direction: row; /* Arrange horizontally */
-        gap: 2rem;
+        padding-left: 3rem;
+        flex-direction: column; /* Arrange vertically */
+        gap: 1rem;
+        align-items: flex-start; /* Align items to the left */
+
+
     }
 }
+
+
+
+@media (min-width: 800px) {
+    .c1-video-container {
+        padding-left: 3rem;
+        flex-direction: row; /* Arrange vertically */
+        gap: 1rem;
+        align-items: center;
+justify-content: start;
+
+
+    }
+}
+
+
+
 
 /* Video wrapper for each video element */
 .c1-video-wrapper {
@@ -74,6 +94,8 @@
         max-width: 50%;
     }
 }
+
+
 
 /* Video container style for local video */
 .c1-local-video, .c1-remote-video {

@@ -31,6 +31,7 @@ import MyProfile from './components/profiles/MyProfile';
 import EditProfile from './components/profiles/EditProfile';
 import ProfileDescription from './components/profiles/ProfileDescription';
 import SessionSelector from './components/profiles/SessionSelector';
+import { Web } from '@mui/icons-material';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,24 +52,7 @@ const App = () => {
     setSearchQuery(query);
   };
 
- // Combined RoomPage for Video Call and Chat
-const RoomPage = () => {
-  const { roomId } = useParams(); // Extract room ID from the URL
 
-  return (
-    <div className="app-container">
-      {/* WebRTC Video Call Component */}
-      <div className="video-call-section">
-        <WebRTCVideoCall roomId={roomId} />
-      </div>
-
-      {/* Chat Component */}
-      <div className="chat-section">
-        <Chat />
-      </div>
-    </div>
-  );
-};
 
 
 
@@ -90,7 +74,6 @@ const RoomPage = () => {
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
-          <Route path="/chat/:room_id" element={<Chat />} />
           <Route path="/upload" element={<UploadSession />} />
           <Route 
             path="/session/:session_id" 
@@ -128,7 +111,13 @@ const RoomPage = () => {
 } />
           <Route path="/edit-profile" element={<EditProfile />} />
 
-          <Route path="/room/:roomId" element={<RoomPage />} />
+          <Route path="/room/:roomId" element={
+            
+            <>
+            <WebRTCVideoCall />
+            <Chat />
+             </>         
+          }/>
           
          
         </Routes>
