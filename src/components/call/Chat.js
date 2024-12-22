@@ -6,7 +6,8 @@ import Picker from '@emoji-mart/react';
 import { FaPaperPlane, FaComments, FaTimes, FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
 
-const socket = io('http://localhost:3051', { withCredentials: false });
+const socket = io('https://msg-server-dcs9.onrender.com', { withCredentials: false });
+// const socket = io('http://localhost:3051', { withCredentials: false });
 
 const Chat = () => {
   const { roomId } = useParams();
@@ -57,7 +58,8 @@ const Chat = () => {
 
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:3051/api/auth/session-info', {
+        const response = await axios.get('https://msg-server-dcs9.onrender.com/api/auth/session-info', {
+        // const response = await axios.get('http://localhost:3051/api/auth/session-info', {
           headers: { Authorization: `Bearer ${sessionId}` },
         });
         setCurrentUser({ id: response.data.userId, username: response.data.username });
