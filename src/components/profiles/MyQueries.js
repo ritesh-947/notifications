@@ -16,6 +16,7 @@ import ReportQueries from './ReportQueries';
 
 const MyQueries = () => {
   const [queries, setQueries] = useState([]);
+  const [replies, setReplies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedQueryId, setSelectedQueryId] = useState(null);
@@ -30,37 +31,79 @@ const MyQueries = () => {
     // Fetch sessionId from localStorage
     const sessionId = localStorage.getItem('sessionId');
 
-    // Fetch visitor queries
-  const fetchVisitorQueries = async () => {
-    if (!sessionId) {
-      console.error('[ERROR] No sessionId found in localStorage.');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await axios.get('http://localhost:5011/api/visitor/queries', {
-        headers: {
-          Authorization: `Session ${sessionId}`, // Use sessionId in the Authorization header
-        },
-      });
-
-      if (response.status === 200) {
-        setQueries(response.data);
-      } else {
-        setQueries([]);
+    // Fetch queries
+    const fetchVisitorQueries = async () => {
+      try {
+        const response = await axios.get('http://localhost:5011/api/visitor/queries', {
+          headers: {
+            Authorization: `Session ${sessionId}`,
+          },
+        });
+  
+        if (response.status === 200) {
+          return response.data; // Return queries
+        } else {
+          console.warn('No queries found.');
+          return [];
+        }
+      } catch (error) {
+        console.error('[ERROR] Failed to fetch visitor queries:', error.response?.data || error.message);
+        return [];
       }
-    } catch (error) {
-      console.error('[ERROR] Failed to fetch visitor queries:', error.response?.data || error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchVisitorQueries();
-  }, []);
-
+    };
+  
+    // Fetch replies
+    const fetchReplies = async () => {
+      try {
+        const response = await axios.get('http://localhost:5011/api/creator/replies', {
+          headers: {
+            Authorization: `Session ${sessionId}`,
+          },
+        });
+  
+        if (response.status === 200) {
+          return response.data; // Return replies
+        } else {
+          console.warn('No replies found.');
+          return [];
+        }
+      } catch (error) {
+        console.error('[ERROR] Failed to fetch replies:', error.response?.data || error.message);
+        return [];
+      }
+    };
+  
+    // Fetch both queries and replies and merge them
+    const fetchData = async () => {
+      if (!sessionId) {
+        console.error('[ERROR] No sessionId found in localStorage.');
+        setLoading(false);
+        return;
+      }
+  
+      setLoading(true);
+  
+      try {
+        const [queriesData, repliesData] = await Promise.all([fetchVisitorQueries(), fetchReplies()]);
+  
+        // Merge replies with their respective queries
+        const mergedData = queriesData.map((query) => {
+          const reply = repliesData.find((reply) => reply.query_id === query.query_id);
+          return { ...query, reply: reply?.reply || null, reply_at: reply?.reply_at || null };
+        });
+  
+        setQueries(mergedData); // Update queries with replies
+      } catch (error) {
+        console.error('[ERROR] Failed to fetch data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+    }, []);
+  
 
   const handleReportClick = (queryId) => {
     if (!queryId) {
@@ -290,18 +333,18 @@ useEffect(() => {
 
   return (
     <Box className="responsive-padding">
-      <Typography variant="h5" gutterBottom>My Queries</Typography>
+      <Typography variant="h6" gutterBottom style={{ paddingTop: '3rem'}} align="center">My Queries</Typography>
 
       {queries.map((query) => (
-        <Card key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
+        <Card  style={{ maxWidth: '500px', margin: '0 auto' }} key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
           backgroundColor: '#f7f7f7', // Set default background color
           '&:hover': {
             backgroundColor: '#f0f0f0', // Change background color on hover
           },
           transition: 'background-color 0.3s', // Smooth transition effect
         }} >
-          <CardContent>
-            <Grid container alignItems="center" justifyContent="space-between" >
+          <CardContent style={{ maxWidth: '500px', margin: '0 auto' }}>
+            <Grid container alignItems="center" justifyContent="space-between"  >
               <Grid item xs>
                 <Typography
                   variant="body1"
@@ -318,11 +361,11 @@ useEffect(() => {
                   }}
                 >
                   You Got Reply From     <Link
-    href={`http://localhost:3232/user/${query.visitor_id}`}
+    href={`https://wanloft.com/user/${query.visitor_id}`}
     underline="none">
 @{query.creator_username}</Link> on session "
                   <Link
-                    href={`http://localhost:3345/session/${query.session_id}`}
+                    href={`https://wanloft.com/session/${query.session_id}`}
                     
                     color="primary"
                     underline="none"
@@ -401,7 +444,7 @@ useEffect(() => {
   onSubmit={handleReportSubmit}
 />
             {/* Display query message */}
-            <Box className="query-container" ml={7} mr={3} mt={-3.7} >
+            <Box className="query-container" ml={5} mr={-1} mt={-4.7} >
               <Typography variant="body2"className="query-message" fontSize= "0.9rem" color='#222222'>
                 {query.message || 'No message available'}
               </Typography>

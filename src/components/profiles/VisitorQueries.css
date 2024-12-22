@@ -1,0 +1,246 @@
+/* Global Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+  
+  /* Styling for the message and reply cards */
+  .my-query-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+    
+    padding: 20px 0 0 20px;
+    transition: box-shadow 0.2s ease-in-out;
+
+  }
+   /* Styling for the message and reply cards */
+   .myquery-card {
+padding-left: 10px;
+
+  }
+  
+  /* Grid and Layouts */
+  .myquery-grid {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+
+  /* Message details section */
+  .myquery-details {
+    flex-grow: 1;
+  }
+  
+  /* Session title styling */
+  .myquery-session-title {
+    color: #1976d2;
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .myquery-timestamp {
+    color: #888888;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+  
+  /* Visitor details (username/fullname or anonymous) */
+  .myquery-visitor {
+    font-size: 14px;
+    color: #555555;
+    margin-top: 5px;
+  }
+  
+  /* Message and reply styling */
+  .myquery-message {
+    font-size: 15px;
+    color: #333333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 15px;
+    line-height: 1.5;
+  }
+  
+  .myquery-reply {
+    font-size: 14px;
+    color: #1976d2;
+    margin-top: 10px;
+  }
+  
+  /* Read More / Read Less buttons */
+  .myquery-readmore {
+    font-size: 14px;
+    color: #1976d2;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  /* Reply input field and button */
+  .myquery-reply-box {
+    margin-top: 20px;
+  }
+  
+  .myquery-reply-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .myquery-reply-button {
+    background-color: #1976d2;
+    color: white;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+  }
+  
+  .myquery-reply-button:hover {
+    background-color: #125ea5;
+  }
+  
+  /* Typography for section titles */
+  .myquery-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #444444;
+    margin-bottom: 20px;
+  }
+  
+  /* Typography for small details like timestamp */
+  .myquery-timestamp {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* No message found styling */
+  .myquery-empty {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (max-width: 768px) {
+    .myqueries-container {
+      padding: 15px;
+    }
+  
+    .myquery-grid {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .myquery-avatar {
+      margin-bottom: 10px;
+    }
+  }
+
+
+/* Global Styling for the message text */
+.message-text {
+  max-width: 100%;
+  white-space: pre-wrap; /* Maintains line breaks */
+  overflow-wrap: break-word; /* Prevents overflow */
+  word-wrap: break-word; /* IE11 compatibility */
+  word-break: break-word; /* For long words */
+  display: block;
+}
+
+  /* edit and delete option  */
+
+  /* Style for the card container */
+.my-query-card {
+    /* position: relative; */
+    /* margin-bottom: 20px; */
+    /* padding: 20px; */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .my-query-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Hide the edit and delete buttons by default */
+  .edit-delete-buttons {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  /* Show the edit and delete buttons on hover */
+  .my-query-card:hover .edit-delete-buttons {
+    opacity: 1;
+  }
+  
+  /* Style for the Edit and Delete buttons */
+  .edit-button {
+    color: blue;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    color: red;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  
+  .edit-button:hover {
+    text-decoration: underline;
+  }
+  
+  .delete-button:hover {
+    text-decoration: underline;
+  }
+
+
+  @media (min-width:500px) {
+    .responsive-padding {
+      max-width: 440px;
+      margin: 0 auto; /* Center the container */
+ 
+    }
+  }
+
+
+
+  @media (max-width:700px) {
+    .responsive-padding {
+      padding: 70px;
+      padding-top:0;
+    }
+  }
+
+  @media (max-width:600px) {
+    .responsive-padding {
+      padding: 40px;
+      padding-top:0;
+    }
+  }
+  @media (max-width: 500px) {
+    .responsive-padding {
+      padding: 0px;
+
+    }
+  }
+ 
+  
+
+  
+  

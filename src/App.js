@@ -23,6 +23,7 @@ import SessionSetup from './components/bookings/SessionSetup';
 import SessionBook from './components/bookings/SessionBook';
 import BookedSessions from './components/awaitings/BookedSessions';
 import Ratings from './components/awaitings/Ratings';
+import Reviews from './components/aboutpage/Reviews';
 
 import WebRTCVideoCall from './components/call/WebRTCVideoCall';
 import Chat from './components/call/Chat';
@@ -31,6 +32,9 @@ import MyProfile from './components/profiles/MyProfile';
 import EditProfile from './components/profiles/EditProfile';
 import ProfileDescription from './components/profiles/ProfileDescription';
 import SessionSelector from './components/profiles/SessionSelector';
+import MyQueries from './components/profiles/MyQueries';
+import VisitorQueries from './components/profiles/VisitorQueries';
+
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -99,7 +103,7 @@ const RoomPage = () => {
                <SmallCard /> 
                 <PromoCard />
                 <CourseCard />
-                {/* <Reviews /> */}
+                <Reviews />
              
                 {/* <InstructorCard />   */}
                 {/* <ViewSimilar /> */}
@@ -127,6 +131,9 @@ const RoomPage = () => {
   </>
 } />
           <Route path="/edit-profile" element={<EditProfile />} />
+
+          <Route path="/my-queries" element={<MyQueries />} />
+          <Route path="/visitor-queries" element={<VisitorQueries />} />
 
           <Route path="/room/:roomId" element={<RoomPage />} />
           
