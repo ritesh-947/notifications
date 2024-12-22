@@ -110,15 +110,15 @@ const App = () => {
   </>
 } />
           <Route path="/edit-profile" element={<EditProfile />} />
-
-          <Route path="/room/:roomId" element={
+          <Route path="/room/:roomId" element={<WebRTCVideoCall />} />
+          {/* <Route path="/room/:roomId" element={
             
             <>
             <WebRTCVideoCall />
             <Chat />
              </>         
           }/>
-          
+           */}
          
         </Routes>
       </div>
