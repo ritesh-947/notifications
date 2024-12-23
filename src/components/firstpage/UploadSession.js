@@ -457,6 +457,7 @@ const UploadSession = () => {
       // Handle successful response
       alert('Session created successfully!');
       console.log('Form Data:', response.data);
+      navigate('/homepage'); // Use the useNavigate hook here
     } catch (error) {
       // Handle error cases
       if (error.response) {
