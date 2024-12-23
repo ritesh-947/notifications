@@ -100,10 +100,10 @@ const RoomPage = () => {
             path="/session/:session_id" 
             element={
               <>
-               <SmallCard /> 
-                <PromoCard />
+               {/* <SmallCard />  */}
+                {/* <PromoCard /> */}
                 <CourseCard />
-                <Reviews />
+                {/* <Reviews /> */}
              
                 {/* <InstructorCard />   */}
                 {/* <ViewSimilar /> */}
