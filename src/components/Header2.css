@@ -97,3 +97,26 @@
     width: 40px; /* Adjust this to your desired width */
     height: auto; /* Maintain aspect ratio */
   }
+
+  .o1-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px; /* Adjust padding as needed */
+  }
+  
+  .o1-header-center {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .o1-search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .o1-header-right, .o1-header-left {
+    display: flex;
+    align-items: center;
+  }

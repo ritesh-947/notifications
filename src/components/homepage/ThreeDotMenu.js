@@ -20,7 +20,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReportIcon from '@mui/icons-material/Report';
 import axios from 'axios';
-import ShareModal from './ShareModal'; // Import the ShareModal component
 import './ThreeDotMenu.css';
 
 const ThreeDotMenu = ({ sessionId }) => {
@@ -30,7 +29,6 @@ const ThreeDotMenu = ({ sessionId }) => {
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const sessionIdFromStorage = localStorage.getItem('sessionId');
 
@@ -39,13 +37,12 @@ const ThreeDotMenu = ({ sessionId }) => {
     if (!sessionId) return;
 
     const checkWishlistStatus = async () => {
-      console.log(`Checking wishlist status for sessionId: ${sessionId}`);
       try {
-        const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
+        const response = await axios.get(`https://threedot-server.onrender.com/api/wishlist/check`, {
+        // const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
           params: { sessionId },
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
         });
-        console.log('Wishlist status:', response.data);
         setIsInWishlist(response.data.isInWishlist);
       } catch (error) {
         console.error('Error checking wishlist status:', error.message);
@@ -56,18 +53,17 @@ const ThreeDotMenu = ({ sessionId }) => {
   }, [sessionId, sessionIdFromStorage]);
 
   const handleAddOrRemoveFromWishlist = async () => {
-    console.log(`Attempting to ${isInWishlist ? 'remove' : 'add'} sessionId ${sessionId} from/to wishlist`);
     setLoading(true);
     try {
       const endpoint = isInWishlist ? 'remove' : 'add';
-      const response = await axios.post(
-        `http://localhost:6004/api/wishlist/${endpoint}`,
+      await axios.post(
+        `https://threedot-server.onrender.com/api/wishlist/${endpoint}`,
+        // `http://localhost:6004/api/wishlist/${endpoint}`,
         { sessionId },
         {
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
         }
       );
-      console.log(`Wishlist update successful:`, response.data);
       setIsInWishlist(!isInWishlist); // Toggle wishlist state
     } catch (error) {
       console.error(`Error ${isInWishlist ? 'removing from' : 'adding to'} wishlist:`, error.message);
@@ -77,53 +73,60 @@ const ThreeDotMenu = ({ sessionId }) => {
   };
 
   const handleMenuOpen = (event) => {
-    console.log('Opening menu for sessionId:', sessionId);
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
-    console.log('Closing menu');
     setAnchorEl(null);
   };
 
   const handleReportDialogOpen = () => {
-    console.log('Opening report dialog for sessionId:', sessionId);
     setReportDialogOpen(true);
     handleMenuClose();
   };
 
   const handleReportDialogClose = () => {
-    console.log('Closing report dialog');
     setReportDialogOpen(false);
+    setReportReason('');
   };
 
-  const handleReportSubmit = async () => {
-    console.log(`Submitting report for sessionId: ${sessionId} with reason: ${reportReason}`);
+
+  const handleMarkNotInterested = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:6004/api/report`,
-        { sessionId, reportReason },
+      await axios.post(
+        'https://threedot-server.onrender.com/api/not-interested/add',
+        // 'http://localhost:6004/api/not-interested/add',
+        { sessionId },
         {
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
         }
       );
-      console.log('Report submitted successfully:', response.data);
-      setReportDialogOpen(false);
-      setReportReason(''); // Reset the report reason
+      alert('Session marked as Not Interested.');
+      setIsNotInterested(true);
     } catch (error) {
-      console.error('Error submitting report:', error.message);
+      console.error('Error marking session as Not Interested:', error.message);
+      alert('Failed to mark as Not Interested. Please try again.');
     }
   };
 
-  const handleShareClick = () => {
-    console.log('Opening ShareModal for sessionId:', sessionId);
-    setIsShareModalOpen(true);
-    handleMenuClose();
-  };
 
-  const handleShareModalClose = () => {
-    console.log('Closing ShareModal');
-    setIsShareModalOpen(false);
+  const handleReportSubmit = async () => {
+    try {
+      await axios.post(
+        `https://threedot-server.onrender.com/api/session/${sessionId}/report`,
+        // `http://localhost:6004/api/session/${sessionId}/report`,
+        { reason: reportReason },
+        {
+          headers: { Authorization: `Session ${sessionIdFromStorage}` },
+        }
+      );
+      alert('Report submitted successfully.');
+      setReportDialogOpen(false);
+      setReportReason('');
+    } catch (error) {
+      console.error('Error submitting report:', error.message);
+      alert('Failed to submit the report. Please try again later.');
+    }
   };
 
   return (
@@ -145,26 +148,15 @@ const ThreeDotMenu = ({ sessionId }) => {
             </>
           )}
         </MenuItem>
-        <MenuItem
-          disabled={isNotInterested}
-          onClick={() => {
-            console.log(`Marking sessionId ${sessionId} as not interested`);
-            setIsNotInterested(true);
-          }}
-        >
-          <ThumbDownIcon />
-          {isNotInterested ? 'Marked as Not Interested' : "Don't Recommend"}
-        </MenuItem>
-        <MenuItem onClick={handleShareClick}>
-          <ShareIcon /> Share
-        </MenuItem>
+      <MenuItem disabled={isNotInterested} onClick={handleMarkNotInterested}>
+  <ThumbDownIcon />
+  {isNotInterested ? 'Marked as Not Interested' : "Don't Recommend"}
+</MenuItem>
+
         <MenuItem onClick={handleReportDialogOpen}>
           <ReportIcon /> Report
         </MenuItem>
       </Menu>
-
-      {/* Share Modal */}
-      <ShareModal open={isShareModalOpen} handleClose={handleShareModalClose} sessionId={sessionId} />
 
       {/* Report Dialog */}
       <Dialog open={reportDialogOpen} onClose={handleReportDialogClose}>

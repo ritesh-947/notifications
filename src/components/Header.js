@@ -71,7 +71,7 @@ const Header = ({ onSearch }) => {
     <header className="o1-header">
       <div className="o1-header-left">
         <div className="o1-logo">
-          <img src="../../public/IMG_1152.jpg" alt="Logo" className="o1-logo-image" />
+          <img src="IMG_1152.png" alt="Logo" className="o1-logo-image" />
         </div>
         <a href="#" className="o1-categories">Categories</a>
       </div>

@@ -809,7 +809,7 @@ const handleReportSubmit = async (reason) => {
                     </Grid>
                   </Grid>
 
-                  <Box display="flex" flexDirection="column" ml={4} mt={-3} mr={4}>
+                  <Box display="flex" flexDirection="column" ml={3} mt={-3} mr={4}>
                     {renderTextWithReadMore(query.message, query.query_id, MAX_LINES_MESSAGE)}
                   </Box>
 
@@ -820,7 +820,7 @@ const handleReportSubmit = async (reason) => {
 
                 <Grid item>
 
-<IconButton
+{/* <IconButton
   onClick={() => handleFavoriteClick(query.query_id)}
   sx={{ mr: 1 }}
 >
@@ -829,11 +829,11 @@ const handleReportSubmit = async (reason) => {
   ) : (
     <FavoriteBorderIcon />                 // Shows unliked icon
   )}
-</IconButton>
+</IconButton> */}
 
-                  <IconButton onClick={(e) => handleMenuClick(e, query.query_id)}>
+                  {/* <IconButton onClick={(e) => handleMenuClick(e, query.query_id)}>
                     <MoreVertIcon />
-                  </IconButton>
+                  </IconButton> */}
 
                   <Menu
                     anchorEl={anchorEl}

@@ -13,7 +13,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './SmallCard.css';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 
 const SmallCard = () => {
@@ -24,7 +24,9 @@ const SmallCard = () => {
   const [message, setMessage] = useState(''); // Store message input
   const [anonymous, setAnonymous] = useState(false); // Track anonymous state for message
   const [successMessage, setSuccessMessage] = useState(false); // Track success state for snackbar
+  const navigate = useNavigate(); // Initialize navigate function
 
+  
   console.log('Frontend session_id from useParams:', session_id);
 
   // Fetch session data
@@ -188,6 +190,7 @@ const SmallCard = () => {
       backgroundColor: 'darkgreen', // Optional hover color
     },
   }}
+onClick={() => navigate(`/session/${session_id}/book`)} // Navigate to booking page
 >
 Book Session
 </Button>

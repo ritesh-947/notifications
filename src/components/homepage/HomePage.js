@@ -28,8 +28,8 @@ const HomePage = ({ searchQuery }) => {
     try {
       const sessionId = localStorage.getItem('sessionId');
 
-      // const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
-      const response = await axios.get('http://localhost:6001/api/sessions', {
+      const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
+      // const response = await axios.get('http://localhost:6001/api/sessions', {
         headers: {
           Authorization: sessionId ? `Session ${sessionId}` : '',
         },
@@ -114,7 +114,9 @@ useEffect(() => {
       alert('You need to login to book sessions!');
     } else {
       console.log(`Booking session with ID: ${sessionId}`);
-      alert('Booking functionality coming soon!');
+      console.log(`Navigating to booking page for session ID: ${sessionId}`);
+      navigate(`/session/${sessionId}/book`); // Navigate to the booking page
+      // alert('Booking functionality coming soon!');
     }
   };
   const handleCreatorClick = (creatorId) => {

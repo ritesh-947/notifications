@@ -38,19 +38,31 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faUser} /> 
         </div>
         <ul>
-          <li>
+        <li>
             <a href="/homepage">
-              <FontAwesomeIcon icon={faHome} /> Home
+              <FontAwesomeIcon icon={faHome} color="blue" /> Home
+            </a>
+          </li>
+           <li>
+            <a href="/my-profile">
+              <FontAwesomeIcon icon={faUserCircle} /> My Profile
             </a>
           </li>
           <li>
-            <a href="/room">
-              <FontAwesomeIcon icon={faVideo} /> Join Room
+            <a href="/search-profile">
+              <FontAwesomeIcon icon={faUserCircle} color="green"/> Search Profile
             </a>
           </li>
+          
+         
           <li>
             <a href="/booked-sessions">
-              <FontAwesomeIcon icon={faCalendarCheck} /> Bookings
+              <FontAwesomeIcon icon={faCalendarCheck} /> My Bookings
+            </a>
+          </li>
+          <li>
+            <a href="/creator-sessions">
+              <FontAwesomeIcon icon={faCalendarCheck} color="green" /> Visitor Bookings
             </a>
           </li>
           <li>
@@ -59,23 +71,27 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="/wishlist">
-              <FontAwesomeIcon icon={faHeart} /> Wishlist
+            <a href="/visitor-queries">
+              <FontAwesomeIcon icon={faQuestionCircle} color="green"/> Visitor Queries
             </a>
           </li>
           <li>
-            <a href="/my-profile">
-              <FontAwesomeIcon icon={faUserCircle} /> My Profile
+            <a href="/wishlist">
+              <FontAwesomeIcon icon={faHeart} />My Wishlist
             </a>
           </li>
+         
+
+          
+
           <li>
             <a href="/monetization">
-              <FontAwesomeIcon icon={faDollarSign} /> Monetization
+              <FontAwesomeIcon icon={faDollarSign} color="blue" /> Monetization
             </a>
           </li>
           <li>
             <a href="/subscription">
-              <FontAwesomeIcon icon={faListAlt} /> Subscription
+              <FontAwesomeIcon icon={faListAlt} color="blue" /> Subscription
             </a>
           </li>
         </ul>

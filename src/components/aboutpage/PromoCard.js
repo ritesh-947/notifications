@@ -248,7 +248,7 @@ const PromoCard = () => {
             variant="contained"
             color="primary"
             startIcon={<MenuBookIcon />}
-            href={`http://localhost:3337/session/${session_id}/schedule`}
+            onClick={() => navigate(`/session/${session_id}/book`)} // Navigate to booking page
             fullWidth
             sx={{
               mb: 1,

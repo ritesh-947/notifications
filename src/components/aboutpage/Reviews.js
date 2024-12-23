@@ -1,19 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Reviews.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 const Reviews = () => {
   const { session_id } = useParams();
+  const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get('https://ratings-server.onrender.com/api/check-auth', {
+        // const response = await axios.get('http://localhost:6003/api/check-auth', {
+          withCredentials: true, // Ensure cookies are sent
+        });
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoginStatus();
+
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://localhost:6003/api/session/${session_id}/reviews`);
+        const response = await axios.get(`https://ratings-server.onrender.com/api/session/${session_id}/reviews`);
+        // const response = await axios.get(`http://localhost:6003/api/session/${session_id}/reviews`);
         console.log('Fetched Reviews:', response.data);
         setReviews(response.data);
       } catch (error) {
@@ -26,12 +43,26 @@ const Reviews = () => {
   }, [session_id]);
 
   const handleLike = async (reviewId, index) => {
+    if (!isLoggedIn) {
+      setErrorMessage('Like functionality coming soon.');
+      return;
+    }
+
     try {
-      const response = await axios.post(`http://localhost:6003/api/reviews/${reviewId}/like`);
+      const response = await axios.post(
+        `https://ratings-server.onrender.com/api/reviews/${reviewId}/like`,
+        // `http://localhost:6003/api/reviews/${reviewId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `Session ${localStorage.getItem('sessionId')}`,
+          },
+        }
+      );
 
       const updatedReviews = [...reviews];
       updatedReviews[index].like_count = response.data.like_count;
-      updatedReviews[index].liked = response.data.liked;
+      updatedReviews[index].liked = response.data.liked; // Toggle the like state
       setReviews(updatedReviews);
     } catch (error) {
       console.error('Error liking the review:', error.response?.data || error.message);
@@ -58,10 +89,9 @@ const Reviews = () => {
 
   return (
     <div className="reviews-section">
-      <h2>Reviews for this Session:</h2>
-      {errorMessage ? (
-        <p className="error-message">{errorMessage}</p>
-      ) : reviews.length === 0 ? (
+      <h6>Reviews for this Session:</h6>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {reviews.length === 0 ? (
         <p className="neutral-message no-reviews-message">No reviews found for this session.</p>
       ) : (
         reviews.map((review, index) => (

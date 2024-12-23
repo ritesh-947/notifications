@@ -40,6 +40,19 @@ const MyQueries = () => {
             Authorization: `Session ${sessionId}`,
           },
         });
+
+        const queriesData = response.data;
+
+        // Fetch like statuses for replies
+      
+    // Set favorite statuses directly from the response
+    const likeStatuses = queriesData.reduce((acc, query) => {
+      acc[query.query_id] = query.reply_liked || false;
+      return acc;
+    }, {});
+
+    setFavorite(likeStatuses);
+    setQueries(queriesData); 
   
         if (response.status === 200) {
           return response.data; // Return queries
@@ -339,20 +352,21 @@ useEffect(() => {
 
   return (
     <Box className="responsive-padding">
-      <Typography variant="h6" gutterBottom style={{ paddingTop: '3rem'}} align="center">My Queries</Typography>
+      {/* <Typography variant="h6" gutterBottom style={{ paddingTop: '3rem'}} align="center">My Queries</Typography> */}
 
       {queries.map((query) => (
-        <Card  style={{ maxWidth: '500px', margin: '0 auto' }} key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
+        <Card  style={{ maxWidth: '500px', margin: '0 auto', marginTop:'0.5rem' }} key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
           backgroundColor: '#f7f7f7', // Set default background color
           '&:hover': {
             backgroundColor: '#f0f0f0', // Change background color on hover
           },
           transition: 'background-color 0.3s', // Smooth transition effect
         }} >
-          <CardContent style={{ maxWidth: '500px', margin: '0 auto' }}>
+          <CardContent style={{ maxWidth: '500px', margin: '0 auto',marginTop:'0rem' }}>
             <Grid container alignItems="center" justifyContent="space-between"  >
               <Grid item xs>
-                <Typography
+              {query.reply && (
+                 <Typography
                   variant="body1"
                   sx={{
                     position: 'relative',
@@ -379,8 +393,8 @@ useEffect(() => {
                     {query.session_title}
                   </Link>
                   " at {new Date(query.msg_at).toLocaleString()}
-                </Typography>
-
+                </Typography> 
+              )}
                 <Box display="flex" alignItems="center" mt={-2}>
                 <Link
     href={`http://localhost:3232/`}
@@ -428,9 +442,9 @@ useEffect(() => {
               </Grid>
 
               <Grid item>
-                <IconButton onClick={(e) => handleMenuClick(e, query.query_id)}>
+                {/* <IconButton onClick={(e) => handleMenuClick(e, query.query_id)}>
                   <MoreVertIcon />
-                </IconButton>
+                </IconButton> */}
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl) && selectedQueryId === query.query_id}
@@ -450,7 +464,7 @@ useEffect(() => {
   onSubmit={handleReportSubmit}
 />
             {/* Display query message */}
-            <Box className="query-container" ml={5} mr={-1} mt={-4.7} >
+            <Box className="query-container" ml={5} mr={-1} mt={-3.7} >
               <Typography variant="body2"className="query-message" fontSize= "0.9rem" color='#222222'>
                 {query.message || 'No message available'}
               </Typography>
@@ -542,21 +556,21 @@ useEffect(() => {
                       </Typography>
 
                       <Box display="flex" alignItems="center" gap={2} mt={1}>
-  {/* Favorite Button with Feedback */}
-  <IconButton 
-    onClick={() => handleFavoriteClick(query.query_id)}
-    aria-label={favorite[query.query_id] ? "Unlike" : "Like"} // Accessibility
-    sx={{
-      '&:hover': { transform: 'scale(1.1)' }, // Slight zoom on hover for feedback
-      transition: 'transform 0.1s ease-in-out', // Smooth transition effect
-    }}
-  >
-    {favorite[query.query_id] ? (
-      <FavoriteIcon sx={{ color: 'red' }} />
-    ) : (
-      <FavoriteBorderIcon />
-    )}
-  </IconButton>
+    {/* Favorite Button with Feedback */}
+    <IconButton
+  onClick={() => handleFavoriteClick(query.query_id)}
+  aria-label={favorite[query.query_id] ? "Unlike" : "Like"} // Accessibility
+  sx={{
+    '&:hover': { transform: 'scale(1.1)' }, // Slight zoom on hover for feedback
+    transition: 'transform 0.1s ease-in-out', // Smooth transition effect
+  }}
+>
+  {favorite[query.query_id] ? (
+    <FavoriteIcon sx={{ color: 'red' }} />
+  ) : (
+    <FavoriteBorderIcon />
+  )}
+</IconButton>
   
   {/* View Session Button */}
   <Button 

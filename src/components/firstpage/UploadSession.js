@@ -291,6 +291,11 @@ const UploadSession = () => {
     setFormData({ ...formData, [name]: processedValue });
   };
   const handlePriceChange = (selectedOption) => {
+    if (selectedOption.value === '49') {
+      alert('To Set price 49rs...Coming soon.');
+      return; // Prevent further processing of the selection
+    }
+
     if (selectedOption.value === 'custom') {
       setFormData({ ...formData, price: selectedOption.value, customPrice: '' });
     } else {
