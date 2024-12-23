@@ -443,8 +443,8 @@ const UploadSession = () => {
   
       // Make the POST request with axios
       const response = await axios.post(
-        // 'https://upload-server-ld7m.onrender.com/create-session',
-        'http://localhost:3310/create-session',
+        'https://upload-server-ld7m.onrender.com/create-session',
+        // 'http://localhost:3310/create-session',
         formWithCreatorId,
         {
           headers: {
