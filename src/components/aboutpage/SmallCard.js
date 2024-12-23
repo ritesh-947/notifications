@@ -26,7 +26,7 @@ const SmallCard = () => {
   const [successMessage, setSuccessMessage] = useState(false); // Track success state for snackbar
   const navigate = useNavigate(); // Initialize navigate function
 
-  
+
   console.log('Frontend session_id from useParams:', session_id);
 
   // Fetch session data

@@ -33,10 +33,12 @@ body {
 
 .video-card {
   background: #ffffff;
+
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 650px; /* Set a minimum height to make the card longer */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden; /* Prevent content from spilling out */
   
@@ -175,3 +177,5 @@ body {
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
 }
+
+

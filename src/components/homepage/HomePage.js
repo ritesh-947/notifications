@@ -149,23 +149,23 @@ useEffect(() => {
           <div
             key={video.session_id}
             className="video-card"
+            style={{
+              minHeight: '475px', // Increase card height
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              padding: '15px',
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              margin: '10px',
+            }}
             ref={(el) => (videoRefs.current[index] = el)}
           >
              <div className="creator-info" onClick={() => handleCreatorClick(video.creator_id)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', marginRight: '-10px' }}>
              <div
   className={`star-icon ${video.role === 'creator' ? 'creator' : 'user'}`}
-  style={{
-    width: '20px',
-    height: '20px',
-    display: 'flex',
-    marginBottom:'-5px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: video.role === 'creator' ? 'green' : 'green',
-    border: `1px solid ${video.role === 'creator' ? 'green' : 'green'}`, // Add border
-    borderRadius: '50%', // Make the border circular
-    marginLeft: '8px', // Add left margin
-  }}
+
 >
   <FontAwesomeIcon icon={faStar} />
 </div>
