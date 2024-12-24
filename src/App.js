@@ -34,6 +34,7 @@ import ProfileDescription from './components/profiles/ProfileDescription';
 import SessionSelector from './components/profiles/SessionSelector';
 import MyQueries from './components/profiles/MyQueries';
 import VisitorQueries from './components/profiles/VisitorQueries';
+import SessionDescription from './components/details_page/SessionDescription.js';
 
 
 const App = () => {
@@ -112,7 +113,24 @@ const RoomPage = () => {
             } 
           />      
 
+           <Route 
+            path="/session/:session_id" 
+            element={
+              <>
+               <SmallCard /> 
+                <PromoCard />
+                <CourseCard />
+                <Reviews />
+             
+                {/* <InstructorCard />   */}
+                {/* <ViewSimilar /> */}
+               
+              </>
+            } 
+          />      
          
+<Route path="/sessions/:session_id" element={<SessionDescription />}/>
+
           <Route path="/post-question" element={<PostQuestion />} />
           
           <Route path="/questions" element={<Questions />}/>

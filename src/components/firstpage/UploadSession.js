@@ -69,8 +69,8 @@ const UploadSession = () => {
         }
   
         // Make the API request with Authorization header
-        // const response = await axios.get(`http://localhost:3310/user-status?creator_id=${creatorId}`, {
-        const response = await axios.get(`https://upload-server-ld7m.onrender.com/user-status?creator_id=${creatorId}`, {
+        const response = await axios.get(`http://localhost:3310/user-status?creator_id=${creatorId}`, {
+        // const response = await axios.get(`https://upload-server-ld7m.onrender.com/user-status?creator_id=${creatorId}`, {
           headers: {
             Authorization: `Bearer ${sessionId}`, // Send session_id as Bearer token
           },
@@ -150,8 +150,8 @@ const UploadSession = () => {
   
         // Fetch session count using session_id in Authorization header
         const response = await axios.get(
-          `https://upload-server-ld7m.onrender.com/session-count?creator_id=${creatorId}`,
-          // `http://localhost:3310/session-count?creator_id=${creatorId}`,
+          // `https://upload-server-ld7m.onrender.com/session-count?creator_id=${creatorId}`,
+          `http://localhost:3310/session-count?creator_id=${creatorId}`,
           {
             headers: {
               Authorization: `Bearer ${sessionId}`, // Pass session_id as Bearer token
@@ -222,8 +222,8 @@ const UploadSession = () => {
   
         // Fetch session count using session_id in Authorization header
         const response = await axios.get(
-          // `http://localhost:3310/session-count?creator_id=${creatorId}`,
-          `https://upload-server-ld7m.onrender.com/session-count?creator_id=${creatorId}`,
+          `http://localhost:3310/session-count?creator_id=${creatorId}`,
+          // `https://upload-server-ld7m.onrender.com/session-count?creator_id=${creatorId}`,
           {
             headers: {
               Authorization: `Bearer ${sessionId}`, // Pass session_id as Bearer token
@@ -443,8 +443,8 @@ const UploadSession = () => {
   
       // Make the POST request with axios
       const response = await axios.post(
-        'https://upload-server-ld7m.onrender.com/create-session',
-        // 'http://localhost:3310/create-session',
+        // 'https://upload-server-ld7m.onrender.com/create-session',
+        'http://localhost:3310/create-session',
         formWithCreatorId,
         {
           headers: {

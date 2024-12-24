@@ -106,7 +106,7 @@ useEffect(() => {
   };
 
   const handleViewMore = (sessionId) => {
-    navigate(`/session/${sessionId}`); // Navigate to the session details page
+    navigate(`/sessions/${sessionId}`); // Navigate to the session details page
   };
 
   const handleBookSession = (sessionId) => {
