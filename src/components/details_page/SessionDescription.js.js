@@ -13,7 +13,8 @@ const SessionDescription = () => {
   const fetchSession = async () => {
     try {
       console.log(`Fetching session with ID: ${session_id}`);
-      const response = await axios.get(`http://localhost:5590/sessions/${session_id}`);
+      const response = await axios.get(`https://details-server.onrender.com/sessions/${session_id}`);
+      // const response = await axios.get(`http://localhost:5590/sessions/${session_id}`);
       setSession(response.data); // Store fetched session data
       setLoading(false); // Set loading to false
       setError(''); // Clear error state
