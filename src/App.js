@@ -35,7 +35,7 @@ import SessionSelector from './components/profiles/SessionSelector';
 import MyQueries from './components/profiles/MyQueries';
 import VisitorQueries from './components/profiles/VisitorQueries';
 import SessionDescription from './components/details_page/SessionDescription.js';
-
+import AskQuery from './components/details_page/AskQuery.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,6 +71,15 @@ const RoomPage = () => {
       <div className="chat-section">
         <Chat />
       </div>
+    </div>
+  );
+};
+
+const SessionPage = () => {
+  return (
+    <div style={{ padding: '20px' }}>
+      <SessionDescription />
+      <AskQuery/>
     </div>
   );
 };
@@ -113,23 +122,9 @@ const RoomPage = () => {
             } 
           />      
 
-           <Route 
-            path="/session/:session_id" 
-            element={
-              <>
-               <SmallCard /> 
-                <PromoCard />
-                <CourseCard />
-                <Reviews />
-             
-                {/* <InstructorCard />   */}
-                {/* <ViewSimilar /> */}
-               
-              </>
-            } 
-          />      
-         
-<Route path="/sessions/:session_id" element={<SessionDescription />}/>
+          
+          {/* <Route path="/sessions/:session_id" element={<SessionDescription />}/> */}
+          <Route path="/sessions/:session_id" element={<SessionPage />} />
 
           <Route path="/post-question" element={<PostQuestion />} />
           
@@ -152,7 +147,7 @@ const RoomPage = () => {
 
           <Route path="/my-queries" element={<MyQueries />} />
           <Route path="/visitor-queries" element={<VisitorQueries />} />
-
+        
           <Route path="/room/:roomId" element={<RoomPage />} />
           
          

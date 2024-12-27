@@ -28,8 +28,8 @@ const HomePage = ({ searchQuery }) => {
     try {
       const sessionId = localStorage.getItem('sessionId');
 
-      const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
-      // const response = await axios.get('http://localhost:6001/api/sessions', {
+      // const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
+      const response = await axios.get('http://localhost:6001/api/sessions', {
         headers: {
           Authorization: sessionId ? `Session ${sessionId}` : '',
         },
@@ -71,8 +71,8 @@ const HomePage = ({ searchQuery }) => {
  
  const incrementImpressions = async (sessionIds) => {
   try {
-    // await axios.post('http://localhost:6001/api/sessions/increment-impressions', {
-    await axios.post('https://home-server-x9xg.onrender.com/api/increment-impressions', {
+    await axios.post('http://localhost:6001/api/sessions/increment-impressions', {
+    // await axios.post('https://home-server-x9xg.onrender.com/api/increment-impressions', {
       sessionIds,
     });
   } catch (error) {
