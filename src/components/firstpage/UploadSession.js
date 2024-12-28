@@ -311,10 +311,24 @@ const UploadSession = () => {
   };
 
   const handleDaysChange = (selectedOptions) => {
-    setFormData({
-      ...formData,
-      availability_days: selectedOptions.map((option) => option.value),
-    });
+    // Check if "All Day" is selected
+    const allDayOption = selectedOptions.find((option) => option.value === 'All Day');
+  
+    if (allDayOption) {
+      // Select all individual days and update formData
+      setFormData({
+        ...formData,
+        availability_days: daysOptions
+          .filter((option) => option.value !== 'All Day') // Exclude "All Day" itself
+          .map((option) => option.value), // Map to individual day values
+      });
+    } else {
+      // Otherwise, update with the selected options only
+      setFormData({
+        ...formData,
+        availability_days: selectedOptions.map((option) => option.value),
+      });
+    }
   };
 
   const handleTimeChange = (name, selectedOption) => {
@@ -591,6 +605,24 @@ You can upload a maximum of 4 sessions.
 
       {step === 2 && (
         <>
+
+        {/* Notice */}
+    <div className="notice-container">
+      <Typography 
+        variant="body2" 
+        sx={{ 
+          backgroundColor: '#e8f4fc', 
+          padding: '10px', 
+          borderRadius: '8px', 
+          marginBottom: '15px', 
+          color: '#0366d6' 
+        }}
+      >
+        <InfoIcon fontSize="small" sx={{ marginRight: '5px', verticalAlign: 'middle' }} />
+        Notice: Dates and times selected here will update all your previous sessions.
+      </Typography>
+    </div>
+
           <div className="form-group">
             <label>
               Availability Days:

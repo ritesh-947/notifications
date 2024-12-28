@@ -33,8 +33,8 @@ const AskQuery = () => {
 
     try {
       await axios.post(
-        'https://promo-server-5iob.onrender.com/api/session_queries',
-        // 'http://localhost:5011/api/session_queries',
+        // 'https://promo-server-5iob.onrender.com/api/session_queries',
+        'http://localhost:5011/api/session_queries',
         { session_id, message, anonymous },
         { headers: { Authorization: `Session ${sessionId}` } }
       );
@@ -51,7 +51,7 @@ const AskQuery = () => {
   const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false });
 
   return (
-    <Paper elevation={4} sx={{ maxWidth: 700, margin: 'auto', p: 4, mt: 5, borderRadius: 3 }}>
+    <Paper elevation={4} sx={{ maxWidth: 700, margin: 'auto', p: 4, mt: -15, borderRadius: 3 }}>
       <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
         Ask Your Query
       </Typography>
@@ -61,7 +61,7 @@ const AskQuery = () => {
         onChange={(e) => setMessage(e.target.value)}
         fullWidth
         multiline
-        minRows={2}
+        minRows={1}
         maxRows={4}
         disabled={loading}
         sx={{ mb: 2 }}

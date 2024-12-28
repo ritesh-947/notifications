@@ -29,8 +29,8 @@ const Reviews = () => {
 
     const fetchReviews = async () => {
       try {
-        // const response = await axios.get(`https://ratings-server.onrender.com/api/session/${session_id}/reviews`);
-        const response = await axios.get(`http://localhost:6003/api/session/${session_id}/reviews`);
+        const response = await axios.get(`https://ratings-server.onrender.com/api/session/${session_id}/reviews`);
+        // const response = await axios.get(`http://localhost:6003/api/session/${session_id}/reviews`);
         console.log('Fetched Reviews:', response.data);
         setReviews(response.data);
       } catch (error) {
@@ -50,8 +50,8 @@ const Reviews = () => {
 
     try {
       const response = await axios.post(
-        // `https://ratings-server.onrender.com/api/reviews/${reviewId}/like`,
-        `http://localhost:6003/api/reviews/${reviewId}/like`,
+        `https://ratings-server.onrender.com/api/reviews/${reviewId}/like`,
+        // `http://localhost:6003/api/reviews/${reviewId}/like`,
         {},
         {
           headers: {

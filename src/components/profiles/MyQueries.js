@@ -351,7 +351,7 @@ useEffect(() => {
   }
 
   return (
-    <Box className="responsive-padding">
+    <Box className="responsive-padding"  sx={{ marginTop: '3rem' }}>
       {/* <Typography variant="h6" gutterBottom style={{ paddingTop: '3rem'}} align="center">My Queries</Typography> */}
 
       {queries.map((query) => (

@@ -80,6 +80,7 @@ const SessionPage = () => {
     <div style={{ padding: '20px' }}>
       <SessionDescription />
       <AskQuery/>
+      <Reviews/>
     </div>
   );
 };
@@ -107,7 +108,7 @@ const SessionPage = () => {
           <Route path="/chat/:room_id" element={<Chat />} />
           <Route path="/upload" element={<UploadSession />} />
           <Route 
-            path="/session/:session_id" 
+            path="/sessions/:session_id" 
             element={
               <>
                <SmallCard /> 
@@ -124,7 +125,7 @@ const SessionPage = () => {
 
           
           {/* <Route path="/sessions/:session_id" element={<SessionDescription />}/> */}
-          <Route path="/sessions/:session_id" element={<SessionPage />} />
+          <Route path="/session/:session_id" element={<SessionPage />} />
 
           <Route path="/post-question" element={<PostQuestion />} />
           

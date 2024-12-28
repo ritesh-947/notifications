@@ -43,8 +43,8 @@ const SessionBook = () => {
 
     // Axios instance with session ID attached
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:5003', // Update this to your backend API base URL
-        baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
+        baseURL: 'http://localhost:5003', // Update this to your backend API base URL
+        // baseURL: 'https://schedule-server-1.onrender.com', // Update this to your backend API base URL
     });
 
     // Attach `sessionId` from localStorage
