@@ -36,6 +36,7 @@ import MyQueries from './components/profiles/MyQueries';
 import VisitorQueries from './components/profiles/VisitorQueries';
 import SessionDescription from './components/details_page/SessionDescription.js';
 import AskQuery from './components/details_page/AskQuery.js';
+import BottomNav from './components/BottomNav.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,6 +98,7 @@ const SessionPage = () => {
           <Header onSearch={handleSearch} />
         )}
           <Sidebar />
+          <BottomNav />
         <Alert />
         <Routes>
       

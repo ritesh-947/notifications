@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import MySessions from './MySessions';
-import MyQueries from './MyQueries';
 import VisitorQueries from './VisitorQueries';
 import MyHistory from './MyHistory';
 import MyWishlist from './MyWishlist';
@@ -13,8 +12,8 @@ const SessionSelector = () => {
     switch (selectedTab) {
       case 'MySessions':
         return <MySessions />;
-      case 'MyQueries':
-        return <MyQueries />;
+      case 'VisitorQueries':
+        return <VisitorQueries />;
       case 'MyHistory':
         return <MyHistory />;
       case 'MyWishlist':
@@ -31,25 +30,26 @@ const SessionSelector = () => {
           className={`session-tab ${selectedTab === 'MySessions' ? 'active' : ''}`}
           onClick={() => setSelectedTab('MySessions')}
         >
-          My Sessions
+          Sessions
         </div>
-        <div
-          className={`session-tab ${selectedTab === 'MyQueries' ? 'active' : ''}`}
-          onClick={() => setSelectedTab('MyQueries')}
-        >
-          My Queries
-        </div>
+       
         <div
           className={`session-tab ${selectedTab === 'MyHistory' ? 'active' : ''}`}
           onClick={() => setSelectedTab('MyHistory')}
         >
-          My History
+          History
         </div>
         <div
           className={`session-tab ${selectedTab === 'MyWishlist' ? 'active' : ''}`}
           onClick={() => setSelectedTab('MyWishlist')}
         >
-          My Wishlist
+          Wishlist
+        </div>
+        <div
+          className={`session-tab ${selectedTab === 'VisitorQueries' ? 'active' : ''}`}
+          onClick={() => setSelectedTab('VisitorQueries')}
+        >
+          V.Queries
         </div>
       </div>
       <div className="session-content">
