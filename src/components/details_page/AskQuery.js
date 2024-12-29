@@ -33,8 +33,8 @@ const AskQuery = () => {
 
     try {
       await axios.post(
-        // 'https://promo-server-5iob.onrender.com/api/session_queries',
-        'http://localhost:5011/api/session_queries',
+        'https://promo-server-5iob.onrender.com/api/session_queries',
+        // 'http://localhost:5011/api/session_queries',
         { session_id, message, anonymous },
         { headers: { Authorization: `Session ${sessionId}` } }
       );
