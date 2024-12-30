@@ -125,7 +125,7 @@ const MyWishlist = () => {
     const emptyStars = 5 - fullStars - (partialStar ? 1 : 0);
   
     return (
-      <div className="stars">
+      <div className="stars"  style={{ marginBottom: '4rem' }}>
         {[...Array(fullStars)].map((_, i) => (
           <FontAwesomeIcon key={`full-${i}`} icon={faStar} className="star-full" />
         ))}

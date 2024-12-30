@@ -70,7 +70,7 @@ const MyProfile = () => {
     const isCreator = profileData.role === 'creator';
 
     return (
-        <Grid container justifyContent="center" sx={{ mt:5, p: 0, width: { xs: '103%', sm: '100%' } }}>
+        <Grid container justifyContent="center" sx={{ mt:5, p: 0, width: { xs: '103%', sm: '100%' } }} >
             <Grid item xs={12} sm={12.9} md={12.7} lg={11.7} xl={15}>
                 <Box
                     sx={{

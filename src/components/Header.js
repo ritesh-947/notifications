@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faSearch, faBell, faVideo, faCalendarAlt, faSignInAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import axios from 'axios';
 
@@ -55,16 +55,16 @@ const Header = ({ onSearch }) => {
     window.location.reload(); // Reload the current page
     setIsSearchActive(false); // Mark search as inactive
   };
-  
+
   const handleVideoUploadClick = () => {
     const redirectUrl = user?.role === 'creator'
       ? 'upload'
       : '/become-creator';
-    window.location.href = redirectUrl;
+    navigate(redirectUrl);
   };
 
-  const handleLoginSignUpClick = () => {
-    window.location.href = 'http://localhost:3002/login';
+  const handleLoginClick = () => {
+    navigate('/login'); // Navigate to /login route
   };
 
   return (
@@ -129,9 +129,12 @@ const Header = ({ onSearch }) => {
           </>
         )}
         {!user && (
-          <button className="o1-login-button" onClick={handleLoginSignUpClick}>
-            <FontAwesomeIcon icon={faSignInAlt} className="o1-icon" />
-          </button>
+          <FontAwesomeIcon
+            icon={faSignInAlt}
+            className="o1-icon"
+            onClick={handleLoginClick}
+            style={{ cursor: 'pointer', color: '#007bff', marginLeft: '10px' }}
+          />
         )}
       </div>
     </header>

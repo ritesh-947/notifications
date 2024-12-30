@@ -96,6 +96,7 @@ const MyHistory = () => {
         backgroundColor: '#f5f5f5', // Light background for better contrast
         overflow: 'hidden', // Prevent horizontal scrolling within the box
       }}
+      style={{ marginBottom: '4rem' }}
     >
       <Box sx={{ width: '100%' }}>
         {loading && (

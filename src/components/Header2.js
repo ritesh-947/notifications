@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo, faSearch, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faRedo, faSearch, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import './Header2.css';
 
 const Header2 = ({ onSearch }) => {
@@ -25,24 +25,16 @@ const Header2 = ({ onSearch }) => {
     window.location.reload(); // Refresh the page
   };
 
-  const handleRecordButtonClick = () => {
-    alert('Record button clicked!'); // Action for record button
-  };
-
-  const handleVideoUploadClick = () => {
-    const redirectUrl = user?.role === 'creator'
-      ? 'upload'
-      : '/upload';
-    window.location.href = redirectUrl;
+  const handleLoginClick = () => {
+    window.location.href = '/login'; // Redirect to login page
   };
 
   return (
     <header className="responsive-header">
       {/* Left: Logo */}
       <div className="header-left">
-      <img src="/IMG_1152.png" alt="Logo" className="header-logo" />
+        <img src="/IMG_1152.png" alt="Logo" className="header-logo" />
       </div>
-      
 
       {/* Center: Search */}
       <div className={`header-center ${isSearchActive ? 'active' : ''}`}>
@@ -59,17 +51,17 @@ const Header2 = ({ onSearch }) => {
         />
       </div>
 
-      {/* Right: Record and Search */}
+      {/* Right: Search and Login */}
       <div className="header-right">
-        <FontAwesomeIcon
-          icon={faVideo}
-          className="header-icon"
-          onClick={handleVideoUploadClick}
-        />
         <FontAwesomeIcon
           icon={faSearch}
           className="header-icon"
           onClick={handleSearchButtonClick}
+        />
+        <FontAwesomeIcon
+          icon={faSignInAlt}
+          className="header-icon login-icon"
+          onClick={handleLoginClick}
         />
       </div>
     </header>

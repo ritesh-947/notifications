@@ -510,7 +510,7 @@ const UploadSession = () => {
 
   return (
     
-<form onSubmit={handleSubmit} className="session-form" style={{ marginTop: '4rem' }}>
+<form onSubmit={handleSubmit} className="session-form" style={{ marginTop: '4rem',marginBottom: '4rem' }}>
       {error && (
         
   <div

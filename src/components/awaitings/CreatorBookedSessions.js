@@ -107,7 +107,7 @@ const CreatorBookedSessions = () => {
   }, []);
 
   const renderSessions = (sessions) => (
-    <Grid container spacing={3} justifyContent="center">
+    <Grid container spacing={3} justifyContent="center" >
       {sessions.map((session, index) => (
         <Grid item xs={12} sm={6} md={5} key={index}>
           <Card
@@ -205,7 +205,7 @@ const CreatorBookedSessions = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop: 5.7 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop: 5.7 }}  style={{ marginBottom: '4rem' }}>
       <Typography variant="h5" component="h4" gutterBottom sx={{ fontWeight: 'bold', color: 'black' }}>
         Sessions Booked by Attendees
       </Typography>

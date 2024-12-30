@@ -132,7 +132,8 @@ const MySessions = () => {
   };
 
   return (
-    <Grid container justifyContent="center" spacing={3} sx={{ paddingLeft: '20px' }}>
+    <Grid container justifyContent="center" spacing={3} sx={{ paddingLeft: '20px' }}
+    style={{ marginBottom: '4rem' }}>
       {error && (
         <Typography color="error" variant="h6">
           {error}

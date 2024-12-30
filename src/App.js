@@ -18,12 +18,11 @@ import SmallCard from './components/aboutpage/SmallCard';
 import Header2 from './components/Header2';
 import UploadSession from './components/firstpage/UploadSession';
 import BecomeCreatorPage from './components/firstpage/BecomeCreatorPage';
-import Payment from './components/payment/Payment';
 import SessionSetup from './components/bookings/SessionSetup';
 import SessionBook from './components/bookings/SessionBook';
 import BookedSessions from './components/awaitings/BookedSessions';
 import Ratings from './components/awaitings/Ratings';
-import Reviews from './components/aboutpage/Reviews';
+import Reviews from './components/details_page/Reviews';
 
 import WebRTCVideoCall from './components/call/WebRTCVideoCall';
 import Chat from './components/call/Chat';
@@ -37,6 +36,10 @@ import VisitorQueries from './components/profiles/VisitorQueries';
 import SessionDescription from './components/details_page/SessionDescription.js';
 import AskQuery from './components/details_page/AskQuery.js';
 import BottomNav from './components/BottomNav.js';
+import PaymentCollector from './components/payment/PaymentButton.js';
+import PaymentButton from './components/payment/PaymentButton.js';
+import PrivacyPolicy from './components/policy/PrivacyPolicy.js';
+import TermsAndConditions from './components/policy/TermAndConditions.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -102,7 +105,7 @@ const SessionPage = () => {
         <Alert />
         <Routes>
       
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment" element={<PaymentButton />} />
           <Route path="/" element={<Login />} />
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
@@ -152,7 +155,8 @@ const SessionPage = () => {
           <Route path="/visitor-queries" element={<VisitorQueries />} />
         
           <Route path="/room/:roomId" element={<RoomPage />} />
-          
+         <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
+         <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
          
         </Routes>
       </div>

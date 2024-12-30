@@ -88,7 +88,8 @@ const Reviews = () => {
   };
 
   return (
-    <div className="reviews-section">
+    <div className="reviews-section"
+    style={{marginBottom : '3rem'}}>
       <h6>Reviews for this Session:</h6>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {reviews.length === 0 ? (

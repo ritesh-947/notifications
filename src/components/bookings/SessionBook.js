@@ -198,7 +198,7 @@ const SessionBook = () => {
     }
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md"  style={{ marginBottom: '4rem' }}>
           <Card sx={{ padding: 1, marginTop: 6, borderRadius: 2, boxShadow: 1 }}>
                 <CardContent>
                 <Typography variant="h6"  gutterBottom sx={{ color: 'green', marginTop:"-1rem", fontSize:"1.1rem" }} >

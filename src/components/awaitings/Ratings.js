@@ -133,6 +133,7 @@ const Ratings = () => {
         backgroundColor: '#f5f5f5',
         padding: '20px',
       }}
+      style={{ marginBottom: '4rem' }}
     >
       <Card
         sx={{

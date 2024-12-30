@@ -135,7 +135,10 @@ useEffect(() => {
   }
 
   return (
-    <div className="home-page">
+    <div className="home-page"
+    style={{
+      marginBottom: '2rem', // Add margin at the bottom
+    }}>
       {/* Show Auth Message */}
       {authMessage && <div className="auth-message">{authMessage}</div>}
 

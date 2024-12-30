@@ -137,7 +137,7 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
   }, [remoteStream]);
 
   return (
-    <div className={`c1-video-container ${isMaximized ? 'c1-maximized' : ''}`}>
+    <div className={`c1-video-container ${isMaximized ? 'c1-maximized' : ''}`} style={{ marginBottom: '4rem' }}>
       {/* Remote Video */}
       <div className={`c1-remote-video-wrapper ${isMaximized ? 'c1-maximized-remote' : ''}`}>
         <video ref={remoteVideoRef} className="c1-remote-video" autoPlay playsInline></video>
