@@ -157,6 +157,7 @@ const SessionPage = () => {
           <Route path="/room/:roomId" element={<RoomPage />} />
          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
          <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
+         <Route path="/community-guidelines" element={<TermsAndConditions />} /> 
          
         </Routes>
       </div>
