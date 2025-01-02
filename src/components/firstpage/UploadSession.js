@@ -292,7 +292,7 @@ const UploadSession = () => {
   };
   const handlePriceChange = (selectedOption) => {
     if (selectedOption.value === '49') {
-      alert('To Set price 49rs...Coming soon.');
+      alert('Coming soon...');
       return; // Prevent further processing of the selection
     }
 
@@ -544,8 +544,8 @@ You can upload a maximum of 4 sessions.
           
           </div>
 
-          <div className="form-group">
-            <label htmlFor="video_url">
+          <div className="form-group" style={{ marginTop: '-1.5rem', display: 'block' }}>
+            <label htmlFor="video_url" >
               Video URL:
               <Tooltip title="Please provide the URL of your YouTube video. The video should be set either public or unlisted.">
                 <InfoIcon fontSize="small" className="tooltip-icon" />
@@ -562,7 +562,7 @@ You can upload a maximum of 4 sessions.
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group"  style={{ marginTop: '-1.5rem', display: 'block' }}>
             <label htmlFor="description">Description (Max 500 characters):</label>
             <textarea
               id="description"
@@ -573,7 +573,7 @@ You can upload a maximum of 4 sessions.
             ></textarea>
           </div>
 
-          <div className="form-group">
+          <div className="form-group"  style={{ marginTop: '-1rem', display: 'block' }}>
             <label htmlFor="price">Price:</label>
             <Select
               id="price"
@@ -623,7 +623,7 @@ You can upload a maximum of 4 sessions.
       </Typography>
     </div>
 
-          <div className="form-group">
+          <div className="form-group"  style={{ marginTop: '-1.5rem', display: 'block' }}>
             <label>
               Availability Days:
               <Tooltip title="Your availability settings (time, days, duration, and timezone) will be updated for all previously created sessions.">
@@ -705,27 +705,26 @@ You can upload a maximum of 4 sessions.
               onChange={handleChange}
             >
           <option value="">Select a category</option>
-          <option value="Career & Education Guidance">🎓 Career & Education Guidance</option>
-<option value="Mental Health & Wellness">🧠 Mental Health & Wellness</option>
-<option value="Financial Planning & Investments">💰 Financial Planning & Investments</option>
-<option value="Health & Fitness">🏋️‍♂️ Health & Fitness</option>
-<option value="Parenting & Family Relationships">👨‍👩‍👧‍👦 Parenting & Family Relationships</option>
-<option value="Technology & Digital Skills">💻 Technology & Digital Skills</option>
-<option value="Sustainable Living & Environment">🌍 Sustainable Living & Environment</option>
-<option value="Spirituality & Personal Growth">🧘 Spirituality & Personal Growth</option>
-<option value="Legal & Taxation Advice">⚖️ Legal & Taxation Advice</option>
-<option value="Entrepreneurship & Startups">🚀 Entrepreneurship & Startups</option>
 
+
+  <option value="Career Development and Job Solutions">💼 Career Development and Job Solutions</option>
+  <option value="Book Discussions and Recommendations">📚 Book Discussions and Recommendations</option>
+  <option value="Health and Wellness">💪 Health and Wellness</option>
+  <option value="Technology and Innovation">💻 Technology and Innovation</option>
+  <option value="Entrepreneurship and Business Growth">🚀 Entrepreneurship and Business Growth</option>
+  <option value="Creative Arts and Hobbies">🎨 Creative Arts and Hobbies</option>
+  <option value="Education and Skill Development">🎓 Education and Skill Development</option>
+  <option value="Legal Advice and Rights">⚖️ Legal Advice and Rights</option>
+  <option value="Financial Literacy and Investments">💰 Financial Literacy and Investments</option>
+  <option value="Travel and Cultural Exchange">✈️ Travel and Cultural Exchange</option>
           {/* Add more categories as needed */}
         </select>
           </div>
 
           <div className="form-group">
-            <label htmlFor="languages">
-              Languages:
-              <Tooltip title="Enter Your Speaking Language(s) Separated By Commas. Maximum 3 Allowed.">
-                <InfoIcon fontSize="small" className="tooltip-icon" />
-              </Tooltip>
+            <label htmlFor="languages"  style={{ marginTop: '-1rem', display: 'block' }}>
+              Languages(Max 3):
+              
             </label>
             <input
               type="text"
@@ -733,10 +732,11 @@ You can upload a maximum of 4 sessions.
               name="languages"
               value={formData.languages}
               onChange={handleChange}
-              placeholder="Enter Languages Separated By Commas. Maximum 3 Allowed"
+              placeholder="Separated By Commas."
+
             />
             {formData.languages && (
-              <div className="languages-feedback">
+              <div className="languages-feedback"  style={{ marginTop: '-0.5rem', display: 'block' }}>
                 {formData.languages.split(',').map((lang, index) => (
                   <span key={index} className="language-tag">
                     {lang.trim()}
@@ -746,12 +746,12 @@ You can upload a maximum of 4 sessions.
             )}
           </div>
 
-          <div className="form-group">
+          <div className="form-group"  style={{ marginTop: '-1rem', display: 'block' }}>
             <label>
               Is this content suitable for below age 18?
             </label>
-            <div className="radio-group-container">
-              <div className="radio-group">
+            <div className="radio-group-container" >
+              <div className="radio-group" >
                 <input
                   type="radio"
                   id="18plusYes"
@@ -780,13 +780,13 @@ You can upload a maximum of 4 sessions.
 
       <div className="step-navigation">
         {step > 1 && (
-          <button type="button" onClick={handlePreviousStep} className="prev-button">
+          <button type="button" onClick={handlePreviousStep} className="prev-button"  style={{ marginTop: '-1.5rem', display: 'block' }}>
             <ArrowBackIosIcon />
             Prev
           </button>
         )}
         {step < 3 ? (
-          <button type="button" onClick={handleNextStep} className="next-button next-blue">
+          <button type="button" onClick={handleNextStep} className="next-button next-blue" >
             Next <ArrowForwardIosIcon />
           </button>
         ) : (

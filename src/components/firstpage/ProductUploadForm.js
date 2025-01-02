@@ -31,19 +31,18 @@ const ProductUploadForm = () => {
       <div className="form-group">
         <label htmlFor="category">Category:</label>
         <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="">Select a category</option>
-          <option value="Career & Education Guidance">Career & Education Guidance</option>
-          <option value="Mental Health & ">Mental Health & Wellness</option>
-          <option value="Financial Planning & Investments">Financial Planning & Investments</option>
-          <option value="Health & Fitness">Health & Fitness</option>
-          <option value="Parenting & Family Relationships">Parenting & Family Relationships</option>
-          <option value="Technology & Digital Skills">Technology & Digital Skills</option>
-          <option value="Sustainable Living & Environment">Sustainable Living & Environment</option>
-          <option value="Spirituality & Personal Growth">Spirituality & Personal Growth</option>
-          <option value="Legal & Taxation Advice">Legal & Taxation Advice</option>
-          <option value="Entrepreneurship & Startups">Entrepreneurship & Startups</option>
-          {/* Add more categories as needed */}
-        </select>
+  <option value="">Select a category</option>
+  <option value="Career Development and Job Solutions">Career Development and Job Solutions</option>
+  <option value="Book Discussions and Recommendations">Book Discussions and Recommendations</option>
+  <option value="Health and Wellness">Health and Wellness</option>
+  <option value="Technology and Innovation">Technology and Innovation</option>
+  <option value="Entrepreneurship and Business Growth">Entrepreneurship and Business Growth</option>
+  <option value="Creative Arts and Hobbies">Creative Arts and Hobbies</option>
+  <option value="Education and Skill Development">Education and Skill Development</option>
+  <option value="Legal Advice and Rights">Legal Advice and Rights</option>
+  <option value="Financial Literacy and Investments">Financial Literacy and Investments</option>
+  <option value="Travel and Cultural Exchange">Travel and Cultural Exchange</option>
+</select>
       </div>
 
       <div className="form-group">
