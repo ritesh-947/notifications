@@ -644,7 +644,7 @@ const handleReportSubmit = async (reason) => {
 
 
   return (
-    <Box className="responsive-padding"  style={{ marginBottom: '4rem' }}>
+    <Box className="responsive-padding"  style={{ marginBottom: '5rem' }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h5" gutterBottom>Visitors' Queries</Typography>
         <IconButton onClick={handleFilterToggle} sx={{ color: showFilter ? 'blue' : 'inherit' }}>

@@ -12,7 +12,7 @@ const BottomNav = () => {
   const [value, setValue] = React.useState(0);
 
   return (
-    <Paper 
+    <Paper
       sx={{
         position: 'fixed',
         bottom: 0,
@@ -29,30 +29,40 @@ const BottomNav = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{
+          '.MuiBottomNavigationAction-root': {
+            '&:hover': {
+              backgroundColor: 'transparent', // Remove hover state
+            },
+            '&:focus': {
+              backgroundColor: 'transparent', // Prevent focus state color change
+            },
+          },
+        }}
       >
-        <BottomNavigationAction 
-          label="Home" 
-          icon={<HomeIcon />} 
+        <BottomNavigationAction
+          label="Home"
+          icon={<HomeIcon />}
           onClick={() => navigate('/homepage')}
         />
-        <BottomNavigationAction 
-          label="Queries" 
-          icon={<QuestionAnswerIcon />} 
+        <BottomNavigationAction
+          label="Queries"
+          icon={<QuestionAnswerIcon />}
           onClick={() => navigate('/my-queries')}
         />
-        <BottomNavigationAction 
-          label="Upload" 
-          icon={<AddCircleIcon />} 
+        <BottomNavigationAction
+          label="Upload"
+          icon={<AddCircleIcon />}
           onClick={() => navigate('/upload')}
         />
-        <BottomNavigationAction 
-          label="Bookings" 
-          icon={<BookIcon />} 
+        <BottomNavigationAction
+          label="Bookings"
+          icon={<BookIcon />}
           onClick={() => navigate('/booked-sessions')}
         />
-        <BottomNavigationAction 
-          label="Profile" 
-          icon={<AccountCircleIcon />} 
+        <BottomNavigationAction
+          label="Profile"
+          icon={<AccountCircleIcon />}
           onClick={() => navigate('/my-profile')}
         />
       </BottomNavigation>

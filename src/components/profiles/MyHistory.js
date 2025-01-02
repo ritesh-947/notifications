@@ -1,221 +1,134 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Grid, Typography, Card, CardContent, Box } from '@mui/material';
+import {
+  Button,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  Box,
+} from '@mui/material';
 import { AccessTime, Person } from '@mui/icons-material';
+import moment from 'moment-timezone';
+import { useNavigate } from 'react-router-dom';
 
 const MyHistory = () => {
   const [sessions, setSessions] = useState([]);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch sessionId from localStorage
-  const sessionId = localStorage.getItem('sessionId');
+  // Axios instance
+  const axiosInstance = axios.create({
+    // baseURL: 'http://localhost:5567', // Replace with your backend API base URL
+    baseURL: 'https://awaiting-server.onrender.com', // Replace with your backend API base URL
+  });
 
-  // Helper function to convert YouTube URLs to embed format
-  const convertToEmbedURL = (url) => {
-    let videoId = '';
-
-    if (url.includes('youtu.be')) {
-      videoId = url.split('youtu.be/')[1];
-    } else if (url.includes('youtube.com/watch')) {
-      videoId = url.split('v=')[1]?.split('&')[0];
+  // Axios interceptor to add session ID
+  axiosInstance.interceptors.request.use((config) => {
+    const sessionId = localStorage.getItem('sessionId');
+    if (sessionId) {
+      config.headers['Authorization'] = `Session ${sessionId}`;
     }
+    return config;
+  });
 
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-  };
-
-  // Helper function to format time to AM/PM in local time
-  const formatTime = (timeString) => {
-    const [hours, minutes, seconds] = timeString.split(':');
-    const date = new Date();
-    date.setHours(hours, minutes, seconds || 0);
-
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-  };
-
-  // Helper function to check if the session has ended
+  // Determine if the session has ended
   const hasSessionEnded = (date, endTime) => {
-    const datePart = new Date(date);
-    const [hours, minutes] = endTime.split(':').map(Number);
-    datePart.setHours(hours, minutes, 0);
-
-    const now = new Date();
-    return now >= datePart;
+    const sessionEnd = moment.tz(`${date} ${endTime}`, 'YYYY-MM-DD HH:mm:ss', 'Asia/Kolkata');
+    const now = moment.tz('Asia/Kolkata');
+    return now.isAfter(sessionEnd);
   };
 
-  // Fetch past sessions from API
-  const fetchPastSessions = async () => {
-    if (!sessionId) {
-      setError('No sessionId found. Please log in.');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await axios.get('http://localhost:5567/api/booked-sessions', {
-        headers: {
-          Authorization: `Session ${sessionId}`, // Use sessionId in the header
-        },
-      });
-
-      // Filter sessions to only include past sessions
-      const pastSessions = response.data
-        .filter((session) => hasSessionEnded(session.date, session.end_time))
-        .map((session) => ({
-          ...session,
-          video_url: convertToEmbedURL(session.video_url),
-          start_time: formatTime(session.start_time),
-          end_time: formatTime(session.end_time),
-          date: new Date(session.date).toLocaleDateString('en-US'),
-        }));
-
-      setSessions(pastSessions);
-      setError(''); // Reset error on success
-    } catch (error) {
-      console.error('Error fetching sessions:', error.response?.data || error.message);
-      setError('Failed to fetch past sessions. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Fetch attended sessions
   useEffect(() => {
-    fetchPastSessions();
-  }, [sessionId]);
+    const fetchAttendedSessions = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await axiosInstance.get(`/api/booked-sessions`);
+        const attendedSessions = response.data.filter((session) =>
+          hasSessionEnded(session.date, session.end_time)
+        );
+
+        setSessions(attendedSessions);
+      } catch (error) {
+        console.error('[ERROR] Failed to fetch attended sessions:', error);
+        setError('Failed to fetch attended sessions. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAttendedSessions();
+  }, []);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center', // Center horizontally
-        alignItems: 'flex-start', // Align items to the top
-        minHeight: '100vh',
-        width: sessions.length === 0 ? '100%' : { xs: '100%', sm: '80%', md: '70%', lg: '60%' }, // Responsive width based on session availability
-        margin: '0 auto', // Center the box horizontally on the screen
-        padding: '10px', // Add padding
-        backgroundColor: '#f5f5f5', // Light background for better contrast
-        overflow: 'hidden', // Prevent horizontal scrolling within the box
-      }}
-      style={{ marginBottom: '4rem' }}
-    >
-      <Box sx={{ width: '100%' }}>
-        {loading && (
-          <Typography sx={{ textAlign: 'center', marginBottom: '20px' }}>Loading...</Typography>
-        )}
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop: -2.7 }} style={{ marginBottom: '4rem' }}>
+     
+      {loading && <Typography>Loading sessions...</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
+      {!loading && !error && sessions.length === 0 && <Typography>No attended sessions found.</Typography>}
 
-        {sessions.length === 0 && !error && !loading && (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-              height: '400px',
-              padding: '20px',
-            }}
-          >
-            <Typography variant="h5" sx={{ color: '#666', marginTop: '20px' }}>
-              No past sessions found
-            </Typography>
-          </Box>
-        )}
+      <Grid container spacing={3} justifyContent="center">
+        {sessions.map((session, index) => (
+          <Grid item xs={12} sm={6} md={5} key={index}>
+            <Card
+              sx={{
+                boxShadow: 2,
+                borderRadius: '8px',
+                overflow: 'hidden',
+                padding: 1.5,
+                margin: '10px',
+                backgroundColor: '#f9f9f9',
+              }}
+            >
+              <CardContent sx={{ padding: '16px' }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  {session.session_title}
+                </Typography>
 
-        {error && (
-          <div style={{ textAlign: 'center' }}>
-            <Typography color="error">{error}</Typography>
-            <Button variant="contained" onClick={fetchPastSessions}>
-              Retry
-            </Button>
-          </div>
-        )}
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <Person sx={{ mr: 1 }} />
+                  Creator: {session.creator_username || 'Unknown'}
+                </Typography>
 
-        {sessions.length > 0 && (
-          <Grid container spacing={3}>
-            {sessions.map((session, index) => (
-              <Grid item xs={12} key={index}>
-                <Card
-                  sx={{
-                    backgroundColor: '#ffffff',
-                    boxShadow: '0px 3px 15px rgba(0,0,0,0.1)',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                      {/* Video Container */}
-                      <Grid item xs={12}>
-                        <Box
-                          sx={{
-                            position: 'relative',
-                            paddingTop: '56.25%',
-                            width: '100%',
-                            borderRadius: 1,
-                            overflow: 'hidden',
-                            marginBottom: '15px',
-                          }}
-                        >
-                          <iframe
-                            src={session.video_url}
-                            title={session.session_title}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            style={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              width: '100%',
-                              height: '100%',
-                            }}
-                          />
-                        </Box>
-                      </Grid>
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <AccessTime sx={{ mr: 1 }} />
+                  Date: {moment(session.date).format('DD/MM/YYYY')}
+                </Typography>
 
-                      {/* Details and Buttons */}
-                      <Grid item xs={12}>
-                        <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#333', marginBottom: '10px' }}>
-                          {session.session_title}
-                        </Typography>
+                <Typography sx={{ display: 'flex', alignItems: 'center', mb: 0.7 }}>
+                  <AccessTime sx={{ mr: 1 }} />
+                  Start Time: {session.start_time}
+                </Typography>
 
-                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                          <Person sx={{ marginRight: '8px', color: '#666' }} />
-                          Created by: {session.full_name || session.username}
-                        </Typography>
+                <Typography sx={{ color: '#888', textAlign: 'center', mt: 2 }}>
+                  Thank you for attending this session.
+                </Typography>
 
-                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                          <AccessTime sx={{ marginRight: '8px', color: '#666' }} />
-                          Start Time: {session.date} {session.start_time}
-                        </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: '#FFDE21', color: 'black', '&:hover': { backgroundColor: '#003d99' } }}
+                    onClick={() => navigate(`/session/${session.booking_id}/rate`)}
+                  >
+                    Rate Session
+                  </Button>
 
-                        <Typography sx={{ color: '#888', textAlign: 'center', marginTop: '10px' }}>
-                          Thank You For Attending The Session.
-                        </Typography>
-
-                        <Button
-                          fullWidth
-                          variant="contained"
-                          className="rate-button"
-                          sx={{
-                            backgroundColor: '#ffc107',
-                            color: 'white',
-                            '&:hover': {
-                              backgroundColor: '#e0a800',
-                            },
-                            marginTop: '10px',
-                          }}
-                        >
-                          Rate Session
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => navigate(`/session/${session.booking_id}`)}
+                  >
+                    About Session
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
           </Grid>
-        )}
-      </Box>
+        ))}
+      </Grid>
     </Box>
   );
 };

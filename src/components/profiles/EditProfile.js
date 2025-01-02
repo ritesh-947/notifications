@@ -162,6 +162,28 @@ const EditProfile = () => {
         }
     };
 
+    const applyForCreator = async () => {
+        try {
+            const response = await axios.post(
+                'https://edit-prof-js.onrender.com/apply-creator',
+                { role: 'creator' }, // Data to update the role
+                {
+                    headers: {
+                        Authorization: `Session ${sessionId}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            alert('Successfully applied to be a creator!');
+            setProfileData((prevData) => ({
+                ...prevData,
+                role: 'creator',
+            }));
+        } catch (error) {
+            handleApiError(error);
+        }
+    };
+
     if (isLoading) {
         return <Typography>Loading...</Typography>;
     }
@@ -183,6 +205,7 @@ const EditProfile = () => {
                         p: 3,
                     }}
                 >
+                  
                     <Typography variant="h5" sx={{ mb: 2 }}>
                         Edit Profile
                     </Typography>
@@ -205,6 +228,16 @@ const EditProfile = () => {
                             margin="normal"
                             required
                         />
+                          {profileData.role !== 'creator' && (
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            sx={{ mt: 2 }}
+                            onClick={applyForCreator}
+                        >
+                            Apply to be a Creator
+                        </Button>
+                    )}
                         <TextField
                             fullWidth
                             label="Bio"
@@ -224,6 +257,7 @@ const EditProfile = () => {
                                 margin="normal"
                             />
                         ))}
+                         
                         <FormControl fullWidth margin="normal">
                             <InputLabel>Interested Categories</InputLabel>
                             <Select
@@ -286,6 +320,7 @@ const EditProfile = () => {
                         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
                             Save Changes
                         </Button>
+
                     </form>
                 </Box>
             </Grid>

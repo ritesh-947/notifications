@@ -1,0 +1,23 @@
+.MuiListItemText-primary {
+    font-size: 1rem;
+  }
+  
+  .MuiButton-containedPrimary {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  .MuiButton-containedPrimary:hover {
+    background-color: #125ea0;
+  }
+  
+  .MuiTypography-h4 {
+    font-weight: bold;
+  }
+  
+  .MuiContainer-root {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }

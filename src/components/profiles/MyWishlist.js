@@ -1,64 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faGlobe, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faGlobe, faClock, faCalendar, faDollarSign, faUsers } from '@fortawesome/free-solid-svg-icons';
 import './MyWishlist.css';
+import { useNavigate } from 'react-router-dom';
 import ThreeDotMenu from './ThreeDotMenu';
-import ShareModal from './ShareModal';
 
 const MyWishlist = () => {
   const [wishlistedVideos, setWishlistedVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [shareSessionId, setShareSessionId] = useState(null);
+  const [authMessage, setAuthMessage] = useState('');
+  const videoRefs = useRef([]);
+  const navigate = useNavigate();
 
-  // Fetch sessionId from localStorage
   const sessionId = localStorage.getItem('sessionId');
-
-  const handleOpenShareModal = (sessionId) => {
-    setShareSessionId(sessionId);
-    setIsShareModalOpen(true);
-  };
-
-  const handleCloseShareModal = () => {
-    setIsShareModalOpen(false);
-    setShareSessionId(null);
-  };
 
   const fetchWishlistedVideos = async () => {
     if (!sessionId) {
-      console.error('[ERROR] No sessionId found in localStorage.');
+      console.error('No sessionId found in localStorage.');
+      setAuthMessage('You need to log in to view your wishlist.');
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:6001/api/wishlist', {
+      const response = await axios.get('https://home-server-x9xg.onrender.com/api/wishlist', {
         headers: {
           Authorization: `Session ${sessionId}`,
-          'Content-Type': 'application/json',
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const { wishlistedSessions, user } = data;
+      const { wishlistedSessions, user } = response.data;
 
-        const formattedVideos = wishlistedSessions.map((video) => ({
-          ...video,
-          video_url: convertToEmbedURL(video.video_url),
-          languages: video.languages.split(','),
-          avg_rating: parseFloat(video.avg_rating),
-        }));
+      const formattedVideos = wishlistedSessions.map((video) => ({
+        ...video,
+        video_url: convertToEmbedURL(video.video_url),
+        languages: video.languages.split(','),
+        avg_rating: parseFloat(video.avg_rating),
+      }));
 
-        setWishlistedVideos(formattedVideos);
-        setUser(user);
-      } else {
-        console.error('[ERROR] Failed to fetch wishlisted sessions:', response.statusText);
-      }
+      setWishlistedVideos(formattedVideos);
+      setUser(user);
+      setAuthMessage('');
+      setLoading(false);
     } catch (error) {
-      console.error('[ERROR] Error fetching wishlisted videos:', error.message);
-    } finally {
+      console.error('Error fetching wishlist:', error.message);
+      if (error.response?.status === 401) {
+        setAuthMessage('You need to log in to view your wishlist.');
+      }
       setLoading(false);
     }
   };
@@ -69,94 +59,81 @@ const MyWishlist = () => {
 
   const convertToEmbedURL = (url) => {
     let videoId = '';
-
     if (url.includes('youtu.be')) {
       videoId = url.split('youtu.be/')[1]?.split('?')[0];
     } else if (url.includes('youtube.com/watch')) {
       videoId = url.split('v=')[1]?.split('&')[0];
     }
-
     return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
   };
 
+  const handleViewMore = (sessionId) => {
+    navigate(`/session/${sessionId}`);
+  };
+
   const handleRemoveFromWishlist = async (sessionId) => {
-    if (!sessionId || !user?.id) {
-      console.error('[ERROR] Invalid session or user ID.');
-      return;
-    }
-
     try {
-      const response = await fetch('http://localhost:6004/api/wishlist/remove', {
-        method: 'POST',
-        headers: {
-          Authorization: `Session ${sessionId}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sessionId,
-          userId: user.id,
-        }),
-      });
+      const response = await axios.post(
+        'https://home-server-x9xg.onrender.com/api/wishlist/remove',
+        { sessionId },
+        {
+          headers: {
+            Authorization: `Session ${sessionId}`,
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         setWishlistedVideos((prevVideos) =>
           prevVideos.filter((video) => video.session_id !== sessionId)
         );
-        console.log('Session removed from wishlist successfully.');
-      } else {
-        console.error('[ERROR] Failed to remove session from wishlist:', response.statusText);
       }
     } catch (error) {
-      console.error('[ERROR] Error removing session from wishlist:', error.message);
+      console.error('Error removing from wishlist:', error.message);
     }
   };
 
-  const handleCreatorClick = (creatorId) => {
-    window.location.href = `http://localhost:3232/user/${creatorId}`;
-  };
-
-  const handleReadFullStoryClick = (sessionId) => {
-    window.location.href = `http://localhost:3345/session/${sessionId}`;
-  };
-
-  const renderStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const partialStar = (rating % 1) * 100;
-    const emptyStars = 5 - fullStars - (partialStar ? 1 : 0);
-  
-    return (
-      <div className="stars"  style={{ marginBottom: '4rem' }}>
-        {[...Array(fullStars)].map((_, i) => (
-          <FontAwesomeIcon key={`full-${i}`} icon={faStar} className="star-full" />
-        ))}
-        {partialStar > 0 && (
-          <div className="star-container" key="partial-star">
-            <FontAwesomeIcon icon={faStar} className="star-empty" />
-            <div className="star-overlay" style={{ width: `${partialStar}%` }}>
-              <FontAwesomeIcon icon={faStar} className="star-full-overlay" />
-            </div>
-          </div>
-        )}
-        {[...Array(emptyStars)].map((_, i) => (
-          <FontAwesomeIcon key={`empty-${i}`} icon={faStar} className="star-empty" />
-        ))}
-      </div>
-    );
-  };
-
   if (loading) {
-    return <div className="loading">Loading wishlist...</div>;
+    return <div>Loading your wishlist...</div>;
   }
 
   if (wishlistedVideos.length === 0) {
-    return <div className="no-videos">You have no wishlisted sessions.</div>;
+    return <div>Your wishlist is empty.</div>;
   }
 
   return (
-    <div className="home-page">
+    <div className="wishlist-page">
+      {authMessage && <div className="auth-message">{authMessage}</div>}
+
       <div className="video-grid">
         {wishlistedVideos.map((video, index) => (
-          <div key={`${video.session_id}-${index}`} className="video-card">
+          <div
+            key={video.session_id}
+            className="video-card"
+            style={{
+              minHeight: '475px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              padding: '15px',
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              margin: '10px',
+            }}
+            ref={(el) => (videoRefs.current[index] = el)}
+          >
+            <div className="creator-info" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <FontAwesomeIcon icon={faStar} />
+              <p style={{ marginLeft: '5px', marginBottom: '10px' }}>
+                {video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}
+              </p>
+              <ThreeDotMenu
+                sessionId={video.session_id}
+                onRemoveFromWishlist={() => handleRemoveFromWishlist(video.session_id)}
+              />
+            </div>
+
             {video.video_url ? (
               <iframe
                 width="320"
@@ -164,55 +141,49 @@ const MyWishlist = () => {
                 src={video.video_url}
                 title={video.session_title}
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             ) : (
               <div className="video-placeholder">Video not available</div>
             )}
-
-            <div className="title-and-menu">
-              <h3 style={{ color: 'black', fontSize: '18px', margin: '5px 0', maxWidth: '85%' }}>
-                {video.session_title || 'Untitled Session'}
-              </h3>
-              <ThreeDotMenu
-                sessionId={video.session_id}
-                userId={user?.id}
-                onRemoveFromWishlist={() => handleRemoveFromWishlist(video.session_id)}
-                onShare={() => handleOpenShareModal(video.session_id)}
-              />
-            </div>
-
-            <div
-              className="creator-info"
-              onClick={() => handleCreatorClick(video.creator_id)}
-              style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', marginRight: '-10px' }}
-            >
-              <FontAwesomeIcon icon={faStar} className="creator-star" />
-              <p style={{ marginLeft: '5px' }}>
-                {video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}
+            <div className="video-content">
+              <h3>{video.session_title || 'Untitled Session'}</h3>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
               </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days.map((day) => day.slice(0, 3)).join(', ')}
+              </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
+              </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}
+              </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faStar} /> Rating: {video.avg_rating.toFixed(2)} ({video.ratings_count} ratings)
+              </p>
+              <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
+                <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count}
+              </p>
+              <div className="button-container">
+                <button
+                  className="view-more-button"
+                  onClick={() => handleViewMore(video.session_id)}
+                >
+                  View More
+                </button>
+                <button
+                  className="remove-from-wishlist-button"
+                  onClick={() => handleRemoveFromWishlist(video.session_id)}
+                >
+                  Remove from Wishlist
+                </button>
+              </div>
             </div>
-
-            <div className="video-info" style={{ marginTop: '10px' }}>
-              <span className="rating">{Number.isNaN(video.avg_rating) ? '0.00' : video.avg_rating.toFixed(2)}</span>
-              {renderStars(video.avg_rating || 0)}
-              <FontAwesomeIcon icon={faUserFriends} />
-              <span className="attendees-count">{`${video.attendees_count} Attendees`}</span>
-            </div>
-
-            <button className="read-more" onClick={() => handleReadFullStoryClick(video.session_id)}>
-              View More
-            </button>
           </div>
         ))}
       </div>
-
-      <ShareModal
-        open={isShareModalOpen}
-        handleClose={handleCloseShareModal}
-        sessionId={shareSessionId}
-      />
     </div>
   );
 };

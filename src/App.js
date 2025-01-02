@@ -40,6 +40,11 @@ import PaymentCollector from './components/payment/PaymentButton.js';
 import PaymentButton from './components/payment/PaymentButton.js';
 import PrivacyPolicy from './components/policy/PrivacyPolicy.js';
 import TermsAndConditions from './components/policy/TermAndConditions.js';
+import CommunityGuidelines from './components/policy/CommunityGuidelines.js';
+import ApplyForCreator from './components/profiles/ApplyForCreator.js';
+import UserProfile from './components/profiles/UserProfile.js';
+import Footer from './components/policy/Footer.js';
+import AboutUs from './components/policy/AboutUs.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -103,10 +108,16 @@ const SessionPage = () => {
           <Sidebar />
           <BottomNav />
         <Alert />
+    
         <Routes>
+
       
         <Route path="/payment" element={<PaymentButton />} />
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={ <>
+               <Login /> 
+                <Footer />
+               
+              </>} />
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
@@ -135,8 +146,12 @@ const SessionPage = () => {
           <Route path="/post-question" element={<PostQuestion />} />
           
           <Route path="/questions" element={<Questions />}/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/signup" element={<>
+               <SignUp /> 
+                <Footer />
+               
+              </>} />
           <Route path="/resetpassword" element={<ResetPasswordForm />} />
           <Route path="/session/:session_id/book" element={<SessionBook />} />
           <Route path="/booked-sessions" element={<BookedSessions />} />
@@ -147,8 +162,11 @@ const SessionPage = () => {
     <MyProfile />
     <ProfileDescription />
     <SessionSelector />
+   
   </>
 } />
+   <Route path="/user/:user_id" element={<UserProfile />} />
+<Route path="/become-creator" element={  <ApplyForCreator />} />
           <Route path="/edit-profile" element={<EditProfile />} />
 
           <Route path="/my-queries" element={<MyQueries />} />
@@ -156,10 +174,12 @@ const SessionPage = () => {
         
           <Route path="/room/:roomId" element={<RoomPage />} />
          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
+         <Route path="/about-us" element={<AboutUs />} /> 
          <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
-         <Route path="/community-guidelines" element={<TermsAndConditions />} /> 
-         
+         <Route path="/community-guidelines" element={<CommunityGuidelines />} /> 
+
         </Routes>
+
       </div>
     </Router>
   );

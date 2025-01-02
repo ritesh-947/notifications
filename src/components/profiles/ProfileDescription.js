@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Box, Grid, Avatar } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileDescription = () => {
   const [expanded, setExpanded] = useState(false);
   const [profileData, setProfileData] = useState(null); // State to hold profile data
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
+  
   // Function to fetch profile data
   const fetchProfileData = async () => {
     const sessionId = localStorage.getItem('sessionId'); // Retrieve sessionId from localStorage
@@ -38,6 +40,11 @@ const ProfileDescription = () => {
   const toggleExpanded = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
+
+  const navigateToBecomeCreator = () => {
+    navigate('/become-creator');
+  };
+
 
   // Fetch profile data when the component mounts
   useEffect(() => {

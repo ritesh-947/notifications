@@ -14,8 +14,8 @@ const Login = () => {
 
     // Axios instance configuration
     const axiosInstance = axios.create({
-        // baseURL: 'http://localhost:8080/api', // Update with your API URL
-        baseURL: 'https://login-backend-server-vto2.onrender.com/api', // Update with your API URL
+        baseURL: 'http://localhost:8080/api', // Update with your API URL
+        // baseURL: 'https://login-backend-server-vto2.onrender.com/api', // Update with your API URL
         withCredentials: false, // No cookies used
     });
 
@@ -98,12 +98,21 @@ const Login = () => {
                 <button type="submit" className="continue-button">Log In</button>
             </form>
             <p>
-                <a href="/resetpassword" style={{ color: 'blue' }}>Forget Password?</a>
-            </p>
-            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    <a href="/resetpassword" style={{ color: 'blue', textDecoration: 'none' }}>Forget Password?</a>
+</p>
+<p>
+    Don't have an account? 
+    <a href="/signup" style={{ color: 'blue', textDecoration: 'none' }}> Sign Up</a>
+</p>
             {/* <div className="or-divider">
                 <span>OR</span>
             </div> */}
+    <p className="terms-and-conditions">
+    By logging in or signing up, you agree to our  
+    <a href="/terms-and-conditions" style={{ color: 'blue', textDecoration: 'none' }}>
+         Terms and Conditions
+    </a>.
+</p>
 
             {/* <button onClick={logoutUser} className="logout-button">Logout</button> */}
         </div>

@@ -87,7 +87,6 @@ useEffect(() => {
 }, []);
   
 
-
   useEffect(() => {
     // Apply search filter and limit results to 12
     const filtered = videos.filter((video) =>

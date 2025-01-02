@@ -166,9 +166,15 @@ const SignUp = () => {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <p className="already-member">
               Already have an account?{' '}
-              <a href="/login" style={{ color: 'blue' }}>
+              <a href="/login" style={{ color: 'blue',textDecoration: 'none' }}>
                 Login
               </a>
+              <p className="terms-and-conditions">
+    By logging in or signing up, you agree to our 
+    <a href="/terms-and-conditions" style={{ color: 'blue', textDecoration: 'none' }}>
+        Terms and Conditions
+    </a>.
+</p>
             </p>
           </form>
         )}
