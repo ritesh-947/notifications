@@ -1043,7 +1043,8 @@ const handleReportSubmit = async (reason) => {
                   onChange={(event) => handleReplyChange(event, query.query_id)}
                   helperText={`${replyData[query.query_id]?.charactersLeft || MAX_CHAR_LIMIT} characters left`}
                   multiline
-                  minRows={4}
+                  minRows={1}
+                  maxRows={2}
                   InputProps={{
                     sx: {
                       resize: 'vertical',
