@@ -1,0 +1,82 @@
+/* Background styling */
+.join-room-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6b73ff, #000dff);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Card styling */
+  .join-room-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .join-room-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Form styling */
+  .join-room-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Input field styling */
+  .join-room-input {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  
+  .join-room-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Button styling */
+  .join-room-button {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .join-room-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 480px) {
+    .join-room-card {
+      padding: 20px;
+    }
+  
+    .join-room-title {
+      font-size: 20px;
+    }
+  
+    .join-room-input,
+    .join-room-button {
+      font-size: 14px;
+      padding: 12px;
+    }
+  }

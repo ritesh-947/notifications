@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo, faSearch, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faRedo, faSearch, faSignInAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import './Header2.css';
 
 const Header2 = ({ onSearch }) => {
   const [isSearchActive, setIsSearchActive] = useState(false); // To toggle the search input field
   const [searchQuery, setSearchQuery] = useState('');
-  const [user, setUser] = useState(null);
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -21,12 +20,14 @@ const Header2 = ({ onSearch }) => {
     }
   };
 
-  const handleRefreshButtonClick = () => {
-    window.location.reload(); // Refresh the page
-  };
+
 
   const handleLoginClick = () => {
     window.location.href = '/login'; // Redirect to login page
+  };
+
+  const handleProfileClick = () => {
+    window.location.href = '/my-profile'; // Navigate to /my-profile
   };
 
   return (
@@ -38,9 +39,8 @@ const Header2 = ({ onSearch }) => {
 
       {/* Center: Search */}
       <div className={`header-center ${isSearchActive ? 'active' : ''}`}>
-        <button className="refresh-button" onClick={handleRefreshButtonClick}>
-          <FontAwesomeIcon icon={faRedo} />
-        </button>
+
+       
         <input
           type="text"
           placeholder="Search..."
@@ -51,7 +51,7 @@ const Header2 = ({ onSearch }) => {
         />
       </div>
 
-      {/* Right: Search and Login */}
+      {/* Right: Search, Login, and Profile */}
       <div className="header-right">
         <FontAwesomeIcon
           icon={faSearch}
@@ -63,6 +63,9 @@ const Header2 = ({ onSearch }) => {
           className="header-icon login-icon"
           onClick={handleLoginClick}
         />
+        <div className="profile-icon" onClick={handleProfileClick}>
+          <FontAwesomeIcon icon={faStar} />
+        </div>
       </div>
     </header>
   );

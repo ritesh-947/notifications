@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faGlobe, faClock, faCalendar, faDollarSign, faUsers } from '@fortawesome/free-solid-svg-icons'; // Import additional icons
+import { faStar, faGlobe, faClock, faCalendar, faIndianRupeeSign, faUsers } from '@fortawesome/free-solid-svg-icons'; // Import additional icons
 import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
 import ThreeDotMenu from './ThreeDotMenu'; // Import the ThreeDotMenu component
@@ -195,7 +195,7 @@ useEffect(() => {
             <div className="video-content">
               <h3>{video.session_title || 'Untitled Session'}</h3>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-  <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
+  <FontAwesomeIcon icon={faIndianRupeeSign} /> Price: {video.price}
 </p>
 <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
   <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '8px' }} />

@@ -48,6 +48,7 @@ import AboutUs from './components/policy/AboutUs.js';
 import CommunitySelection from './components/public/CommunitySelection.js';
 import PublicChat from './components/public/PublicChat.js';
 import Answers from './components/public/Answers.js';
+import JoinRoom from './components/call/JoinRoom.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -176,6 +177,8 @@ const SessionPage = () => {
           <Route path="/visitor-queries" element={<VisitorQueries />} />
         
           <Route path="/room/:roomId" element={<RoomPage />} />
+          <Route path="/join" element={<JoinRoom />} />
+
          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
          <Route path="/about-us" element={<AboutUs />} /> 
          <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 

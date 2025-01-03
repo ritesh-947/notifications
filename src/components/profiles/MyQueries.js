@@ -347,7 +347,24 @@ useEffect(() => {
   }
 
   if (queries.length === 0) {
-    return <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>No queries found</Typography>;
+    return (
+      <Box
+        sx={{
+          marginTop: '4rem',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <img
+          src="./girl-sitting.png" // Replace with the actual path of your image
+          alt="No Queries Found"
+          style={{ maxWidth: '300px', marginBottom: '20px' }}
+        />
+        <Typography>No queries found</Typography>
+      </Box>
+    );
   }
 
   return (

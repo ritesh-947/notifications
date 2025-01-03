@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router-dom'; // For navigation
 import InfoIcon from '@mui/icons-material/Info';
 import './BookedSessions.css';
 
+const noSessionsImageURL = '/no-sessions-image.png'; // Replace with your image path or URL
+
 const BookedSessions = () => {
   const [sessions, setSessions] = useState([]);
   const [error, setError] = useState('');
@@ -92,7 +94,7 @@ const BookedSessions = () => {
         setSessions(formattedSessions);
       } catch (error) {
         console.error('[ERROR] Failed to fetch booked sessions:', error);
-        setError('Failed to fetch booked sessions. Please try again later.');
+        setError('Failed to fetch booked sessions. Please book one.');
       } finally {
         setLoading(false);
       }
@@ -145,7 +147,32 @@ const BookedSessions = () => {
       </Dialog>
 
       {loading && <Typography>Loading sessions...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
+
+
+            {error && (
+        <Typography
+          style={{
+            color: 'black', // Set the text color to black
+            fontSize: '14px', // Adjust the font size
+            marginTop: '10px', // Add spacing
+            textAlign: 'center', // Center-align the text
+          }}
+        >
+          {error}
+        </Typography>
+      )}
+
+
+{!loading  && sessions.length === 0 && (
+        <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
+          <img src={noSessionsImageURL} alt="No Sessions" style={{ width: '250px', marginBottom: '10px' }} />
+          <Typography variant="h6" color="textSecondary">
+            No sessions booked yet.
+          </Typography>
+        </Box>
+      )}
+
+
       {!loading && !error && sessions.length === 0 && <Typography>No sessions booked yet.</Typography>}
 
       <Grid container spacing={3} justifyContent="center">

@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookIcon from '@mui/icons-material/Book';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
 const BottomNav = () => {
   const navigate = useNavigate();
@@ -61,9 +61,9 @@ const BottomNav = () => {
           onClick={() => navigate('/booked-sessions')}
         />
         <BottomNavigationAction
-          label="Profile"
-          icon={<AccountCircleIcon />}
-          onClick={() => navigate('/my-profile')}
+          label="Join"
+          icon={<MeetingRoomIcon />}
+          onClick={() => navigate('/join')}
         />
       </BottomNavigation>
     </Paper>

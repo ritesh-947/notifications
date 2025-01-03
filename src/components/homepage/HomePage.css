@@ -44,6 +44,20 @@ body {
   
 }
 
+/* Media query for smaller screens */
+@media (max-width: 500px) {
+  .video-card {
+    width: 100%; /* Make the card take 95% of the screen width */
+    margin: 10px auto; /* Center the card horizontally */
+
+  }
+    .video-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center the cards */
+    }
+}
+
 .video-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

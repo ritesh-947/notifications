@@ -10,9 +10,12 @@ import {
   faCalendarCheck,
   faQuestionCircle,
   faHeart,
+  faComments,
   faUserCircle,
   faDollarSign,
   faListAlt,
+  faQuestion,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.css'; // Ensure you have styles in Sidebar.css
 
@@ -35,30 +38,35 @@ const Sidebar = () => {
       </button>
       <aside className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
         <div className="sign-in">
-          <FontAwesomeIcon icon={faUser} /> 
+
         </div>
         <ul>
-      
-        
-         
-         
+          <li>
+            <a href="/my-profile">
+              <FontAwesomeIcon icon={faUserCircle} color="blue" />My Profile
+            </a>
+          </li>
+          <li>
+            <a href="/post-question">
+              <FontAwesomeIcon icon={faPlus} color="blue" /> Ask Question
+            </a>
+          </li>
+          <li>
+            <a href="/questions">
+            <FontAwesomeIcon icon={faComments} color="green" /> Questions
+            </a>
+          </li>
           <li>
             <a href="/creator-sessions">
-              <FontAwesomeIcon icon={faCalendarCheck} color="green" /> Visitor Bookings
+              <FontAwesomeIcon icon={faCalendarCheck} color="green" /> Bookings (Attendees)
             </a>
           </li>
-          
           <li>
             <a href="/visitor-queries">
-              <FontAwesomeIcon icon={faQuestionCircle} color="green"/> Visitor Queries
+              <FontAwesomeIcon icon={faQuestionCircle} color="green" /> Queries (Visitors)
             </a>
           </li>
-          
-         
-
-          
-
-          <li>
+          {/* <li>
             <a href="/monetization">
               <FontAwesomeIcon icon={faDollarSign} color="blue" /> Monetization
             </a>
@@ -67,7 +75,7 @@ const Sidebar = () => {
             <a href="/subscription">
               <FontAwesomeIcon icon={faListAlt} color="blue" /> Subscription
             </a>
-          </li>
+          </li> */}
         </ul>
       </aside>
     </>

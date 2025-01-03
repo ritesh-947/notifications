@@ -1,6 +1,6 @@
 .sidebar {
     width: 240px;
-    background-color: #f8f9fa;
+    background-color: #cececf;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     top: 50px; /* Adjust this value to move the sidebar down */
     left: 0;
