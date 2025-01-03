@@ -42,8 +42,8 @@ const PostQuestions = () => {
 
   try {
     const response = await axios.post(
-      'https://public-server-lbev.onrender.com/questions',
-      // 'http://localhost:1000/questions',
+      // 'https://public-server-lbev.onrender.com/questions',
+      'http://localhost:1000/questions',
       questionData,
       {
         headers: {
