@@ -45,6 +45,9 @@ import ApplyForCreator from './components/profiles/ApplyForCreator.js';
 import UserProfile from './components/profiles/UserProfile.js';
 import Footer from './components/policy/Footer.js';
 import AboutUs from './components/policy/AboutUs.js';
+import CommunitySelection from './components/public/CommunitySelection.js';
+import PublicChat from './components/public/PublicChat.js';
+import Answers from './components/public/Answers.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -177,6 +180,17 @@ const SessionPage = () => {
          <Route path="/about-us" element={<AboutUs />} /> 
          <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
          <Route path="/community-guidelines" element={<CommunityGuidelines />} /> 
+
+
+
+
+
+         <Route path="/post-question" element={<PostQuestion />} />
+          <Route path="/questions" element={<div> <Questions /> </div>}/>
+        <Route path="/public" exact element={<CommunitySelection/>} />
+        <Route path="/public/:community/room" element={<PublicChat/>} />
+          {/* Route for displaying answers of a specific question */}
+          <Route path="/questions/:id/answers" element={<Answers />} />
 
         </Routes>
 

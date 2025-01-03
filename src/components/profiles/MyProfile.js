@@ -58,13 +58,20 @@ const MyProfile = () => {
         navigate('/edit-profile');
     };
     
-
     if (loading) {
-        return <h2>Loading...</h2>;
+        return (
+            <h2 style={{ marginTop: '3rem', textAlign: 'center' }}>
+                Loading...
+            </h2>
+        );
     }
-
+    
     if (error) {
-        return <h2>{error}</h2>;
+        return (
+            <h2 style={{ marginTop: '6rem', textAlign: 'center', color: 'red',fontSize:'1rem' }}>
+                {error}
+            </h2>
+        );
     }
 
     const isCreator = profileData.role === 'creator';

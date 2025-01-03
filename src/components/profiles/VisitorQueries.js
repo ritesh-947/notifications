@@ -633,14 +633,22 @@ const handleReportSubmit = async (reason) => {
       [queryId]: !prevState[queryId],
     }));
   };
+  
   if (loading) {
-    return <Typography>Loading queries...</Typography>;
+    return (
+      <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>
+        Loading queries...
+      </Typography>
+    );
   }
-
+  
   if (queries.length === 0) {
-    return <Typography>No messages found.</Typography>;
+    return (
+      <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>
+        No messages found.
+      </Typography>
+    );
   }
-
 
 
   return (

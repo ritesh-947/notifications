@@ -1,125 +1,107 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
-import { FaLock, FaPencilAlt } from 'react-icons/fa'; // Import icons
-import TopicsSelector from './TopicsSelector'; // Import TopicsSelector component
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import './QuestionsModified.css';
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
-  const [filteredQuestions, setFilteredQuestions] = useState([]);
-  const [selectedTopics, setSelectedTopics] = useState([]);
-  const [answers, setAnswers] = useState({}); // Stores answers for each question
-  const [showAnswers, setShowAnswers] = useState({}); // Tracks which question's answers are visible
-  const [writeAnswer, setWriteAnswer] = useState({}); // Tracks which question has an active answer input
-  const [answerInputs, setAnswerInputs] = useState({}); // Stores input values for answers
+  const [selectedQuestion, setSelectedQuestion] = useState(null); // For answering
+  const [answerInput, setAnswerInput] = useState(''); // For the answer input
+  const [charCount, setCharCount] = useState(0); // To track the character count for the answer input
+  const [filter, setFilter] = useState('mostRecent'); // Default filter
 
+  // Fetch questions based on the selected filter
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const url = 'http://localhost:1000/questions'; // Replace with your endpoint
-        console.log('Fetching questions from:', url);
-        const res = await axios.get(url);
-        console.log('Questions fetched:', res.data);
+        const sessionId = localStorage.getItem('sessionId');
+        const url = `http://localhost:1000/questions?filter=${filter}`; // Updated API endpoint with filter query param
+
+        const res = await axios.get(url, {
+          headers: sessionId ? { Authorization: `Session ${sessionId}` } : {},
+        });
+
         setQuestions(res.data);
-        setFilteredQuestions(res.data); // Initially display all questions
       } catch (err) {
         console.error('Failed to fetch questions:', err);
       }
     };
 
     fetchQuestions();
-  }, []);
+  }, [filter]);
 
-  // Filter questions based on selected topics
-  useEffect(() => {
-    if (selectedTopics.length > 0) {
-      const filtered = questions.filter((question) =>
-        selectedTopics.some((topic) => question.topics.includes(topic))
-      );
-      setFilteredQuestions(filtered);
-    } else {
-      setFilteredQuestions(questions); // Show all questions if no topic is selected
-    }
-  }, [selectedTopics, questions]);
-
-  // Toggle visibility of answers for a question and fetch answers if not already fetched
-  const toggleAnswers = async (questionId) => {
-    setShowAnswers((prevState) => ({
-      ...prevState,
-      [questionId]: !prevState[questionId],
-    }));
-
-    if (!answers[questionId]) {
-      try {
-        const url = `http://localhost:1000/questions/${questionId}`; // Fetch question with answers
-        const res = await axios.get(url);
-        setAnswers((prevState) => ({
-          ...prevState,
-          [questionId]: res.data.answers,
-        }));
-      } catch (err) {
-        console.error(`Failed to fetch answers for question ${questionId}:`, err);
-      }
-    }
+  const handleViewAnswers = (questionId) => {
+    window.location.href = `/questions/${questionId}/answers`;
   };
 
-  // Toggle input box for writing an answer
-  const toggleWriteAnswer = (questionId) => {
-    setWriteAnswer((prevState) => ({
-      ...prevState,
-      [questionId]: !prevState[questionId],
-    }));
-    setAnswerInputs((prevState) => ({
-      ...prevState,
-      [questionId]: '', // Clear input when toggling
-    }));
-  };
+  const handleAnswerSubmit = async (questionId) => {
+    const sessionId = localStorage.getItem('sessionId');
+    if (!sessionId) {
+      alert('You need to be logged in to perform this action.');
+      return;
+    }
 
-  // Submit an answer to the backend
-  const handleSubmitAnswer = async (questionId) => {
-    const answer = answerInputs[questionId];
-    if (!answer || answer.trim() === '') {
-      alert('Answer cannot be empty!');
+    if (!answerInput.trim()) {
+      alert('Answer must not be empty.');
       return;
     }
 
     try {
-      const url = `http://localhost:1000/questions/${questionId}/answers`;
-      const response = await axios.post(url, { answer });
-      console.log('Answer submitted:', response.data);
-
-      // Update the answers state with the new answer
-      setAnswers((prevState) => ({
-        ...prevState,
-        [questionId]: [...(prevState[questionId] || []), response.data.answer],
-      }));
-
-      // Reset the input and hide the answer input box
-      setWriteAnswer((prevState) => ({ ...prevState, [questionId]: false }));
-      setAnswerInputs((prevState) => ({ ...prevState, [questionId]: '' }));
+      await axios.post(
+        `http://localhost:1000/questions/${questionId}/answers`,
+        { answer: answerInput },
+        { headers: { Authorization: `Session ${sessionId}` } }
+      );
+      alert('Answer submitted successfully!');
+      setAnswerInput('');
+      setCharCount(0); // Reset character count
+      setSelectedQuestion(null);
     } catch (err) {
       console.error('Failed to submit answer:', err);
-      alert('Failed to submit answer. Please try again.');
     }
+  };
+
+  const formatAnswerCount = (count) => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k answers`;
+    }
+    return count === 1 ? '1 answer' : `${count} answers`;
   };
 
   return (
     <div className="questions-container-mod">
-      <h3>Questions Section</h3>
+      <h2>Questions Section</h2>
 
-      {/* Topics Selector */}
-      <TopicsSelector selectedTopics={selectedTopics} setSelectedTopics={setSelectedTopics} />
+      {/* Filter Buttons */}
+      <div className="filters-mod">
+        <button
+          className={`filter-button ${filter === 'mostRecent' ? 'active' : ''}`}
+          onClick={() => setFilter('mostRecent')}
+        >
+          Most Recent
+        </button>
+        <button
+          className={`filter-button ${filter === 'mostAnswered' ? 'active' : ''}`}
+          onClick={() => setFilter('mostAnswered')}
+        >
+          Most Answered
+        </button>
+      </div>
 
-      {filteredQuestions.length ? (
-        filteredQuestions.map((question) => (
+      {questions.length ? (
+        questions.map((question) => (
           <div key={question.id} className="question-card-mod">
             <div className="profile-section-mod">
-<div className="profile-icon">
-  <span>Q</span>
-</div>
-             
-              <div className="username-mod">{question.username || 'Anonymous'}</div>
+              <div className="profile-pic-circle-mod">
+                {question.username
+                  ? question.username.charAt(0).toUpperCase()
+                  : 'A'}
+              </div>
+              <div className="username-mod">
+                {question.username || 'Anonymous'}
+              </div>
             </div>
 
             <div className="question-section-mod">
@@ -133,114 +115,40 @@ const Questions = () => {
                     ))
                   : 'No topics'}
               </div>
+
               <p className="posted-time-mod">
                 Posted {formatDistanceToNow(new Date(question.created_at))} ago
               </p>
-              <div className="button-container-mod">
-                {/* View Answers Button */}
-                <button
-                  className="view-answers-btn"
-                  onClick={() => toggleAnswers(question.id)}
-                  style={{
-                    backgroundColor: '#3498db',
-                    color: 'white',
-                    padding: '8px 12px',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                  }}
-                >
-                  {showAnswers[question.id] ? 'Hide' : 'Answers'}
-                </button>
 
-                {/* Write Answer Button */}
+              <div className="action-buttons-mod">
                 <button
-                  className="write-answer-btn"
-                  onClick={() => toggleWriteAnswer(question.id)}
-                  style={{
-                    backgroundColor: '#27ae60',
-                    color: 'white',
-                    padding: '8px 12px',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                  }}
+                  className="view-answers-button-mod"
+                  onClick={() => handleViewAnswers(question.id)}
                 >
-                  Answer
-                  <FaPencilAlt />
+                  <FontAwesomeIcon icon={faComment} /> {formatAnswerCount(question.answer_count)}
+                </button>
+                <button
+                  className="answer-button-mod"
+                  onClick={() => setSelectedQuestion(question.id)}
+                >
+                  <FontAwesomeIcon icon={faPaperPlane} /> Answer
                 </button>
               </div>
 
-       {/* Display Answers Below Question */}
-{showAnswers[question.id] && (
-  <div className="answers-section" style={{ marginTop: '10px' }}>
-    {/* <h4>Answers:</h4> */}
-    {answers[question.id] && answers[question.id].length > 0 ? (
-      answers[question.id].map((answerObj, index) => (
-        <p
-          key={answerObj.id}
-          className="answer-item"
-          style={{
-            marginLeft: '-6rem',
-            padding: '5px',
-            borderRadius: '5px',
-            backgroundColor: index % 2 === 0 ? '#f0f8ff' : '#e6ffe6', // Alternate row colors
-          }}
-        >
-          <strong style={{ color: '#3498db' }}>{index + 1}.</strong> {/* Serial number */}
-          {' '}
-          {answerObj.answer}
-        </p>
-      ))
-    ) : (
-      <p>No answers yet.</p>
-    )}
-  </div>
-)}
-
-              {/* Display Write Answer Input */}
-              {writeAnswer[question.id] && (
-                <div className="write-answer-section" style={{ marginTop: '10px', marginLeft: '-5rem,',marginRight: '1rem' }}>
+              {selectedQuestion === question.id && (
+                <div className="answer-input-mod">
                   <textarea
-                    placeholder="Write your answer here..."
-                    rows={2}
-
-                    value={answerInputs[question.id] || ''}
-                    onChange={(e) =>
-                      setAnswerInputs((prevState) => ({
-                        ...prevState,
-                        [question.id]: e.target.value,
-                      }))
-                    }
-                    style={{
-                      width: '140%',
-                      padding: '10px',
-                      fontSize: '14px',
-                      borderRadius: '5px',
-                      marginBottom: '10px',
-                      marginLeft: '-6rem', // Adjust this value as needed
+                    value={answerInput}
+                    onChange={(e) => {
+                      setAnswerInput(e.target.value);
+                      setCharCount(e.target.value.length); // Update character count
                     }}
-                  />
-                  <button
-                    onClick={() => handleSubmitAnswer(question.id)}
-                    style={{
-                      backgroundColor: '#e67e22',
-                      color: 'white',
-                      padding: '8px 16px',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                        marginLeft: '-6rem',
-                         marginTop: '-10px',
-                    }}
-                  >
-                    Submit Answer
+                    maxLength={1024} // Enforce the max character limit
+                    placeholder="Write your answer here (max 1024 characters)..."
+                  ></textarea>
+                  <small>{charCount}/1024 characters</small> {/* Character counter */}
+                  <button onClick={() => handleAnswerSubmit(question.id)}>
+                    <FontAwesomeIcon icon={faPaperPlane} /> Submit
                   </button>
                 </div>
               )}

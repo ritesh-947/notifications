@@ -1,0 +1,125 @@
+/* Wrapper styling for the entire component */
+.live-questions-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh; /* Full screen height */
+    width: 100%;
+    
+  }
+  
+  /* Container for the live questions */
+  .live-questions-container {
+    width: 100%;
+    max-width: 100%;
+    max-width: 700px;
+    height: 100%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px;
+    position: relative; /* To position the scroll button inside */
+    box-sizing: border-box;
+  }
+  
+
+  
+
+  
+  /* Controls container for the buttons */
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+  
+  /* Control buttons for loading speed and scrolling */
+  .control-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .control-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Styling for each question card */
+  .question-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-height: 100px; /* Limit the height for each card */
+    overflow: hidden; /* Prevent content from overflowing */
+  }
+  
+  /* Profile section with picture and username */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #6045c2;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .username {
+    font-weight: bold;
+  }
+  
+  /* Question section styling */
+  .question-section {
+    flex: 1;
+  }
+  
+  .question-header {
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
+ 
+  /* Media query for larger screens (more than 1000px) */
+@media (min-width: 1000px) {
+    .live-questions-container {
+      width: 45%; /* 50% width when screen is more than 1000px */
+      margin-left: auto; /* Align container to the right */
+    }
+
+     /* Buttons also take 45% width and align to the right */
+  .controls {
+    width: 45%;
+    margin-left: auto; /* Align buttons to the right */
+  }
+}
+
+    /* Media query for small screens (less than 700px) */
+    @media (max-width: 700px) {
+        .live-questions-container {
+          width: 100%; /* Full screen width */
+          height: 100%; /* Full screen height */
+          padding: 0;
+        }
+      }

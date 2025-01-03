@@ -343,11 +343,11 @@ useEffect(() => {
   };
 
   if (loading) {
-    return <Typography>Loading...</Typography>;
+    return <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>Loading...</Typography>;
   }
 
   if (queries.length === 0) {
-    return <Typography>No queries found</Typography>;
+    return <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>No queries found</Typography>;
   }
 
   return (

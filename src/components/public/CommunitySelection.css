@@ -1,0 +1,38 @@
+.community-selection {
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .community-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .community-box {
+    width: 150px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .community-box:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-5px);
+  }
+  
+  .community-box.selected {
+    border-color: #007bff;
+    background-color: #d1e7ff;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
