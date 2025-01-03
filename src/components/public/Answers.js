@@ -18,7 +18,8 @@ const Answers = () => {
     const fetchQuestionAndAnswers = async () => {
       try {
         const sessionId = localStorage.getItem('sessionId');
-        const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
+        const res = await axios.get(`https://public-server-lbev.onrender.com/questions/${id}/answers`, {
+        // const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
           headers: sessionId ? { Authorization: `Session ${sessionId}` } : {},
         });
         setQuestion(res.data.question);
@@ -52,7 +53,8 @@ const Answers = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:1000/questions/${id}/answers`,
+        `https://public-server-lbev.onrender.com/questions/${id}/answers`,
+        // `http://localhost:1000/questions/${id}/answers`,
         {
           answer: newAnswer,
           is_anonymous: false,
@@ -64,7 +66,8 @@ const Answers = () => {
         alert('Answer submitted successfully!');
 
         // Refresh answers after submission
-        const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
+        const res = await axios.get(`https://public-server-lbev.onrender.com/questions/${id}/answers`, {
+        // const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
           headers: { Authorization: `Session ${sessionId}` },
         });
         setAnswers(res.data.answers);
@@ -88,12 +91,14 @@ const Answers = () => {
       }
 
       await axios.post(
-        `http://localhost:1000/answers/${answerId}/like`,
+        `https://public-server-lbev.onrender.com/answers/${answerId}/like`,
+        // `http://localhost:1000/answers/${answerId}/like`,
         {},
         { headers: { Authorization: `Session ${sessionId}` } }
       );
 
-      const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
+      const res = await axios.get(`https://public-server-lbev.onrender.com/questions/${id}/answers`, {
+      // const res = await axios.get(`http://localhost:1000/questions/${id}/answers`, {
         headers: { Authorization: `Session ${sessionId}` },
       });
       setAnswers(res.data.answers);

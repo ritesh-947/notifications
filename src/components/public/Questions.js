@@ -17,7 +17,8 @@ const Questions = () => {
     const fetchQuestions = async () => {
       try {
         const sessionId = localStorage.getItem('sessionId');
-        const url = `http://localhost:1000/questions?filter=${filter}`; // Updated API endpoint with filter query param
+        const url = `https://public-server-lbev.onrender.com/questions?filter=${filter}`; // Updated API endpoint with filter query param
+        // const url = `http://localhost:1000/questions?filter=${filter}`; // Updated API endpoint with filter query param
 
         const res = await axios.get(url, {
           headers: sessionId ? { Authorization: `Session ${sessionId}` } : {},
@@ -50,7 +51,8 @@ const Questions = () => {
 
     try {
       await axios.post(
-        `http://localhost:1000/questions/${questionId}/answers`,
+        `https://public-server-lbev.onrender.com/questions/${questionId}/answers`,
+        // `http://localhost:1000/questions/${questionId}/answers`,
         { answer: answerInput },
         { headers: { Authorization: `Session ${sessionId}` } }
       );
