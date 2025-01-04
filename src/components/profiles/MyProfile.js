@@ -60,9 +60,9 @@ const MyProfile = () => {
     
     if (loading) {
         return (
-            <h2 style={{ marginTop: '3rem', textAlign: 'center' }}>
+            <h6 style={{ marginTop: '3rem', textAlign: 'center' }}>
                 Loading...
-            </h2>
+            </h6>
         );
     }
     
@@ -86,10 +86,10 @@ const MyProfile = () => {
                         mt: 0,
                         backgroundColor: 'background.paper',
                         borderRadius: 2,
-                        boxShadow: 3,
+                        boxShadow: 0,
                     }}
                 >
-                    <Card sx={{ boxShadow: 3 }}>
+                    <Card sx={{ boxShadow: 0 }}>
                         <CardContent>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -49,6 +49,7 @@ import CommunitySelection from './components/public/CommunitySelection.js';
 import PublicChat from './components/public/PublicChat.js';
 import Answers from './components/public/Answers.js';
 import JoinRoom from './components/call/JoinRoom.js';
+import NotificationSystem from './components/profiles/NotificationSystem.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -169,12 +170,14 @@ const SessionPage = () => {
    
   </>
 } />
-   <Route path="/user/:user_id" element={<UserProfile />} />
+             <Route path="/user/:username" element={<UserProfile />} />
+
 <Route path="/become-creator" element={  <ApplyForCreator />} />
           <Route path="/edit-profile" element={<EditProfile />} />
 
           <Route path="/my-queries" element={<MyQueries />} />
           <Route path="/visitor-queries" element={<VisitorQueries />} />
+          <Route path="/notifications" element={<NotificationSystem />} />
         
           <Route path="/room/:roomId" element={<RoomPage />} />
           <Route path="/join" element={<JoinRoom />} />

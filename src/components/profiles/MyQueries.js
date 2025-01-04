@@ -360,7 +360,7 @@ useEffect(() => {
         <img
           src="./girl-sitting.png" // Replace with the actual path of your image
           alt="No Queries Found"
-          style={{ maxWidth: '300px', marginBottom: '20px' }}
+          style={{ maxWidth: '300px', marginBottom: '20px' ,borderRadius: '20%'}}
         />
         <Typography>No queries found</Typography>
       </Box>
@@ -398,7 +398,7 @@ useEffect(() => {
                   }}
                 >
                   You Got Reply From     <Link
-    href={`https://wanloft.com/user/${query.visitor_id}`}
+    href={`https://wanloft.com/user/${query.visitor_username}`}
     underline="none">
 @{query.creator_username}</Link> on session "
                   <Link
@@ -414,7 +414,7 @@ useEffect(() => {
               )}
                 <Box display="flex" alignItems="center" mt={-2}>
                 <Link
-    href={`http://localhost:3232/`}
+    href={`https://www.wanloft.com/user/${query.visitor_username}`}
     underline="none">
 
                   <Avatar
@@ -441,7 +441,7 @@ useEffect(() => {
                     }}
                   >
                      <Link
-    href={`http://localhost:3232/user/`}
+    href={`https://www.wanloft.com/user/${query.visitor_username}`}
     underline="none"  // Remove underline
     sx={{
       color: 'inherit', // Inherit the color to prevent color change
@@ -527,7 +527,7 @@ useEffect(() => {
                     <Grid container alignItems="center">
                       <Grid item>
                       <Link
-    href={`http://localhost:3232/user/${query.creator_id}`}
+    href={`https://www.wanloft.com/user/${query.creator_username}`}
     underline="none"
     
   >
@@ -540,7 +540,7 @@ useEffect(() => {
  
 </Grid>
 <Link
-    href={`http://localhost:3232/user/${query.creator_id}`}
+     href={`https://www.wanloft.com/user/${query.creator_username}`}
     underline="none"  // Remove underline
     sx={{
       color: 'inherit', // Inherit the color to prevent color change
@@ -592,7 +592,7 @@ useEffect(() => {
   {/* View Session Button */}
   <Button 
     variant="outlined" 
-    href={`http://localhost:3345/session/${query.session_id}`}
+    href={`https://www.wanloft.com/session/${query.session_id}`}
     sx={{
       textTransform: 'none', // Keep original text case
       color: 'primary.main',

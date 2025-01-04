@@ -4,6 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import './QuestionsModified.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,6 +12,8 @@ const Questions = () => {
   const [answerInput, setAnswerInput] = useState(''); // For the answer input
   const [charCount, setCharCount] = useState(0); // To track the character count for the answer input
   const [filter, setFilter] = useState('mostRecent'); // Default filter
+  const navigate = useNavigate(); // Initialize navigate
+
 
   // Fetch questions based on the selected filter
   useEffect(() => {
@@ -96,12 +99,18 @@ const Questions = () => {
         questions.map((question) => (
           <div key={question.id} className="question-card-mod">
             <div className="profile-section-mod">
-              <div className="profile-pic-circle-mod">
+              <div className="profile-pic-circle-mod"
+               onClick={() => navigate(`/user/${question.username}`)} // Navigate on profile pic click
+                style={{ cursor: 'pointer' }}
+                >
                 {question.username
                   ? question.username.charAt(0).toUpperCase()
                   : 'A'}
               </div>
-              <div className="username-mod">
+              <div className="username-mod"
+                onClick={() => navigate(`/user/${question.username}`)} // Navigate on username click
+                style={{ cursor: 'pointer' }}
+                >
                 {question.username || 'Anonymous'}
               </div>
             </div>

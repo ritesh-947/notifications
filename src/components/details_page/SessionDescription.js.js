@@ -32,7 +32,13 @@ const SessionDescription = () => {
   // Render loading state
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        sx={{ backgroundColor: '#f4f6f9' }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -41,37 +47,78 @@ const SessionDescription = () => {
   // Render error state
   if (error) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-        <Typography color="error">{error}</Typography>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        sx={{ backgroundColor: '#f4f6f9' }}
+      >
+        <Typography color="error" variant="body1" sx={{ textAlign: 'center', fontSize: '1rem', marginTop:'7rem' }}>
+          {error}
+        </Typography>
       </Box>
     );
   }
 
   // Render session description
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-      <Card style={{ maxWidth: '600px', padding: '16px', backgroundColor: '#f9f9f9' }}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="flex-start" // Align to top
+      minHeight="50vh"
+      sx={{ backgroundColor: '#f4f6f9', padding: '0rem', paddingTop: '1.5rem' }}
+    >
+      <Card
+        sx={{
+          width: { xs: '100%', sm: '600px' }, // 90% width for screens below 500px, otherwise 600px
+          padding: '1rem',
+          borderRadius: '16px',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
+          backgroundColor: '#ffffff',
+        }}
+      >
         <CardContent>
-        <Typography variant="h6" gutterBottom>
-              About the Session
-            </Typography>
-
-
           {/* Session Description */}
-          <Typography variant="body1" color="textSecondary" gutterBottom>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              fontSize:'1.3rem',
+              color: '#333333',
+              marginBottom: '16px',
+              borderBottom: '2px solid #4caf50',
+              paddingBottom: '0px',
+            }}
+          >
+            About the Session
+          </Typography>
+          <Typography variant="body1" color="textSecondary" gutterBottom sx={{ lineHeight: '1.6' }}>
             {session.description || 'No description available for this session.'}
           </Typography>
 
-
           {/* Creator Details */}
           <Box mt={4}>
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{
+                fontSize:'1.3rem',
+                fontWeight: 'bold',
+                color: '#333333',
+                marginBottom: '16px',
+                borderBottom: '2px solid #2196f3',
+                paddingBottom: '0px',
+              }}
+            >
               About the Creator
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2" gutterBottom sx={{ marginBottom: '8px', lineHeight: '1.6' }}>
               <strong>Username:</strong> {session.creator_username}
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2" gutterBottom sx={{ lineHeight: '1.6' }}>
               <strong>Bio:</strong> {session.creator_bio || 'No bio available.'}
             </Typography>
           </Box>

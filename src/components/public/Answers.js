@@ -5,6 +5,7 @@ import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt, faPaperPlane, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './Answers.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Answers = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ const Answers = () => {
   const [newAnswer, setNewAnswer] = useState('');
   const [charCountAnswer, setCharCountAnswer] = useState(0);
   const [showAnswerForm, setShowAnswerForm] = useState(false);
+
+   const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const fetchQuestionAndAnswers = async () => {
@@ -187,7 +190,10 @@ const Answers = () => {
                     {getInitials(answer.username, answer.is_anonymous)}
                   </div>
                   <div className="username-and-answer">
-                    <p className="username">
+                    <p className="username"
+                    onClick={() => answer.username && navigate(`/user/${answer.username}`)} // Navigate to user profile
+                    style={{ cursor: 'pointer', color: '#007bff' }}
+                  >
                       <strong>{answer.username || 'Anonymous'}</strong>
                     </p>
                     <p>{answer.answer}</p>

@@ -58,8 +58,8 @@ const EditProfile = () => {
             }
 
             try {
-                const response = await axios.get('https://edit-prof-js.onrender.com/userprofile', {
-                // const response = await axios.get('http://localhost:8084/userprofile', {
+                // const response = await axios.get('https://edit-prof-js.onrender.com/userprofile', {
+                const response = await axios.get('http://localhost:8084/userprofile', {
                     headers: {
                         Authorization: `Session ${sessionId}`, // Pass sessionId in the Authorization header
                     },
@@ -148,8 +148,8 @@ const EditProfile = () => {
         }
 
         try {
-            await axios.post('https://edit-prof-js.onrender.com/updateprofile', profileData, {
-            // await axios.post('http://localhost:8084/updateprofile', profileData, {
+            // await axios.post('https://edit-prof-js.onrender.com/updateprofile', profileData, {
+            await axios.post('http://localhost:8084/updateprofile', profileData, {
                 headers: {
                     Authorization: `Session ${sessionId}`,
                     'Content-Type': 'application/json',
@@ -165,7 +165,8 @@ const EditProfile = () => {
     const applyForCreator = async () => {
         try {
             const response = await axios.post(
-                'https://edit-prof-js.onrender.com/apply-creator',
+                // 'https://edit-prof-js.onrender.com/apply-creator',
+                'http://localhost:8084/apply-creator',
                 { role: 'creator' }, // Data to update the role
                 {
                     headers: {
@@ -185,11 +186,31 @@ const EditProfile = () => {
     };
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>;
+        return (
+            <Typography
+                sx={{
+                    color: 'black', // Set the text color to black
+                    textAlign: 'center', // Center the text horizontally
+                    marginTop: '3rem', // Add 3rem space at the top
+                }}
+            >
+                Loading...
+            </Typography>
+        );
     }
 
     if (error) {
-        return <Typography color="error">{error}</Typography>;
+        return (
+            <Typography
+                sx={{
+                    color: 'black', // Change color to black
+                    textAlign: 'center', // Center the text
+                    marginTop: '3rem', // Add 3rem space at the top
+                }}
+            >
+                {error}
+            </Typography>
+        );
     }
 
     return (
@@ -228,16 +249,7 @@ const EditProfile = () => {
                             margin="normal"
                             required
                         />
-                          {profileData.role !== 'creator' && (
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            sx={{ mt: 2 }}
-                            onClick={applyForCreator}
-                        >
-                            Apply to be a Creator
-                        </Button>
-                    )}
+                      
                         <TextField
                             fullWidth
                             label="Bio"
@@ -265,10 +277,36 @@ const EditProfile = () => {
                                 value={profileData.interested_categories}
                                 onChange={handleCategoryChange}
                             >
-                                <MenuItem value="tech">Tech</MenuItem>
-                                <MenuItem value="business">Business</MenuItem>
-                                <MenuItem value="lifestyle">Lifestyle</MenuItem>
-                                <MenuItem value="entrepreneurship">Entrepreneurship</MenuItem>
+<MenuItem value="Career Development and Job Solutions">
+    💼 Career Development and Job Solutions
+</MenuItem>
+<MenuItem value="Book Discussions and Recommendations">
+    📚 Book Discussions and Recommendations
+</MenuItem>
+<MenuItem value="Health and Wellness">
+    💪 Health and Wellness
+</MenuItem>
+<MenuItem value="Technology and Innovation">
+    💻 Technology and Innovation
+</MenuItem>
+<MenuItem value="Entrepreneurship and Business Growth">
+    🚀 Entrepreneurship and Business Growth
+</MenuItem>
+<MenuItem value="Creative Arts and Hobbies">
+    🎨 Creative Arts and Hobbies
+</MenuItem>
+<MenuItem value="Education and Skill Development">
+    🎓 Education and Skill Development
+</MenuItem>
+<MenuItem value="Legal Advice and Rights">
+    ⚖️ Legal Advice and Rights
+</MenuItem>
+<MenuItem value="Financial Literacy and Investments">
+    💰 Financial Literacy and Investments
+</MenuItem>
+<MenuItem value="Travel and Cultural Exchange">
+    ✈️ Travel and Cultural Exchange
+</MenuItem>
                             </Select>
                             <FormHelperText>Select up to 3 categories</FormHelperText>
                         </FormControl>

@@ -54,7 +54,7 @@ const MyHistory = () => {
         setSessions(attendedSessions);
       } catch (error) {
         console.error('[ERROR] Failed to fetch attended sessions:', error);
-        setError('Failed to fetch attended sessions. Please try again later.');
+        setError('Please login and try again.');
       } finally {
         setLoading(false);
       }
@@ -67,7 +67,19 @@ const MyHistory = () => {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 1, marginTop: -2.7 }} style={{ marginBottom: '4rem' }}>
      
       {loading && <Typography>Loading sessions...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
+      <img
+          src="./Lady-Walking.png" // Replace this with the actual image path or URL
+          alt="Error illustration"
+          style={{
+            width: '250px', // Adjust the width as needed
+            height: 'auto',
+            marginBottom: '1rem', // Space between image and text
+            borderRadius: '20%'
+          }}
+        />
+      {error && <Typography color="black">
+        {error}</Typography>}
+       
       {!loading && !error && sessions.length === 0 && <Typography>No attended sessions found.</Typography>}
 
       <Grid container spacing={3} justifyContent="center">

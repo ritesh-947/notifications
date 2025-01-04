@@ -7,6 +7,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ReportIcon from '@mui/icons-material/Report';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { useNavigate } from 'react-router-dom';
 
 import './VisitorQueries.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -49,7 +50,7 @@ const [isEditing, setIsEditing] = useState({}); // NEW state for tracking edit m
 const [sortByDate, setSortByDate] = useState('newest');
 const [sortByReply, setSortByReply] = useState('all');
 const [filteredQueries, setFilteredQueries] = useState([]);
-
+const navigate = useNavigate(); // Initialize navigate function
 
 const debounce = (func, delay) => {
   let timer;
@@ -633,7 +634,7 @@ const handleReportSubmit = async (reason) => {
       [queryId]: !prevState[queryId],
     }));
   };
-  
+
   if (loading) {
     return (
       <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>
@@ -643,18 +644,33 @@ const handleReportSubmit = async (reason) => {
   }
   
   if (queries.length === 0) {
-    return (
-      <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>
-        No messages found.
+   return (
+    
+    <Box sx={{ marginTop: '4rem', textAlign: 'center' }}>
+        <Typography variant="h6" color="textSecondary" >
+        No queries found.
       </Typography>
-    );
+      <img
+        src="./Boy-standing.png" // Adjust the path based on where you saved the image
+        alt="No Queries"
+        style={{
+          maxWidth: '300px',
+          width: '100%',
+          height: 'auto',
+          marginBottom: '20px',
+          borderRadius: '20%',
+        }}
+      />
+    
+    </Box>
+  );
   }
 
 
   return (
-    <Box className="responsive-padding"  style={{ marginBottom: '5rem' }}>
+    <Box className="responsive-padding"  style={{ marginBottom: '5rem',marginTop:'3rem' }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h5" gutterBottom>Visitors' Queries</Typography>
+        <Typography variant="h5" gutterBottom marginLeft='5rem'>Visitors' Queries</Typography>
         <IconButton onClick={handleFilterToggle} sx={{ color: showFilter ? 'blue' : 'inherit' }}>
           <FilterListIcon />
         </IconButton>
@@ -716,24 +732,23 @@ const handleReportSubmit = async (reason) => {
                         {query.anonymous ? (
   "a Visitor"
 ) : (
-  <Link
-    href={`http://localhost:3232/user/${query.visitor_id}`}
-    underline="none"
-    sx={{
-      display: 'inline-block',
-
-
-      '&:hover': {
-       // Change color to #111111 on hover
-      },
-    }}
-  >
-&nbsp; {`@${query.visitor_username}`}&nbsp;
-  </Link>
+<span
+      style={{
+        cursor: 'pointer',
+        color: 'inherit',
+        textDecoration: 'none', // No underline by default
+        display: 'inline-block',
+      }}
+      onClick={() => navigate(`/user/${query.visitor_username}`)} // Navigate to /user/:visitor_id
+      onMouseOver={(e) => (e.target.style.color = '#111111')} // Change color on hover
+      onMouseOut={(e) => (e.target.style.color = 'inherit')} // Revert color on mouse out
+    >
+      &nbsp;{`@${query.visitor_username}`}&nbsp;
+    </span>
 )}
                          on your session "
                         <Link
-                          href={`http://localhost:3345/session/${query.session_id}`}
+                          href={`https://www.wanloft.com/session/${query.session_id}`}
                            underline="none"
                           color="primary"
                         >
@@ -763,7 +778,7 @@ const handleReportSubmit = async (reason) => {
       </Avatar>
     ) : (
       <Link
-        href={`http://localhost:3232/`}
+        href={`https://www.wanloft.com/user/${query.visitor_username}`}
         underline="none"
         sx={{
           display: 'inline-block',
@@ -799,7 +814,7 @@ const handleReportSubmit = async (reason) => {
     "Anonymous User"
   ) : (
     <Link
-      href={`http://localhost:3232/`}
+      href={`https://www.wanloft.com/user/${query.visitor_username}`}
       underline="none"
       sx={{
         display: 'inline-block',
@@ -904,7 +919,7 @@ const handleReportSubmit = async (reason) => {
   {/* Creator Avatar */}
   <Grid item>
   <Link
-        href={`https://wanloft.com/user/${query.creator_id}`}
+        href={`https://wanloft.com/user/${reply.creator_username}`}
         underline="none"
         sx={{
           display: 'inline-block',
@@ -939,7 +954,7 @@ const handleReportSubmit = async (reason) => {
           ml:1
         }}
       > <Link
-      href={`https://wanloft.com/user/${query.creator_id}`}
+      href={`https://wanloft.com/user/${reply.creator_username}`}
       underline="none"
       
       sx={{
@@ -951,7 +966,16 @@ const handleReportSubmit = async (reason) => {
         },
       }}
     >
-       {reply.creator_fullname || reply.creator_username || 'You'}
+       <span
+  style={{
+    cursor: 'pointer',
+    color: 'black',
+    textDecoration: 'none',
+  }}
+  onClick={() => navigate(`/user/${reply.creator_username}`)} // Navigate to /user/:username
+>
+  {reply.creator_fullname || reply.creator_username || 'You'}
+</span>
        </Link>
       </Typography> 
      

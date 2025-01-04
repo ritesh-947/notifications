@@ -557,7 +557,7 @@ You can upload a maximum of 4 sessions.
               name="video_url"
               value={formData.video_url}
               onChange={handleChange}
-              placeholder="eg.https://youtu.be/your-video-id"
+              placeholder="https://youtu.be/"
               required
             />
           </div>

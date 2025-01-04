@@ -35,7 +35,7 @@ const Reviews = () => {
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error.response?.data || error.message);
-        setErrorMessage('Failed to fetch reviews.');
+        // setErrorMessage('Failed to fetch reviews.');
       }
     };
 
@@ -90,8 +90,16 @@ const Reviews = () => {
   return (
     <div className="reviews-section"
     style={{marginBottom : '3rem'}}>
-      <h6>Reviews for this Session:</h6>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+  <h5
+  style={{
+    fontSize: '1rem', // Set the font size
+    textAlign: 'center', // Center text horizontally
+    margin: '1rem 0', // Optional: Add margin for spacing
+  }}
+>
+  Reviews:
+</h5>
+      {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
       {reviews.length === 0 ? (
         <p className="neutral-message no-reviews-message">No reviews found for this session.</p>
       ) : (

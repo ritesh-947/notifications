@@ -61,12 +61,18 @@ const ProfileDescription = () => {
 
   if (error) {
     return (
-      <Typography variant="h6" color="error">
+      <Typography
+        variant="body2" // Smaller text size
+        color="black"
+        sx={{
+          textAlign: 'center', // Center horizontally
+          marginTop: '3rem', // Add spacing from the top
+        }}
+      >
         {error}
       </Typography>
     );
   }
-
   return (
     <Grid container justifyContent="center" alignItems="center" sx={{ width: '100%', p: 0 }}>
       <Grid container justifyContent="flex-end" sx={{ width: '100%', pl: '0px' }}>

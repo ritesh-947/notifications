@@ -28,7 +28,7 @@ const JoinRoom = () => {
             className="join-room-input"
           />
           <button type="submit" className="join-room-button">
-            Join Room
+            Join Room For Free
           </button>
         </form>
       </div>

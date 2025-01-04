@@ -128,7 +128,17 @@ useEffect(() => {
 
 
   if (loading) {
-    return <div>Loading sessions...</div>;
+    return (
+      <div
+        style={{
+          marginTop: '4rem', // Pushes the message down by 4rem
+          fontSize: '1rem', // Sets the font size to 1.25rem
+          textAlign: 'center', // Centers the text horizontally
+        }}
+      >
+        Loading sessions...
+      </div>
+    );
   }
 
   if (!loading && videos.length === 0) {
@@ -175,7 +185,18 @@ useEffect(() => {
 >
   <FontAwesomeIcon icon={faStar} />
 </div>
-              <p style={{ marginLeft: '5px', marginBottom: '10px'  }}>{video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}</p>
+<p
+  style={{ 
+    marginLeft: '5px', 
+    marginBottom: '10px', 
+    cursor: 'pointer', 
+    color: 'black', 
+    textDecoration: 'none' 
+  }}
+  onClick={() => navigate(`/user/${video.creator_username}`)} // Navigate to /user/:username
+>
+  {video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}
+</p>
               <ThreeDotMenu sessionId={video.session_id} onShare={() => console.log('Share clicked')} />
             </div>
           

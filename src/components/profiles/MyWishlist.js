@@ -97,8 +97,35 @@ const MyWishlist = () => {
     return <div>Loading your wishlist...</div>;
   }
 
+
+
   if (wishlistedVideos.length === 0) {
-    return <div>Your wishlist is empty.</div>;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+
+          alignItems: 'center',
+          textAlign: 'center',
+          height: '70vh',
+        }}
+      >
+        <img
+          src="./wishlist-empty.png"
+          alt="Wishlist is empty"
+          style={{ width: '250px', height: 'auto', marginBottom: '2rem', borderRadius:'20%' }}
+        />
+          <h6
+        style={{
+          marginTop: '-1rem', // Move the text 1rem upwards
+          fontSize: '1rem', // Optional: Adjust font size if needed
+        }}
+      >
+        Your wishlist is empty.
+      </h6>
+      </div>
+    );
   }
 
   return (

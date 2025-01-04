@@ -165,7 +165,7 @@ const BookedSessions = () => {
 
 {!loading  && sessions.length === 0 && (
         <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
-          <img src={noSessionsImageURL} alt="No Sessions" style={{ width: '250px', marginBottom: '10px' }} />
+          <img src={noSessionsImageURL} alt="No Sessions" style={{ width: '250px', marginBottom: '10px', borderRadius:'20%' }} />
           <Typography variant="h6" color="textSecondary">
             No sessions booked yet.
           </Typography>
