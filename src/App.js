@@ -123,6 +123,7 @@ const SessionPage = () => {
                 <Footer />
                
               </>} />
+          <Route path="/" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
