@@ -26,7 +26,8 @@ const UserSessions = () => {
   const fetchUserSessions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8083/api/sessions/${username}`);
+      const response = await axios.get(`https://profile-server-ym9x.onrender.com/api/sessions/${username}`);
+    //   const response = await axios.get(`http://localhost:8083/api/sessions/${username}`);
       const formattedSessions = response.data.map((session) => ({
         ...session,
         video_url: convertToEmbedURL(session.video_url),
