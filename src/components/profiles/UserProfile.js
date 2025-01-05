@@ -132,7 +132,7 @@ const UserProfile = () => {
   return (
     <Grid container justifyContent="center" sx={{ mt: 5 }}>
       <Grid item xs={12} md={8}>
-        <Box sx={{ p: 3, backgroundColor: 'background.paper', borderRadius: 2, boxShadow: 'none' }}>
+        <Box sx={{ p: 0, backgroundColor: 'background.paper', borderRadius: 2, boxShadow: 'none' }}>
           <Card sx={{ boxShadow: 'none' }}>
             <CardContent>
               <Box
