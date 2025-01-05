@@ -193,3 +193,24 @@ body {
 }
 
 
+.remove-from-wishlist-button {
+  background-color: #ff4d4d; /* Red color for remove action */
+  color: #ffffff; /* White text */
+  font-size: 0.9rem; /* Adjust font size */
+  font-weight: bold; /* Make text bold */
+  padding: 10px 15px; /* Add padding for better spacing */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+.remove-from-wishlist-button:hover {
+  background-color: #e60000; /* Darker red on hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.remove-from-wishlist-button:active {
+  background-color: #cc0000; /* Even darker red on click */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
