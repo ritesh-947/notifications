@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './SessionBook.css';
-
+import { Box } from '@mui/material';
 import {
     Button,
     FormControl,
@@ -183,8 +183,18 @@ const SessionBook = () => {
     if (loading) {
         return (
             <Container>
-                <CircularProgress />
-                <Typography>Loading session details...</Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: '3rem', // Moves it 3rem lower
+                    }}
+                >
+                    <CircularProgress />
+                    <Typography sx={{ marginTop: '1rem' }}>Loading session details...</Typography>
+                </Box>
             </Container>
         );
     }
@@ -192,7 +202,16 @@ const SessionBook = () => {
     if (error) {
         return (
             <Container>
-                <Typography color="error">{error}</Typography>
+                <Box
+                    sx={{
+                        marginTop: '5rem',
+                        textAlign: 'center',
+                    }}
+                >
+                    <Typography color="textPrimary" sx={{ fontSize: '1rem' }}>
+                        {error}
+                    </Typography>
+                </Box>
             </Container>
         );
     }

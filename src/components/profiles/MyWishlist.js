@@ -1,51 +1,58 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faGlobe, faClock, faCalendar, faDollarSign, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faGlobe, faClock, faCalendar, faIndianRupeeSign, faUsers } from '@fortawesome/free-solid-svg-icons';
 import './MyWishlist.css';
 import { useNavigate } from 'react-router-dom';
-import ThreeDotMenu from './ThreeDotMenu';
 
 const MyWishlist = () => {
   const [wishlistedVideos, setWishlistedVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
   const [authMessage, setAuthMessage] = useState('');
-  const videoRefs = useRef([]);
   const navigate = useNavigate();
-
+  const videoRefs = useRef([]);
   const sessionId = localStorage.getItem('sessionId');
 
   const fetchWishlistedVideos = async () => {
+    setLoading(true);
+
     if (!sessionId) {
       console.error('No sessionId found in localStorage.');
       setAuthMessage('You need to log in to view your wishlist.');
+      setWishlistedVideos([]);
       setLoading(false);
       return;
     }
 
     try {
       const response = await axios.get('https://home-server-x9xg.onrender.com/api/wishlist', {
+      // const response = await axios.get('http://localhost:6001/api/wishlist', {
         headers: {
           Authorization: `Session ${sessionId}`,
         },
       });
 
-      const { wishlistedSessions, user } = response.data;
+      const { wishlistedSessions } = response.data;
 
-      const formattedVideos = wishlistedSessions.map((video) => ({
-        ...video,
-        video_url: convertToEmbedURL(video.video_url),
-        languages: video.languages.split(','),
-        avg_rating: parseFloat(video.avg_rating),
-      }));
+      if (Array.isArray(wishlistedSessions)) {
+        const formattedVideos = wishlistedSessions.map((video) => ({
+          ...video,
+          video_url: convertToEmbedURL(video.video_url),
+          languages: video.languages ? video.languages.split(',') : [],
+          avg_rating: parseFloat(video.avg_rating) || 0,
+        }));
 
-      setWishlistedVideos(formattedVideos);
-      setUser(user);
+        setWishlistedVideos(formattedVideos);
+      } else {
+        console.error('Invalid API response: `wishlistedSessions` is not an array.');
+        setWishlistedVideos([]);
+      }
+
       setAuthMessage('');
       setLoading(false);
     } catch (error) {
       console.error('Error fetching wishlist:', error.message);
+      setWishlistedVideos([]);
       if (error.response?.status === 401) {
         setAuthMessage('You need to log in to view your wishlist.');
       }
@@ -71,11 +78,11 @@ const MyWishlist = () => {
     navigate(`/session/${sessionId}`);
   };
 
-  const handleRemoveFromWishlist = async (sessionId) => {
+  const handleRemoveFromWishlist = async (sessionIdToRemove) => {
     try {
       const response = await axios.post(
         'https://home-server-x9xg.onrender.com/api/wishlist/remove',
-        { sessionId },
+        { sessionId: sessionIdToRemove },
         {
           headers: {
             Authorization: `Session ${sessionId}`,
@@ -85,7 +92,7 @@ const MyWishlist = () => {
 
       if (response.status === 200) {
         setWishlistedVideos((prevVideos) =>
-          prevVideos.filter((video) => video.session_id !== sessionId)
+          prevVideos.filter((video) => video.session_id !== sessionIdToRemove)
         );
       }
     } catch (error) {
@@ -94,18 +101,19 @@ const MyWishlist = () => {
   };
 
   if (loading) {
-    return <div>Loading your wishlist...</div>;
+    return (
+      <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+        <p>Loading your wishlist...</p>
+      </div>
+    );
   }
 
-
-
-  if (wishlistedVideos.length === 0) {
+  if (!wishlistedVideos || wishlistedVideos.length === 0) {
     return (
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-
           alignItems: 'center',
           textAlign: 'center',
           height: '70vh',
@@ -114,16 +122,16 @@ const MyWishlist = () => {
         <img
           src="./wishlist-empty.png"
           alt="Wishlist is empty"
-          style={{ width: '250px', height: 'auto', marginBottom: '2rem', borderRadius:'20%' }}
+          style={{ width: '250px', height: 'auto', marginBottom: '2rem', borderRadius: '20%' }}
         />
-          <h6
-        style={{
-          marginTop: '-1rem', // Move the text 1rem upwards
-          fontSize: '1rem', // Optional: Adjust font size if needed
-        }}
-      >
-        Your wishlist is empty.
-      </h6>
+        <h6
+          style={{
+            marginTop: '-1rem',
+            fontSize: '1rem',
+          }}
+        >
+          Your wishlist is empty.
+        </h6>
       </div>
     );
   }
@@ -131,7 +139,6 @@ const MyWishlist = () => {
   return (
     <div className="wishlist-page">
       {authMessage && <div className="auth-message">{authMessage}</div>}
-
       <div className="video-grid">
         {wishlistedVideos.map((video, index) => (
           <div
@@ -150,17 +157,29 @@ const MyWishlist = () => {
             }}
             ref={(el) => (videoRefs.current[index] = el)}
           >
-            <div className="creator-info" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <div
+              className="creator-info"
+              style={{
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              onClick={() => navigate(`/user/${video.creator_username}`)}
+            >
               <FontAwesomeIcon icon={faStar} />
-              <p style={{ marginLeft: '5px', marginBottom: '10px' }}>
-                {video.creator_username ? `Created by ${video.creator_username}` : 'Creator not available'}
+              <p
+                style={{
+                  marginLeft: '5px',
+                  marginBottom: '10px',
+                  color: 'black',
+                  textDecoration: 'none',
+                }}
+              >
+                {video.creator_username
+                  ? `Created by ${video.creator_username}`
+                  : 'Creator not available'}
               </p>
-              <ThreeDotMenu
-                sessionId={video.session_id}
-                onRemoveFromWishlist={() => handleRemoveFromWishlist(video.session_id)}
-              />
             </div>
-
             {video.video_url ? (
               <iframe
                 width="320"
@@ -176,10 +195,11 @@ const MyWishlist = () => {
             <div className="video-content">
               <h3>{video.session_title || 'Untitled Session'}</h3>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-                <FontAwesomeIcon icon={faDollarSign} /> Price: ₹{video.price}
+                <FontAwesomeIcon icon={faIndianRupeeSign} /> Price: ₹{video.price}
               </p>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-                <FontAwesomeIcon icon={faCalendar} /> Available: {video.availability_days.map((day) => day.slice(0, 3)).join(', ')}
+                <FontAwesomeIcon icon={faCalendar} /> Available:{' '}
+                {video.availability_days?.map((day) => day.slice(0, 3)).join(', ')}
               </p>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
                 <FontAwesomeIcon icon={faClock} /> Duration: {video.duration}
@@ -188,10 +208,17 @@ const MyWishlist = () => {
                 <FontAwesomeIcon icon={faGlobe} /> Languages: {video.languages.join(', ')}
               </p>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-                <FontAwesomeIcon icon={faStar} /> Rating: {video.avg_rating.toFixed(2)} ({video.ratings_count} ratings)
+                <FontAwesomeIcon
+                  icon={faStar}
+                  style={{
+                    color: video.avg_rating > 3.7 ? '#FFD700' : 'gray',
+                    padding: '2px',
+                  }}
+                />
+                Rating: {video.avg_rating.toFixed(2)} ({video.ratings_count || 0} ratings)
               </p>
               <p style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
-                <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count}
+                <FontAwesomeIcon icon={faUsers} /> Attendees: {video.attendees_count || 0}
               </p>
               <div className="button-container">
                 <button

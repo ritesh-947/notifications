@@ -1,7 +1,7 @@
 .sidebar {
     width: 240px;
-    background-color: #cececf;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+    box-shadow: 0 1px 3px #0010ed1a;
     top: 50px; /* Adjust this value to move the sidebar down */
     left: 0;
     position: fixed;
@@ -37,7 +37,7 @@
   
   .sidebar ul li a {
     text-decoration: none;
-    color: #333;
+    color: #000000;
     font-size: 18px;
     display: flex;
     align-items: center;
@@ -85,7 +85,7 @@
   }
   
   .sign-in {
-    background-color: #1a1a1a;
+    background-color: #0088ff;
     color: #fff;
     padding: 10px 20px;
     display: flex;

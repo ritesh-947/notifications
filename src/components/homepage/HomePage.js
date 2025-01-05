@@ -28,8 +28,8 @@ const HomePage = ({ searchQuery }) => {
     try {
       const sessionId = localStorage.getItem('sessionId');
 
-      const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
-      // const response = await axios.get('http://localhost:6001/api/sessions', {
+      // const response = await axios.get('https://home-server-x9xg.onrender.com/api/sessions', {
+      const response = await axios.get('http://localhost:6001/api/sessions', {
         headers: {
           Authorization: sessionId ? `Session ${sessionId}` : '',
         },
@@ -73,8 +73,8 @@ const HomePage = ({ searchQuery }) => {
  
  const incrementImpressions = async (sessionIds) => {
   try {
-    // await axios.post('http://localhost:6001/api/sessions/increment-impressions', {
-    await axios.post('https://home-server-x9xg.onrender.com/api/increment-impressions', {
+    await axios.post('http://localhost:6001/api/sessions/increment-impressions', {
+    // await axios.post('https://home-server-x9xg.onrender.com/api/increment-impressions', {
       sessionIds,
     });
   } catch (error) {
@@ -136,6 +136,19 @@ useEffect(() => {
           textAlign: 'center', // Centers the text horizontally
         }}
       >
+         <img
+        src="./guy-awaiting.png" // Replace with the actual path or URL of your downtime image
+        alt="Downtime Illustration"
+        style={{
+          width: '250px', // Adjust width as needed
+          height: 'auto', // Maintain aspect ratio
+          marginBottom: '1rem', // Adds spacing below the image
+          borderRadius: '20%'
+        }}
+      />
+      <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Servers are running 50 seconds late.</p>
+      <p style={{ fontSize: '1rem', color: 'grey' }}>Beta Version Testing</p>
+
         Loading sessions...
       </div>
     );

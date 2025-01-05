@@ -38,8 +38,8 @@ const ThreeDotMenu = ({ sessionId }) => {
 
     const checkWishlistStatus = async () => {
       try {
-        const response = await axios.get(`https://threedot-server.onrender.com/api/wishlist/check`, {
-        // const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
+        // const response = await axios.get(`https://threedot-server.onrender.com/api/wishlist/check`, {
+        const response = await axios.get(`http://localhost:6004/api/wishlist/check`, {
           params: { sessionId },
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
         });
@@ -57,8 +57,8 @@ const ThreeDotMenu = ({ sessionId }) => {
     try {
       const endpoint = isInWishlist ? 'remove' : 'add';
       await axios.post(
-        `https://threedot-server.onrender.com/api/wishlist/${endpoint}`,
-        // `http://localhost:6004/api/wishlist/${endpoint}`,
+        // `https://threedot-server.onrender.com/api/wishlist/${endpoint}`,
+        `http://localhost:6004/api/wishlist/${endpoint}`,
         { sessionId },
         {
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
@@ -94,8 +94,8 @@ const ThreeDotMenu = ({ sessionId }) => {
   const handleMarkNotInterested = async () => {
     try {
       await axios.post(
-        'https://threedot-server.onrender.com/api/not-interested/add',
-        // 'http://localhost:6004/api/not-interested/add',
+        // 'https://threedot-server.onrender.com/api/not-interested/add',
+        'http://localhost:6004/api/not-interested/add',
         { sessionId },
         {
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
@@ -113,8 +113,8 @@ const ThreeDotMenu = ({ sessionId }) => {
   const handleReportSubmit = async () => {
     try {
       await axios.post(
-        `https://threedot-server.onrender.com/api/session/${sessionId}/report`,
-        // `http://localhost:6004/api/session/${sessionId}/report`,
+        // `https://threedot-server.onrender.com/api/session/${sessionId}/report`,
+        `http://localhost:6004/api/session/${sessionId}/report`,
         { reason: reportReason },
         {
           headers: { Authorization: `Session ${sessionIdFromStorage}` },
