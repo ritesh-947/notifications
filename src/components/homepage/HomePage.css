@@ -27,6 +27,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
+
   overflow: hidden; /* Ensure content stays within the card */
   justify-items: center;
 }

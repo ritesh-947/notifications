@@ -1,4 +1,4 @@
-/* General styling */
+General styling
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -6,6 +6,7 @@ body {
   margin-top: 2rem;
   color: #333;
 }
+
 
 .home-page {
   padding: 20px;
@@ -27,6 +28,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
+  padding: 4rem;
   overflow: hidden; /* Ensure content stays within the card */
   justify-items: center;
 }
