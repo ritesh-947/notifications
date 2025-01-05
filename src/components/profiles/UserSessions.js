@@ -97,7 +97,7 @@ const UserSessions = () => {
             key={session.session_id}
             className="video-card"
             style={{
-              minHeight: '475px',
+              minHeight: '375px',
               minWidth: '300px', // Set minimum width
               display: 'flex',
               flexDirection: 'column',
