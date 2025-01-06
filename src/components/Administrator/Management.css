@@ -23,7 +23,7 @@
   .card-subtitle {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 0px;
     margin-bottom: 8px;
     color: #555;
   }
@@ -53,7 +53,7 @@
   .dropdown {
     display: flex;
     justify-content: center;
-    margin: 40px auto;
+    margin: 0px auto;
   }
   
   .dropdown label {
@@ -95,6 +95,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
+    float: right; /* Ensures the button stays on the right side */
   }
   
   .apply-button:hover {

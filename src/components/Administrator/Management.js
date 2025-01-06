@@ -76,6 +76,19 @@ const Management = () => {
           "Search Profiles by Their usernames",
         ],
       },
+      {
+        id: 6,
+        role: "Social Media Page Developer",
+        value: "Creates a highly engaging social media-like platform by implementing functionalities such as likes for questions/answers and fetching questions by category, enhancing user interaction and content discoverability.",
+        skills: "React, Node.js, PostgreSQL, REST APIs, Frontend UI Design, State Management (Redux or Context API)",
+        applicants: "",
+        selectedMembers: "",
+        tasks: [
+          "Add 'Like' functionality to questions and answers with separate buttons for each (e.g., a like button for questions and a tick option for answers).",
+          "Design and implement a system to fetch and display questions based on their categories for improved content organization.",
+          "Create an intuitive and visually appealing social media-like interface to allow users to interact with questions and answers seamlessly.",
+        ],
+      },
   ];
 
   const handleSelectChange = (e) => {
