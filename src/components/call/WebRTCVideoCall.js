@@ -48,6 +48,27 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
     };
   }, [roomId]);
 
+  useEffect(() => {
+    const adjustVideoLayout = () => {
+      if (remoteVideoRef.current) {
+        const { videoWidth, videoHeight } = remoteVideoRef.current;
+        if (videoHeight > videoWidth) {
+          remoteVideoRef.current.classList.add('c1-maximized-remote');
+        } else {
+          remoteVideoRef.current.classList.remove('c1-maximized-remote');
+        }
+      }
+    };
+  
+    if (remoteStream) {
+      remoteVideoRef.current.addEventListener('loadedmetadata', adjustVideoLayout);
+    }
+  
+    return () => {
+      remoteVideoRef.current?.removeEventListener('loadedmetadata', adjustVideoLayout);
+    };
+  }, [remoteStream]);
+
   // Handle signaling messages
   const handleSignalingData = async (data) => {
     if (!peerConnectionRef.current) return;
@@ -76,6 +97,10 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
   // Start call
   const startCall = async () => {
     try {
+
+      setAudioEnabled(true);
+      setVideoEnabled(true);
+
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       setLocalStream(stream);
       console.log('[WebRTC] Local stream obtained');
@@ -114,6 +139,9 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
     setRemoteStream(null);
     peerConnectionRef.current = null;
     console.log('[WebRTC] Call ended');
+
+    setAudioEnabled(true);
+    setVideoEnabled(true);
   };
 
   // Toggle video/mic
