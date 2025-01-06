@@ -50,6 +50,7 @@ import PublicChat from './components/public/PublicChat.js';
 import Answers from './components/public/Answers.js';
 import JoinRoom from './components/call/JoinRoom.js';
 import NotificationSystem from './components/profiles/NotificationSystem.js';
+import Management from './components/Administrator/Management.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -125,6 +126,7 @@ const SessionPage = () => {
               </>} />
           <Route path="/" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/become-creator" element={<BecomeCreatorPage />} />
+          <Route path="/roles" element={<Management />} />
           <Route path="/identifier" element={<Identifier />} />
           <Route path="/homepage" element={<HomePage searchQuery={searchQuery} />}/>
           <Route path="/chat/:room_id" element={<Chat />} />
