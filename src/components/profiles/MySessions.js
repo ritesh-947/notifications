@@ -6,8 +6,8 @@ import './MySessions.css'; // Import the CSS file
 
 import {
   AttachMoney, // Icon for price
-  Visibility, // Icon for impressions
-  Group, // Icon for visitors
+  AccessTime, // Icon for available time
+  CalendarToday, // Icon for available days
   Event // Icon for created at (date)
 } from '@mui/icons-material';
 
@@ -200,12 +200,20 @@ const MySessions = () => {
                   <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
         <AttachMoney sx={{ mr: 1 }} /> Price: ₹{session.price}
       </Typography>
-      <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-        <Visibility sx={{ mr: 1 }} /> Impressions: {session.impressions || 0}
-      </Typography>
-      <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-        <Group sx={{ mr: 1 }} /> Visitors: {session.visitor_count || 0}
-      </Typography>
+      <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}
+                  >
+                    <AccessTime sx={{ mr: 1 }} /> Available Time: {session.availability_timeperiod || 'N/A'}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}
+                  >
+                    <CalendarToday sx={{ mr: 1 }} /> Available Days: {session.availability_days?.join(', ') || 'N/A'}
+                  </Typography>
       <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
         <Event sx={{ mr: 1 }} /> Created At: {new Date(session.created_at).toLocaleString()}
       </Typography>

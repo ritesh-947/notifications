@@ -5,6 +5,7 @@
   justify-content: center;
   gap: 20px;
   padding: 20px;
+
 }
 
 /* Video card styling */
@@ -14,6 +15,7 @@
   /* width: 100%;  */
   display: flex;
   flex-direction: column;
+
   justify-content: flex-start;
   background-color: #fff;
   border-radius: 15px;
