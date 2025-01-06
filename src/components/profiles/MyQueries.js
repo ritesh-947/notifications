@@ -397,6 +397,8 @@ useEffect(() => {
                   
                   }}
                 >
+                              {query.reply ? (
+              <>
                   You Got Reply From     <Link
     href={`https://wanloft.com/user/${query.visitor_username}`}
     underline="none">
@@ -410,6 +412,21 @@ useEffect(() => {
                     {query.session_title}
                   </Link>
                   " at {new Date(query.msg_at).toLocaleString()}
+
+                  </>
+            ) : (
+              <>
+                Your query on "
+                <Link
+                  href={`https://wanloft.com/session/${query.session_id}`}
+                  color="primary"
+                  underline="none"
+                >
+                  {query.session_title}
+                </Link>
+                " at {new Date(query.query_created_at).toLocaleString()}
+              </>
+            )}
                 </Typography> 
               )}
                 <Box display="flex" alignItems="center" mt={-2}>
