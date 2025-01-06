@@ -48,26 +48,7 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
     };
   }, [roomId]);
 
-  useEffect(() => {
-    const adjustVideoLayout = () => {
-      if (remoteVideoRef.current) {
-        const { videoWidth, videoHeight } = remoteVideoRef.current;
-        if (videoHeight > videoWidth) {
-          remoteVideoRef.current.classList.add('c1-maximized-remote');
-        } else {
-          remoteVideoRef.current.classList.remove('c1-maximized-remote');
-        }
-      }
-    };
   
-    if (remoteStream) {
-      remoteVideoRef.current.addEventListener('loadedmetadata', adjustVideoLayout);
-    }
-  
-    return () => {
-      remoteVideoRef.current?.removeEventListener('loadedmetadata', adjustVideoLayout);
-    };
-  }, [remoteStream]);
 
   // Handle signaling messages
   const handleSignalingData = async (data) => {
