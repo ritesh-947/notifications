@@ -342,6 +342,7 @@ useEffect(() => {
     setOpenConfirmDialog(false);
   };
 
+  
   if (loading) {
     return <Typography sx={{ marginTop: '4rem', textAlign: 'center' }}>Loading...</Typography>;
   }
@@ -372,63 +373,56 @@ useEffect(() => {
       {/* <Typography variant="h6" gutterBottom style={{ paddingTop: '3rem'}} align="center">My Queries</Typography> */}
 
       {queries.map((query) => (
-        <Card  style={{ maxWidth: '500px', margin: '0 auto', marginTop:'0.5rem' }} key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
+        <Card  style={{ maxWidth: '600px', margin: '0 auto', marginTop:'0.5rem' }} key={query.query_id} className="my-query-card" sx={{ mb: 1 ,
           backgroundColor: '#f7f7f7', // Set default background color
           '&:hover': {
             backgroundColor: '#f0f0f0', // Change background color on hover
           },
           transition: 'background-color 0.3s', // Smooth transition effect
         }} >
-          <CardContent style={{ maxWidth: '500px', margin: '0 auto',marginTop:'0rem' }}>
+          <CardContent style={{ maxWidth: '450px', margin: '0 auto',marginTop:'0rem' }}>
             <Grid container alignItems="center" justifyContent="space-between"  >
               <Grid item xs>
-              {query.reply && (
-                 <Typography
-                  variant="body1"
-                  sx={{
-                    position: 'relative',
-                    top: '-25px',
-                    left: '-20px',
-                    marginBottom: '4px',
-                    width: '120%',
-                    fontSize: '0.85rem',
-                    fontWeight: 'bold',
-                    color:'#222'
-                  
-                  }}
-                >
-                              {query.reply ? (
-              <>
-                  You Got Reply From     <Link
-    href={`https://wanloft.com/user/${query.visitor_username}`}
-    underline="none">
-@{query.creator_username}</Link> on session "
-                  <Link
-                    href={`https://wanloft.com/session/${query.session_id}`}
-                    
-                    color="primary"
-                    underline="none"
-                  >
-                    {query.session_title}
-                  </Link>
-                  " at {new Date(query.msg_at).toLocaleString()}
 
-                  </>
+            <Typography
+            variant="body1"
+            sx={{
+              position: 'relative',
+              top: '-25px',
+              left: '-20px',
+              marginBottom: '4px',
+              width: '120%',
+              fontSize: '0.85rem',
+              fontWeight: 'bold',
+              color: '#222',
+              wordWrap: 'break-word', // Ensure long text wraps
+            overflowWrap: 'break-word', // Ensure breaking for long words
+            }}
+          >
+            {query.reply ? (
+              <>
+                You Got Reply From{' '}
+                <Link href={`https://wanloft.com/user/${query.creator_username}`} underline="none">
+                  @{query.creator_username}
+                </Link>{' '}
+                on session "
+                <Link href={`https://wanloft.com/session/${query.session_id}`} color="primary" underline="none">
+                  {query.session_title || 'Unknown Session'}
+                </Link>
+                " at {query.msg_at ? new Date(query.msg_at).toLocaleString() : 'Unknown Time'}
+              </>
             ) : (
               <>
                 Your query on "
-                <Link
-                  href={`https://wanloft.com/session/${query.session_id}`}
-                  color="primary"
-                  underline="none"
-                >
-                  {query.session_title}
+                <Link href={`https://wanloft.com/session/${query.session_id}`} color="primary" underline="none">
+                  {query.session_title || 'Unknown Session'}
                 </Link>
-                " at {new Date(query.query_created_at).toLocaleString()}
-              </>
+                " was posted at{' '}
+        {query.msg_at ? new Date(query.msg_at).toLocaleString() : 'Unknown Time'}.
+      </>
             )}
-                </Typography> 
-              )}
+          </Typography>
+
                 <Box display="flex" alignItems="center" mt={-2}>
                 <Link
     href={`https://www.wanloft.com/user/${query.visitor_username}`}

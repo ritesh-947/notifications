@@ -17,6 +17,9 @@ const Management = () => {
       tasks: [
         "Create a payment receiving page in Any Payment Gatewat with React,node.js& PostgreSQL that actually Work in a live server. Be that price 49 rupees Where Clients will Able to Pay& The Webapp will able To Receive the Money.",
         "If Creator cancels within 7days, Refund the paid price back to Attendee ",
+        "Create user-specific wallets (experts and peers).",
+        "Build a transaction history page for transparency.",
+
         // "",
       ],
     },
