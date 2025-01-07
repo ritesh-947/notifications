@@ -92,6 +92,22 @@ const Management = () => {
           "Create an intuitive and visually appealing social media-like interface to allow users to interact with questions and answers seamlessly.",
         ],
       },
+      {
+        id: 7,
+        role: "Full Stack Developer",
+        value: "Strong frontend expertise to join our startup and play a pivotal role in enhancing our platform’s user experience.",
+        skills: "React, Node.js, UI/UX design, Figma, Adobe Photoshop, UI design,  REST APIs",
+        applicants: "",
+        selectedMembers: "",
+        tasks: [
+          "Homepage, Upload Page, User-Profile Page",
+          "Session Booking Page, Upcoming Sessions Page",
+          "Queries Page For Visitor & Creator",
+          "Categories Page",
+          "Video Call Page, Messaging Page",
+          "About More Page, Ratings & Reviews Page"
+        ],
+      },
   ];
 
   const handleSelectChange = (e) => {

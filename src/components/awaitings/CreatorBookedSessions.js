@@ -226,8 +226,42 @@ const CreatorBookedSessions = () => {
         </Button>
       </Box>
 
-      {loading && <Typography>Loading sessions...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
+      {loading && (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        mt: 3,
+      }}
+    >
+      <img
+        src="./boy-sitting.png" // Replace with your loading image path
+        alt="Loading"
+        style={{ width: '400px', height: '400px', marginBottom: '20px' }}
+      />
+      <Typography>Loading sessions...</Typography>
+    </Box>
+  )}
+
+      {error && <Typography color="error">
+        <img
+        src="./boy-sitting.png" // Replace with your no sessions image path
+        alt="No Upcoming Sessions"
+        style={{
+          width: '300px',
+          height: '300px',
+          marginBottom: '20px',
+          borderRadius: '10px', // Adds rounded corners
+          display: 'block', // Ensures it acts like a block element
+          marginLeft: 'auto', // Centers horizontally
+          marginRight: 'auto', // Centers horizontally
+        }}
+      />
+        Found no attendees, Please come Again.</Typography>}
+
+
+     
 
       {!loading && !error && (
         <>
