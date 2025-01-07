@@ -1,0 +1,178 @@
+/* General styling for the category page */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .category-page {
+    padding: 20px;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .category-page h1 {
+    font-size: 2rem;
+    color: #4caf50;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+  
+  .loading,
+  .error-message,
+  .no-sessions {
+    font-size: 1.2rem;
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  /* Styling the session grid */
+  .session-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+  }
+  
+  /* Styling individual session cards */
+  .session-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height:500px ;
+    min-height: 50px; /* Ensures consistent card height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .session-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .video-placeholder {
+    width: 100%;
+    height: 180px;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .session-card iframe {
+    width: 100%;
+    height: 180px;
+  }
+  
+  /* Styling session details */
+  .session-details {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .session-details h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  
+  .session-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+  }
+  
+  .session-details p svg {
+    margin-right: 5px;
+    color: #007bff;
+  }
+  
+  .session-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .session-buttons button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Styling buttons */
+  .session-buttons button:first-child {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .session-buttons button:first-child:hover {
+    background-color: #0056b3;
+  }
+  
+  .session-buttons button:last-child {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .session-buttons button:last-child:hover {
+    background-color: #1e7e34;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .session-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  
+    .session-card iframe {
+      height: 160px;
+    }
+  
+    .session-details h3 {
+      font-size: 1rem;
+    }
+  
+    .session-details p {
+      font-size: 0.8rem;
+    }
+  
+    .session-buttons button {
+      font-size: 0.8rem;
+      padding: 8px 12px;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .session-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .session-card {
+      width: 100%;
+      margin: 10px auto;
+    }
+  }
+
+  .no-sessions {
+    font-size: 1.2rem;
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 7rem; /* Pushes the message 4rem lower */
+  }

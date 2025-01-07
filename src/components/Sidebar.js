@@ -16,6 +16,7 @@ import {
   faListAlt,
   faQuestion,
   faPlus,
+  faTh
 } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.css'; // Ensure you have styles in Sidebar.css
 
@@ -64,6 +65,11 @@ const Sidebar = () => {
           <li>
             <a href="/visitor-queries">
               <FontAwesomeIcon icon={faQuestionCircle} color="green" /> Queries (Visitors)
+            </a>
+          </li>
+          <li>
+            <a href="/categories">
+              <FontAwesomeIcon icon={faTh} color="purple" /> Categories
             </a>
           </li>
           {/* <li>

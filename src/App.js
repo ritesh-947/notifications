@@ -51,6 +51,9 @@ import Answers from './components/public/Answers.js';
 import JoinRoom from './components/call/JoinRoom.js';
 import NotificationSystem from './components/profiles/NotificationSystem.js';
 import Management from './components/Administrator/Management.js';
+import CategoryPage from './components/homepage/CategoryPage.js';
+import CategoriesPage from './components/homepage/CategoriesPage';
+
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -147,7 +150,9 @@ const SessionPage = () => {
             } 
           />      
 
-          
+<Route path="/categories" element={<CategoriesPage />} />
+<Route path="/category/:category" element={<CategoryPage />} />
+
           {/* <Route path="/sessions/:session_id" element={<SessionDescription />}/> */}
           <Route path="/session/:session_id" element={<SessionPage />} />
 
