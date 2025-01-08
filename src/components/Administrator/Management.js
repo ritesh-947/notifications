@@ -108,6 +108,24 @@ const Management = () => {
           "About More Page, Ratings & Reviews Page"
         ],
       },
+      {
+        id: 8,
+        role: "Chat Component Developer",
+        value: "Experienced developer to manage and enhance the chat component for seamless real-time communication on our platform.",
+        skills: "React, Socket.IO, WebRTC, Node.js, PostgreSQL, WebSocket Debugging, CSS (Flexbox, Grid), Responsive Design",
+        applicants: "",
+        selectedMembers: "",
+        tasks: [
+          "Implement and maintain the messaging interface",
+          "Optimize real-time chat functionality using Socket.IO",
+          "Develop and test message editing and deletion features",
+          "Display timestamps for messages in a user-friendly format",
+          "Effectively show the typing indicator for real-time user feedback",
+          "Add 'message seen' status or read receipts for better user experience",
+          "Integrate a search functionality to find messages within the chat history",
+          "Secure chat communication to prevent XSS or CSRF vulnerabilities"
+        ],
+      }
   ];
 
   const handleSelectChange = (e) => {
