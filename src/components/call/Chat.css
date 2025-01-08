@@ -1,10 +1,11 @@
-/* Chat Container */
 .chat-container {
   width: 35%;
   position: fixed;
-  right: 0;
-  top: 0;
-  height: 100vh;
+  right: -13rem;
+  top: -40rem;
+  height: 10vh;
+  max-height: 100rem;
+
   border-left: 1px solid #ddd;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
   background-color: #f0f0f0;
@@ -14,9 +15,18 @@
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 800px) {
+  .chat-container {
+    width: 35%;
+    right: -18rem;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
   .chat-container {
     width: 100%;
+    right: 0rem;
   }
 }
 
@@ -47,6 +57,7 @@
   font-size: 28px; /* Larger icon for better accessibility */
 }
 
+
 /* Chat Header */
 .chat-header {
   display: flex;
@@ -57,6 +68,7 @@
   color: white;
   font-weight: bold;
   font-size: 18px;
+  border-bottom: 1px solid #ddd;
 }
 
 .chat-close-button {
@@ -72,7 +84,7 @@
   flex-grow: 1;
   overflow-y: auto;
   padding: 15px;
-  background-color: #e5ddd5; /* WhatsApp-like background */
+  background-color: #f0f8ff; /* Light blue background for messages */
 }
 
 .messages::-webkit-scrollbar {
@@ -92,30 +104,28 @@
 .message {
   position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-end;
   margin-bottom: 15px;
   border-radius: 10px;
   padding: 10px;
   max-width: 80%;
   word-wrap: break-word;
-  border: 1px solid #ddd; /* Add border for each message */
-  background-color: white;
 }
 
 .own-message {
-  flex-direction: row-reverse; /* Ensure avatar appears to the right */
-  align-self: flex-end; /* Align the entire message to the right */
-  background-color: #dcf8c6; /* WhatsApp-like green background */
-  border: 1px solid #c5e1a5; /* Matching border color */
-  margin-left: auto; /* Push the message to the right */
-  text-align: right; /* Align the text to the right */
-  padding: 10px; /* Add padding for better spacing */
-  border-radius: 10px;
+  align-self: flex-end;
+  background-color: #d1ffd1; /* Light green for own messages */
+  border: 1px solid #a1d8a1;
+  text-align: left;
+  margin-left: auto;
 }
 
 .other-message {
   align-self: flex-start;
+  background-color: #ffffff;
   border: 1px solid #ddd;
+  text-align: left;
 }
 
 /* Profile Icon */
@@ -123,16 +133,14 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 10px;
-  flex-shrink: 0; /* Prevent shrinking */
-  border: 2px solid #fff; /* Add a circular border around the icon */
-  overflow: hidden; /* Ensure nothing spills out */
+  flex-shrink: 0;
 }
 
 .profile-icon-own {
@@ -143,26 +151,33 @@
   background-color: #25d366; /* Green for other users */
 }
 
-
-/* Message Text */
-.message-text {
+/* Message Content */
+.message-content {
   flex-grow: 1;
-  word-wrap: break-word;
-  padding: 0 10px;
-  border-radius: 8px;
-  background-color: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.message .username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.message .message-text {
   font-size: 14px;
   color: #333;
   line-height: 1.4;
-  min-width: 0; /* Prevent the message text from affecting layout */
+  word-break: break-word;
 }
-/* Timestamp */
-.sent-time {
-  position: absolute;
-  bottom: -15px;
-  right: 10px;
+
+.message .sent-time {
   font-size: 12px;
   color: gray;
+  text-align: right;
+  margin-top: 5px;
 }
 
 /* Typing Indicator */
@@ -174,12 +189,18 @@
 }
 
 /* Input Section */
+/* Input Section */
 .input-container {
-  display: flex;
+  display: flex; /* Ensure it aligns items horizontally */
   align-items: center;
   padding: 10px;
   background-color: white;
   border-top: 1px solid #ddd;
+  position: absolute; /* Stick it relative to the chat-container */
+  bottom: 0; /* Set to the very bottom of the chat-container */
+  width: 100%; /* Full width of the chat-container */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  z-index: 10; /* Ensure it stays above other components */
 }
 
 input {
@@ -190,6 +211,7 @@ input {
   margin-right: 10px;
   font-size: 14px;
 }
+
 
 input:focus {
   outline: none;
@@ -203,52 +225,64 @@ input:focus {
   margin-right: 10px;
 }
 
-/* Emoji Picker */
 .emoji-picker-container {
-  position: absolute; /* Position outside the input container */
-  bottom: 70px; /* Place it above the input container */
-  right: 100px; /* Align it to the right side */
-  z-index: 10; /* Ensure it appears above other elements */
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  z-index: 10;
 }
 
-.emoji-picker {
-  position: relative;
-  z-index: 999;
+/* Send Button */
+.send-icon {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-
-
-
-button:hover {
+.send-icon:hover {
   background-color: #0056b3;
+}
+
+/* Edit and Delete Actions */
+.message-actions {
+  display: none;
+  gap: 5px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.message:hover .message-actions {
+  display: flex;
+}
+
+.message-actions .edit-icon,
+.message-actions .delete-icon {
+  font-size: 16px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.message-actions .edit-icon:hover,
+.message-actions .delete-icon:hover {
+  color: #0056b3;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
+  .chat-container {
+    width: 100%;
+    height: 100vh;
+  }
+
   .input-container {
     width: 100%;
-  }
-}
-
-
-
-
-/* Actions container for edit and delete buttons */
-.message-actions {
-  display: none; /* Hidden by default */
-  position: absolute;
-  left: 10px; /* Position on the left side */
-  bottom: 10px; /* Slightly below the container */
-  gap: 5px; /* Add space between buttons */
-}
-.message-actions .edit-icon:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-/* Show buttons only on hover for screens 600px or larger */
-@media (min-width: 600px) {
-  .message:hover .message-actions {
-    display: flex; /* Show buttons on hover */
   }
 }

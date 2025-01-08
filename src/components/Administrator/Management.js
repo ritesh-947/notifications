@@ -147,10 +147,10 @@ const Management = () => {
           <div className="salary-info">
             <h4>Performance-Based Salary Model</h4>
             <ul>
-              <li>₹25,000: If the company generates ₹2 lakh in sales.</li>
-              <li>₹50,000: If the company generates ₹5 lakh in sales.</li>
-              <li>₹75,000: If the company generates ₹10 lakh in sales.</li>
-              <li>₹1,00,000: If the company generates ₹20 lakh or more in sales.</li>
+              <li>₹25,000: If the company generates ₹2 lakh in sales'profit.</li>
+              <li>₹50,000: If the company generates ₹5 lakh in sales'profit.</li>
+              <li>₹75,000: If the company generates ₹10 lakh in sales'profit.</li>
+              <li>₹1,00,000: If the company generates ₹20 lakh or more in sales'profit.</li>
             </ul>
             <p>
               As the company grows and generates more revenue, your compensation

@@ -53,6 +53,7 @@ import NotificationSystem from './components/profiles/NotificationSystem.js';
 import Management from './components/Administrator/Management.js';
 import CategoryPage from './components/homepage/CategoryPage.js';
 import CategoriesPage from './components/homepage/CategoriesPage';
+import SessionBoard from './components/call/SessionBoard.js';
 
 
 const App = () => {
@@ -84,6 +85,9 @@ const RoomPage = () => {
       <div className="video-call-section">
         <WebRTCVideoCall roomId={roomId} />
       </div>
+      {/* <div className="session-board">
+        <SessionBoard />
+      </div> */}
 
       {/* Chat Component */}
       <div className="chat-section">
@@ -120,7 +124,7 @@ const SessionPage = () => {
     
         <Routes>
 
-      
+        {/* <Route path="/board" element={<SessionBoard />} /> */}
         <Route path="/payment" element={<PaymentButton />} />
           <Route path="/login" element={ <>
                <Login /> 
