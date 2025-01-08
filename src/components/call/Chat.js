@@ -7,8 +7,9 @@ import { FaPaperPlane, FaComments, FaTimes, FaEdit, FaTrash } from 'react-icons/
 import axios from 'axios';
 
 // Socket.IO connection
-const socket = io('http://localhost:3051', { withCredentials: false });
 
+const socket = io('https://msg-server-dcs9.onrender.com', { withCredentials: false });
+// const socket = io('http://localhost:3051', { withCredentials: false });
 
 const Chat = () => {
   const { roomId } = useParams();
@@ -23,17 +24,6 @@ const Chat = () => {
   const emojiPickerRef = useRef(null);
 
 
-  useEffect(() => {
-  if (isChatOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto';
-  }
-  return () => {
-    document.body.style.overflow = 'auto';
-  };
-}, [isChatOpen]);
-
   // Fetch user info and initialize socket events
   useEffect(() => {
     const sessionId = localStorage.getItem('sessionId');
@@ -46,7 +36,8 @@ const Chat = () => {
     scrollToBottom();
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:3051/api/auth/session-info', {
+        const response = await axios.get('https://msg-server-dcs9.onrender.com/api/auth/session-info', {
+        // const response = await axios.get('http://localhost:3051/api/auth/session-info', {
           headers: { Authorization: `Bearer ${sessionId}` },
         });
         console.log('[DEBUG] User Info:', response.data);
