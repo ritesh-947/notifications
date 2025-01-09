@@ -100,7 +100,7 @@ const Management = () => {
         applicants: "",
         selectedMembers: "",
         tasks: [
-          "Implement dark mode & Improve to The Below Components",
+          "Implement dark mode & Improve the Below Components",
           "Homepage, Upload Page, User-Profile Page",
           "Session Booking Page, Upcoming Sessions Page",
           "Queries Page For Visitor & Creator",
