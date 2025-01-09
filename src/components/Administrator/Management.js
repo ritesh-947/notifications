@@ -45,7 +45,7 @@ const Management = () => {
       role: "Transcription System Engineer",
       value: "Providing live transcription enhances accessibility and user engagement, while delivering PDFs ensures users have a permanent record of the session for reference, improving overall user satisfaction.",
       skills: "Speech-to-Text APIs, Node.js or Python, React.js, Sendgrid or Nodemailter tools",
-      applicants: "",
+      applicants: "Praduman Sharma",
       selectedMembers: "",
       tasks: [
         "Generate live transcripts during sessions and send PDFs of the transcripts to users.",
@@ -58,7 +58,7 @@ const Management = () => {
       role: "AI Chatbot Developer",
       value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
       skills: " React, NLP, Node.js or Python, AI API Integration like OPEN AI,DialogFlow, PostgreSQL",
-      applicants: "",
+      applicants: "Anurag Singh",
       selectedMembers: "",
       tasks: [
         "Build an AI Chat Assistant Bot.",
@@ -94,12 +94,13 @@ const Management = () => {
       },
       {
         id: 7,
-        role: "Full Stack Developer",
+        role: "UI Designer",
         value: "Strong frontend expertise to join our startup and play a pivotal role in enhancing our platform’s user experience.",
         skills: "React, Node.js, UI/UX design, Figma, Adobe Photoshop, UI design,  REST APIs",
         applicants: "",
         selectedMembers: "",
         tasks: [
+          "Implement dark mode & Improve to The Below Components",
           "Homepage, Upload Page, User-Profile Page",
           "Session Booking Page, Upcoming Sessions Page",
           "Queries Page For Visitor & Creator",
@@ -113,7 +114,7 @@ const Management = () => {
         role: "Chat Component Developer",
         value: "Experienced developer to manage and enhance the chat component for seamless real-time communication on our platform.",
         skills: "React, Socket.IO, WebRTC, Node.js, PostgreSQL, WebSocket Debugging, CSS (Flexbox, Grid), Responsive Design",
-        applicants: "",
+        applicants: "Rahul Prajapati",
         selectedMembers: "",
         tasks: [
           "Implement and maintain the messaging interface",
@@ -138,6 +139,37 @@ const Management = () => {
     "Ensure compatibility with existing backend (Node.js) and database (PostgreSQL).",
     "Implement token-based authentication and secure session handling.",
     "Test and validate the feature to ensure a smooth user onboarding experience.",
+  ]
+},
+{
+  "id": 10,
+  "role": "Session Booking Developer",
+  "value": "Developer to enhance the scheduling and booking modules by integrating data persistence, timezone synchronization, and improving user experience with advanced functionalities.",
+  "skills": "JavaScript, React, Node.js, PostgreSQL, Browser APIs, Material-UI, Timezone Handling, UX Design",
+  "applicants": "",
+  "selectedMembers": "",
+  "tasks": [
+    "Implement local storage to save drafts of selected date, time, and duration, ensuring user progress is preserved during refresh.",
+    "Incorporate real-time timezone detection and synchronization using browser APIs like Intl.DateTimeFormat().resolvedOptions().timeZone.",
+    "Ensure server-side validation to prevent session overlap across different bookings.",
+    "Fetch available time slots based on global timezone and dynamically update the schedule.",
+    "Provide visual indications for session statuses (e.g., upcoming, ended, or joinable) using distinct colors or icons.",
+    "Add filters for sessions by type (e.g., upcoming, past, or joinable) for better user experience.",
+  ]
+},
+{
+  "id": 11,
+  "role": "Homepage Optimization Developer",
+  "value": "Developer to enhance the Homepage with improved video management and user-friendly exploration features, optimizing load time and user engagement.",
+  "skills": "React, JavaScript, Node.js, Pagination Libraries, Material-UI, Performance Optimization, UX Design",
+  "applicants": "",
+  "selectedMembers": "",
+  "tasks": [
+    "Add sorting options such as 'Language' or 'Rating' (upto 3, 4, 5) to help users filter sessions effectively.",
+    "Implement pagination or infinite scrolling using libraries like 'react-infinite-scroll-component' to manage large numbers of videos.",
+    "Optimize page load by only loading videos visible on the screen (lazy loading).",
+    "Break videos into smaller groups and incorporate a 'Load More' button after displaying 12 sessions.",
+    "Use visual indicators like badges or labels (e.g., 'Top Rated', 'Popular') to highlight standout sessions."
   ]
 }
   ];

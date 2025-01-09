@@ -216,6 +216,7 @@ useEffect(() => {
   
             {video.video_url ? (
               <iframe
+               alt={`Preview of session titled ${video.session_title}`}
                 width="320"
                 height="180"
                 src={video.video_url}
