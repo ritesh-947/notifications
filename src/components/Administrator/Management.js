@@ -125,7 +125,21 @@ const Management = () => {
           "Integrate a search functionality to find messages within the chat history",
           "Secure chat communication to prevent XSS or CSRF vulnerabilities"
         ],
-      }
+      },
+      {
+  id: 9,
+  role: "Google Login/Signup Developer",
+  value: "Skilled developer to integrate a seamless Google Login/Signup feature into our platform using OAuth 2.0, enhancing accessibility and user experience.",
+  skills: "JavaScript, OAuth 2.0, Node.js, React, PostgreSQL, REST APIs, Security Best Practices",
+  applicants: "",
+  selectedMembers: "",
+  tasks: [
+    "Integrate Google Login/Signup using OAuth 2.0 for secure user authentication.",
+    "Ensure compatibility with existing backend (Node.js) and database (PostgreSQL).",
+    "Implement token-based authentication and secure session handling.",
+    "Test and validate the feature to ensure a smooth user onboarding experience.",
+  ]
+}
   ];
 
   const handleSelectChange = (e) => {
