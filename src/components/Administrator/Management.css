@@ -162,3 +162,9 @@
     margin-top: 10px;
     line-height: 1.6;
   }
+
+
+.last-card {
+  margin-bottom: 5rem; /* Add a larger margin for the last card */
+
+}

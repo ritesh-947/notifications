@@ -93,39 +93,9 @@ const SignUp = () => {
     }
   };
 
-//   // Google login success handler
-//   const handleGoogleSuccess = async (response) => {
-//     const googleToken = response.credential;
-//     setLoading(true);
-//     setErrorMessage('');
-//     try {
-//       const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ token: googleToken }),
-//       });
 
-//       if (!res.ok) {
-//         throw new Error('Google sign-up failed');
-//       }
 
-//       const { sessionId } = await res.json();
-//       localStorage.setItem('sessionId', sessionId); // Save session ID
-//       navigate('/homepage'); // Redirect to homepage
-//     } catch (error) {
-//       console.error('Google sign-up failed:', error);
-//       setErrorMessage('Google sign-up failed. Please try again.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
-  const handleGoogleFailure = (error) => {
-    console.error('Google Sign-In Failed:', error);
-    setErrorMessage('Google sign-up failed. Please try again.');
-  };
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>

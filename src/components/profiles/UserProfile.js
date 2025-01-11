@@ -28,8 +28,8 @@ const UserProfile = () => {
 
     try {
       // Fetch user profile data
-      const profileResponse = await axios.get(`https://profile-server-ym9x.onrender.com/api/user-profile/${username}`, {
-    //   const profileResponse = await axios.get(`http://localhost:8083/api/user-profile/${username}`, {
+    //   const profileResponse = await axios.get(`https://profile-server-ym9x.onrender.com/api/user-profile/${username}`, {
+      const profileResponse = await axios.get(`http://localhost:8083/api/user-profile/${username}`, {
         headers: {
           Authorization: `Session ${sessionId}`,
         },
@@ -39,8 +39,8 @@ const UserProfile = () => {
       setProfileData(profileResponse.data);
 
       // Fetch follow status
-      const followStatusResponse = await axios.get(`https://profile-server-ym9x.onrender.com/api/follow-status/${username}`, {
-    //   const followStatusResponse = await axios.get(`http://localhost:8083/api/follow-status/${username}`, {
+    //   const followStatusResponse = await axios.get(`https://profile-server-ym9x.onrender.com/api/follow-status/${username}`, {
+      const followStatusResponse = await axios.get(`http://localhost:8083/api/follow-status/${username}`, {
         headers: {
           Authorization: `Session ${sessionId}`,
         },
@@ -68,8 +68,8 @@ const UserProfile = () => {
   const handleFollow = async () => {
     try {
       await axios.post(
-        `https://profile-server-ym9x.onrender.com/api/follow/${username}`,
-        // `http://localhost:8083/api/follow/${username}`,
+        // `https://profile-server-ym9x.onrender.com/api/follow/${username}`,
+        `http://localhost:8083/api/follow/${username}`,
         {},
         {
           headers: {
@@ -91,8 +91,8 @@ const UserProfile = () => {
   const handleUnfollow = async () => {
     try {
       await axios.post(
-        `https://profile-server-ym9x.onrender.com/api/unfollow/${username}`,
-        // `http://localhost:8083/api/unfollow/${username}`,
+        // `https://profile-server-ym9x.onrender.com/api/unfollow/${username}`,
+        `http://localhost:8083/api/unfollow/${username}`,
         {},
         {
           headers: {

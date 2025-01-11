@@ -12,7 +12,7 @@ const Management = () => {
       role: "Payment Specialist",
       value: "It enables seamless payment processing and refund management, enhancing user trust, convenience, and the web app’s credibility.",
       skills: " React, Node.js, Postgresql, Cron Jobs (automatically process refund requests), webhooks, Payment Gateway APIs, ACID-compliant transactions. ",
-      applicants: "Divyanshu Upadhyay",
+      applicants: "Divyanshu Upadhyay, Karthik Tumala",
       selectedMembers: "",
       tasks: [
         "Create a payment receiving page in Any Payment Gatewat with React,node.js& PostgreSQL that actually Work in a live server. Be that price 49 rupees Where Clients will Able to Pay& The Webapp will able To Receive the Money.",
@@ -58,7 +58,7 @@ const Management = () => {
       role: "AI Chatbot Developer",
       value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
       skills: " React, NLP, Node.js or Python, AI API Integration like OPEN AI,DialogFlow, PostgreSQL",
-      applicants: "Anurag Singh",
+      applicants: "",
       selectedMembers: "",
       tasks: [
         "Build an AI Chat Assistant Bot.",
@@ -71,7 +71,7 @@ const Management = () => {
         role: "Search Functionality Developer",
         value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
         skills: "ElasticSearch, React, Node.js, PostgreSQL",
-        applicants: "",
+        applicants: "Mayank Tanwar",
         selectedMembers: "",
         tasks: [
           "Designing efficient database queries.",
@@ -171,6 +171,27 @@ const Management = () => {
     "Break videos into smaller groups and incorporate a 'Load More' button after displaying 12 sessions.",
     "Use visual indicators like badges or labels (e.g., 'Top Rated', 'Popular') to highlight standout sessions."
   ]
+},
+{
+  "id": 12,
+  "role": "WebRTC Specialist and UI/UX Expert",
+  "value": "A mission-driven role focusing on real-time communication features and responsive design for a knowledge-sharing platform.",
+  "skills": [
+    "WebRTC APIs (RTCPeerConnection, MediaStream) , React , Node.js ,STUN/TURN servers and real-time communication protocols , Material-UI or Tailwind CSS",
+
+  ],
+  "applicants": [],
+  "selectedMembers": [],
+  "tasks": [
+    
+ "Develop and optimize WebRTC video call & chat features (1-to-1 calls).",
+ "Design a responsive, cross-platform video call interface (desktop and mobile).",
+ "Implement advanced features like screen sharing, recording, and background blur.",
+ "Enhance performance to ensure low-latency, high-quality calls.",
+"Integrate WebRTC with backend signaling (Socket.io, Firebase, or a custom signaling server).",
+"Stay updated with WebRTC APIs and best practices to improve the platform.",
+
+  ]
 }
   ];
 
@@ -241,8 +262,10 @@ const Management = () => {
       </div>
 
       <div>
-        {filteredCards.map((card) => (
-          <div key={card.id} className="card">
+        {filteredCards.map((card,index) => (
+          <div key={card.id} 
+          className={`card ${index === filteredCards.length - 1 ? "last-card" : ""}`}
+          >
             <h4 className="card-title">{`#${card.id}`}</h4>
             <h5 className="card-subtitle">Role:</h5>
             <p className="card-text role">{card.role}</p>

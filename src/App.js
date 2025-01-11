@@ -49,7 +49,7 @@ import CommunitySelection from './components/public/CommunitySelection.js';
 import PublicChat from './components/public/PublicChat.js';
 import Answers from './components/public/Answers.js';
 import JoinRoom from './components/call/JoinRoom.js';
-import NotificationSystem from './components/profiles/NotificationSystem.js';
+import Notification from './components/notification/Notification.js';
 import Management from './components/Administrator/Management.js';
 import CategoryPage from './components/homepage/CategoryPage.js';
 import CategoriesPage from './components/homepage/CategoriesPage';
@@ -189,7 +189,7 @@ const SessionPage = () => {
 
           <Route path="/my-queries" element={<MyQueries />} />
           <Route path="/visitor-queries" element={<VisitorQueries />} />
-          <Route path="/notifications" element={<NotificationSystem />} />
+          <Route path="/notification" element={<Notification />} />
         
           <Route path="/room/:roomId" element={<RoomPage />} />
           <Route path="/join" element={<JoinRoom />} />
