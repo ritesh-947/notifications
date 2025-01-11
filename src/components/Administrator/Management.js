@@ -28,7 +28,7 @@ const Management = () => {
       role: "Notifications System Engineer",
       value: "It ensures timely and engaging user interactions through automated notifications and reminders, enhancing user retention, satisfaction, and platform activity.",
       skills: "JavaScript, React, Node.js, Postgresql, Cron Jobs, Pollings, ",
-      applicants: "Malik Towkeer Ul Islam, Vishnu Kaku",
+      applicants: "Vishnu Kaku",
       selectedMembers: "",
       tasks: [
         "We’ll provide codes To Work on What Kind Of Events’ Notification or Reminders To Send  users. Mentioned below 👇 ",
@@ -45,7 +45,7 @@ const Management = () => {
       role: "Transcription System Engineer",
       value: "Providing live transcription enhances accessibility and user engagement, while delivering PDFs ensures users have a permanent record of the session for reference, improving overall user satisfaction.",
       skills: "Speech-to-Text APIs, Node.js or Python, React.js, Sendgrid or Nodemailter tools",
-      applicants: "Praduman Sharma",
+      applicants: "",
       selectedMembers: "",
       tasks: [
         "Generate live transcripts during sessions and send PDFs of the transcripts to users.",
@@ -114,7 +114,7 @@ const Management = () => {
         role: "Chat Component Developer",
         value: "Experienced developer to manage and enhance the chat component for seamless real-time communication on our platform.",
         skills: "React, Socket.IO, WebRTC, Node.js, PostgreSQL, WebSocket Debugging, CSS (Flexbox, Grid), Responsive Design",
-        applicants: "Rahul Prajapati",
+        applicants: "sTRaNgEr",
         selectedMembers: "",
         tasks: [
           "Implement and maintain the messaging interface",
