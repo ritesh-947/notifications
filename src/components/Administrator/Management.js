@@ -85,7 +85,7 @@ const Management = () => {
         role: "Social Media Page Developer",
         value: "Creates a highly engaging social media-like platform by implementing functionalities such as likes for questions/answers and fetching questions by category, enhancing user interaction and content discoverability.",
         skills: "React, Node.js, PostgreSQL, REST APIs, Frontend UI Design, State Management (Redux or Context API)",
-        applicants: "",
+        applicants: "Bhaskar Rao T",
         selectedMembers: "",
         tasks: [
           "Add 'like/ tick' functionality to questions and answers with separate buttons for each (e.g., a like button for questions and a tick button for answers).",
