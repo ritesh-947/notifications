@@ -33,11 +33,12 @@ const Management = () => {
       tasks: [
         "We’ll provide codes To Work on What Kind Of Events’ Notification or Reminders To Send  users. Mentioned below 👇 ",
     "New Follower Alert to User",
-	"Upcoming Sessions Reminder to User& Creator.",
+	"Upcoming Sessions Reminder to User& Creator before 1hour.",
 	"Answers to Posted Question Alert to user",
 	" Alert of Replies to Queries to users",
 	"Alert of recieved Queries To Creators.",
 	"New Uploded Session Alert to users.",
+  "when someone gets specific number of impressions(100,1000,10000) to all thier sessions"
       ],
     },
     {
@@ -45,10 +46,11 @@ const Management = () => {
       role: "Transcription System Engineer",
       value: "Providing live transcription enhances accessibility and user engagement, while delivering PDFs ensures users have a permanent record of the session for reference, improving overall user satisfaction.",
       skills: "Speech-to-Text APIs, Node.js or Python, React.js, Sendgrid or Nodemailter tools",
-      applicants: "",
+      applicants: "Dirisala Srilakshmi",
       selectedMembers: "",
       tasks: [
-        "Generate live transcripts during sessions and send PDFs of the transcripts to users.",
+        "Generate live transcripts during sessions",
+        "send PDFs of the transcripts to users after their Session.",
         // "",
         // "",
       ],
@@ -58,7 +60,7 @@ const Management = () => {
       role: "AI Chatbot Developer",
       value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
       skills: " React, NLP, Node.js or Python, AI API Integration like OPEN AI,DialogFlow, PostgreSQL",
-      applicants: "",
+      applicants: "Utkarshinfinity",
       selectedMembers: "",
       tasks: [
         "Build an AI Chat Assistant Bot.",
@@ -69,14 +71,13 @@ const Management = () => {
     {
         id: 5,
         role: "Search Functionality Developer",
-        value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
+        value: "Ease searching functionality whether of sessions or creators.",
         skills: "ElasticSearch, React, Node.js, PostgreSQL",
         applicants: "Mayank Tanwar",
         selectedMembers: "",
         tasks: [
-          "Designing efficient database queries.",
-          "Search Related Sessions by improving search logic.",
-          "Search Profiles by Their usernames",
+          "Search Sessions by improving search logic.Near Match sessions should be fetched",
+          "Search Profiles by a user's username.",
         ],
       },
       {
@@ -87,7 +88,7 @@ const Management = () => {
         applicants: "",
         selectedMembers: "",
         tasks: [
-          "Add 'Like' functionality to questions and answers with separate buttons for each (e.g., a like button for questions and a tick option for answers).",
+          "Add 'like/ tick' functionality to questions and answers with separate buttons for each (e.g., a like button for questions and a tick button for answers).",
           "Design and implement a system to fetch and display questions based on their categories for improved content organization.",
           "Create an intuitive and visually appealing social media-like interface to allow users to interact with questions and answers seamlessly.",
         ],
@@ -132,7 +133,7 @@ const Management = () => {
   role: "Google Login/Signup Developer",
   value: "Skilled developer to integrate a seamless Google Login/Signup feature into our platform using OAuth 2.0, enhancing accessibility and user experience.",
   skills: "JavaScript, OAuth 2.0, Node.js, React, PostgreSQL, REST APIs, Security Best Practices",
-  applicants: "",
+  applicants: "Vikesh Mishra",
   selectedMembers: "",
   tasks: [
     "Integrate Google Login/Signup using OAuth 2.0 for secure user authentication.",
@@ -169,7 +170,8 @@ const Management = () => {
     "Implement pagination or infinite scrolling using libraries like 'react-infinite-scroll-component' to manage large numbers of videos.",
     "Optimize page load by only loading videos visible on the screen (lazy loading).",
     "Break videos into smaller groups and incorporate a 'Load More' button after displaying 12 sessions.",
-    "Use visual indicators like badges or labels (e.g., 'Top Rated', 'Popular') to highlight standout sessions."
+    "Use visual indicators like badges or labels (e.g., 'Top Rated', 'Popular') to highlight standout sessions.",
+    "Count wishlisted count and impressions count for the Homepage.js"
   ]
 },
 {
