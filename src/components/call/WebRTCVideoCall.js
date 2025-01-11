@@ -87,7 +87,14 @@ const socket = useRef(io(serverURL, { transports: ['websocket'] }));
       console.log('[WebRTC] Local stream obtained');
 
       peerConnectionRef.current = new RTCPeerConnection({
-        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          {
+            urls: 'turn:localhost:3478',
+            username: '1724399458',
+            credential: 'n5GvyO8iAlfgOQ7oQBCjCFXnS1w=',
+          },
+        ],
       });
 
       // Add tracks
