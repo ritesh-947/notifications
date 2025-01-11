@@ -45,7 +45,7 @@ const Management = () => {
       id: 3,
       role: "Transcription System Engineer",
       value: "Providing live transcription enhances accessibility and user engagement, while delivering PDFs ensures users have a permanent record of the session for reference, improving overall user satisfaction.",
-      skills: "Speech-to-Text APIs, Node.js or Python, React.js, Sendgrid or Nodemailter tools",
+      skills: "Speech-to-Text APIs, Node.js or Python, React.js, Sendgrid or Nodemailer tools",
       applicants: "Dirisala Srilakshmi",
       selectedMembers: "",
       tasks: [
@@ -60,7 +60,7 @@ const Management = () => {
       role: "AI Chatbot Developer",
       value: "Enhances user engagement by Providing instant responses, Automating support tasks, and Offering a personalized experience.",
       skills: " React, NLP, Node.js or Python, AI API Integration like OPEN AI,DialogFlow, PostgreSQL",
-      applicants: "Utkarshinfinity",
+      applicants: "Utkarsh Tiwari",
       selectedMembers: "",
       tasks: [
         "Build an AI Chat Assistant Bot.",
@@ -163,7 +163,7 @@ const Management = () => {
   "role": "Homepage Optimization Developer",
   "value": "Developer to enhance the Homepage with improved video management and user-friendly exploration features, optimizing load time and user engagement.",
   "skills": "React, JavaScript, Node.js, Pagination Libraries, Material-UI, Performance Optimization, UX Design",
-  "applicants": "",
+  "applicants": "Verma Devraj",
   "selectedMembers": "",
   "tasks": [
     "Add sorting options such as 'Language' or 'Rating' (upto 3, 4, 5) to help users filter sessions effectively.",
